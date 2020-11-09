@@ -269,6 +269,8 @@ public class mains{
 		
 	}
 	
+	
+	//Génération aléatoire du login de l'utilisateur
 	public static String LoginGenerator() {
 		while(true) {
 			String numbers = "0123456789";
@@ -284,25 +286,15 @@ public class mains{
 		}
 	}
 
-	
+	//Vérifie si un utilisateur existe ou pas
 	public static boolean exist(String login) {
 		String req = "Select * from Person where login = \""+login+"\"";
 		ResultSet rs =bdd.getResult(req);
 		return bdd.getRowCount(rs) !=0; 
 	}
 	
-	public static int LastInsertedID() {
-		String req = "Select max(idPerson) from Person";
-		ResultSet rs =bdd.getResult(req);
-		try {
-			while(rs.next())
-				return Integer.parseInt(rs.getString(1));
-		} catch (NumberFormatException | SQLException e) {
-			System.out.println("Erreur d'exécution");
-		}
-		return 0;
-	}
 	
+	//mise en format SQL des dates (ex: 10-12-1995 -> 1995-12-10)
 	public static String dateFormatSQL(String date) {
 		String[] tab = date.split("-");
 		return String.join("-", tab[2],tab[1],tab[0]);
