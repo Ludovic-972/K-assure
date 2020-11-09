@@ -1,13 +1,20 @@
 package Interface;
 
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
-import javax.swing.*;
-import javax.swing.text.*;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.text.MaskFormatter;
+
+import BDgestion.BDconnection;
 
 public class mains {
 	static JFormattedTextField numero;
@@ -30,7 +37,8 @@ public class mains {
 	static String driverLicenceDate;
 	static String netIncome;
 	static String profession;
-
+	BDconnection bdd = new BDconnection();
+	
 	@SuppressWarnings("unchecked")
 	public static void main(String[] args) {
 			
