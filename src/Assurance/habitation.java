@@ -1,71 +1,55 @@
-package Assurance;
+
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.ItemListener;
-import Interface.*;
-import javax.swing.JButton;
+
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class habitation extends JFrame implements ActionListener {
+public class habitation extends JFrame  {
 	public JPanel panel;
-	public JPanel panel2;
-	public JButton home;
-	public habitation() {
+	habitation() {
+		// creation de la jframe Habitation
+		this.setLayout(new BorderLayout());//definition de la methode de disposition des elements dans la fenetre
+		this.setSize(500,500);// Taille de la fenetre
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);// initialisation de la methode de fermeture du processus de la page, ici le processus ce ferme en meme temps que la page
+		this.setTitle("Habitation");// initialisation du titre de la fenetre
+		this.setLocationRelativeTo(null);// Permet de centrer la fenetre sur l'ecran
+		this.setResizable(true);// permet de redefinir la taille de la fenetre
 		
-		this.setLayout(new BorderLayout());
-		this.setSize(500,500);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setTitle("formulaire");
-		this.setLocationRelativeTo(null);
-		this.setResizable(true);
-				 
-		panel = new JPanel();
-		panel.setLayout(new FlowLayout());
-		panel2 = new JPanel();
-		panel2.setLayout(new FlowLayout());
-		this.add(panel, BorderLayout.NORTH);
-		this.add(panel2, BorderLayout.CENTER);
-		this.setVisible(true);
-		home = new JButton("home");
-		home.addActionListener(this);
-		panel.add(home);
 		
-		JComboBox type = new JComboBox();
-		type.addItem(" ");
-		type.addItem("principale");
-		type.addItem("secondaire");
-		panel.add(type);
+		panel = new JPanel();// creation d'un conteneur
+		panel.setLayout(new FlowLayout());//definition de la methode de disposition des elements dans le conteneur
+		this.add(panel, BorderLayout.NORTH);// Ajout du conteneur dans la fenetre
+		this.setVisible(true);// Permet d'afficher la fenetre
+		
+		
+		// creation Liste deroulante
+		JComboBox type = new JComboBox();// creation d'une liste deroulante
+		type.addItem(" ");// ajout d'element dans la liste deroulante
+		type.addItem("principale");// ajout d'element dans la liste deroulante
+		type.addItem("secondaire");// ajout d'element dans la liste deroulante
+		panel.add(type);// ajout liste deroulante au conteneur panel
 	
-		JComboBox logement = new JComboBox();
-		logement.addItem(" ");
-		logement.addItem("Appartement");
-		logement.addItem("Maison");
-		panel.add(logement);
+		// creation Liste deroulante
+		JComboBox logement = new JComboBox();// creation d'une liste deroulante
+		logement.addItem(" ");// ajout d'element dans la liste deroulante
+		logement.addItem("Appartement");// ajout d'element dans la liste deroulante
+		logement.addItem("Maison");// ajout d'element dans la liste deroulante
+		panel.add(logement); // ajout liste deroulante au conteneur panel
 	
-		JComboBox type2 = new JComboBox();
-		type2.addItem(" ");
-		type2.addItem("Locataire");
-		type2.addItem("Proprietaire");
-		type2.addItem("Colocataire");
-		panel.add(type2);
+		// creation Liste deroulante
+		JComboBox type2 = new JComboBox();// creation d'une liste deroulante
+		type2.addItem(" ");// ajout d'element dans la liste deroulante
+		type2.addItem("Locataire");// ajout d'element dans la liste deroulante
+		type2.addItem("Proprietaire");// ajout d'element dans la liste deroulante
+		type2.addItem("Colocataire");// ajout d'element dans la liste deroulante
+		panel.add(type2);// ajout liste deroulante au conteneur panel
 	
 	
-	}
-	public void actionPerformed(ActionEvent e) {
-		Object source = e.getSource();
-		
-		if (source == home) {
-			this.dispose();
-			fenetre test = new fenetre();
-			
-		
-		}
 	}
 }
