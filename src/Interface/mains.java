@@ -2,21 +2,26 @@ package Interface;
 
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.Window;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.sql.*;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.text.MaskFormatter;
 
 import BDgestion.BDconnection;
 
-public class mains {
+public class mains{
 	static JFormattedTextField numero;
 	static JFormattedTextField date;
 	static JFormattedTextField postal;
@@ -37,12 +42,13 @@ public class mains {
 	static String driverLicenceDate;
 	static String netIncome;
 	static String profession;
-	BDconnection bdd = new BDconnection();
+	static BDconnection bdd = new BDconnection();
+	static JFrame fenetre1;
 	
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public static void main(String[] args) {
 			
-		JFrame fenetre1 = new JFrame("inscription");
+		fenetre1 = new JFrame("inscription");
 		fenetre1.setLayout(new FlowLayout());
 		fenetre1.setSize(800,800);
 		fenetre1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -88,7 +94,7 @@ public class mains {
 		
 		JLabel birthdates = new JLabel("date de naissance : ");
 		try {
-	         MaskFormatter formatter = new MaskFormatter("##/##/####");
+	         MaskFormatter formatter = new MaskFormatter("##-##-####");
 	         formatter.setPlaceholderCharacter('#');
 	         date = new JFormattedTextField(formatter);
 	         date.setColumns(20);
@@ -98,18 +104,18 @@ public class mains {
 		panel1.add(birthdates);
 		panel1.add(date);
 		
-		JLabel situation = new JLabel("situation familiale :");
+		JLabel situation = new JLabel("Situation familiale :");
 		JComboBox familiale = new JComboBox();
-		familiale.addItem("marié");
-		familiale.addItem("pacsé");
-		familiale.addItem("divorcé");
-		familiale.addItem("séparé");
-		familiale.addItem("célibataire");
-		familiale.addItem("veuf");
+		familiale.addItem("Marié.ée");
+		familiale.addItem("Pacsé.ée");
+		familiale.addItem("Divorcé.ée");
+		familiale.addItem("Séparé.ée");
+		familiale.addItem("Célibataire");
+		familiale.addItem("Veuf-ve");
 		panel1.add(situation);
 		panel1.add(familiale);
 		
-		JLabel i = new JLabel("adresse email :");
+		JLabel i = new JLabel("Adresse email :");
 		JTextField mail = new JTextField();
 		panel1.add(i);
 		panel1.add(mail);
@@ -119,7 +125,7 @@ public class mains {
 		panel1.add(Ville);
 		panel1.add(city);
 		
-		JLabel code = new JLabel("code postal : ");
+		JLabel code = new JLabel("Code postal : ");
 		try {
 	         MaskFormatter formatter = new MaskFormatter("#####");
 	         formatter.setPlaceholderCharacter('#');
@@ -131,7 +137,7 @@ public class mains {
 		panel1.add(code);
 		panel1.add(postal);
 		
-		JLabel enfant = new JLabel("nombre d'enfants : ");
+		JLabel enfant = new JLabel("Nombre d'enfants : ");
 		try {
 	         MaskFormatter formatter = new MaskFormatter("#");
 	         formatter.setPlaceholderCharacter('#');
@@ -143,9 +149,9 @@ public class mains {
 		panel1.add(enfant);
 		panel1.add(nombre);
 		
-		JLabel driver = new JLabel("obtention permis conduire : ");
+		JLabel driver = new JLabel("Date d'obtention du permis conduire : ");
 		try {
-	         MaskFormatter formatter = new MaskFormatter("##/##/####");
+	         MaskFormatter formatter = new MaskFormatter("##-##-####");
 	         formatter.setPlaceholderCharacter('#');
 	         permi = new JFormattedTextField(formatter);
 	         permi.setColumns(20);
@@ -155,7 +161,7 @@ public class mains {
 		panel1.add(driver);
 		panel1.add(permi);
 		
-		JLabel revenue = new JLabel("revenue annuel : ");
+		JLabel revenue = new JLabel("Revenu annuel : ");
 		JTextField annuel = new JTextField();
 		annuel.addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent ke) {
@@ -171,7 +177,7 @@ public class mains {
 		panel1.add(revenue);
 		panel1.add(annuel);
 		
-		JLabel professions = new JLabel("profession :");
+		JLabel professions = new JLabel("Profession :");
 		JComboBox professionel = new JComboBox();
 		professionel.addItem("Services publics");
 		professionel.addItem("Professions administratives, commerciales et de gestion");
@@ -238,11 +244,68 @@ public class mains {
 
 	public static void inscrit(String name, String surname, String category, String adress, String phoneNumber, String birthdate, String familySituation, String email, String ville, String zipCode, String numberOfChild, String driverLicenceDate, String netIncome, String profession, String password) {
 		
-		System.out.println(" name = " + name + "\n surname = " + surname + "\n category = " + category + "\n adress = " + adress + "\n phoneNumber = " + phoneNumber + "\n birthdate = " + birthdate + "\n familySituation = " + familySituation + "\n email = " + email + "\n ville = " + ville + "\n zipCode = " + zipCode + "\n numberOfChild = " + numberOfChild + "\n driverLicenceDate = " + driverLicenceDate + "\n netIncome = " + netIncome + "\n profession = " + profession + " \n password = " + password);
+		System.out.println(" name = " + name + "\n surname = " + surname + "\n category = " + category + "\n adress = " 
+		+ adress + "\n phoneNumber = " + phoneNumber + "\n birthdate = " + dateFormatSQL(birthdate) + "\n familySituation = " 
+				+ familySituation + "\n email = " + email + "\n ville = " + ville + "\n zipCode = " 
+		+ zipCode + "\n numberOfChild = " + numberOfChild + "\n driverLicenceDate = "
+				+ driverLicenceDate + "\n netIncome = " + netIncome + "\n profession = " 
+		+ profession + " \n password = " + password);
+		String login = LoginGenerator();
+		
+		
+		String req = "INSERT INTO `Person`(`name`, `surname`, `login`, `pwd`, `category`, `adress`,"
+				+ " `phoneNumber`, `birthdate`, `family_situation`, `email`, `ville`, `zipCode`,"
+				+ " `numberOfChild`, `driverLicenceDate`, `netIncome`, `profession`) VALUES ('"+name
+				+"','"+surname+"','"+login+"','"+password+"','"+category+"','"+adress+"','"
+				+phoneNumber+"','"+dateFormatSQL(birthdate)+"','"+familySituation
+				+"','"+email+"','"+ville+"','"+zipCode+"',"+numberOfChild+",'"
+				+dateFormatSQL(driverLicenceDate)+"',"+netIncome+",'"+profession+"')";
+		
+		bdd.executeQuery(req);
+		
+			
+		fenetre1.dispose();
+		 JOptionPane.showMessageDialog(null, "Votre inscription est terminée. Votre login est "+login);
 		
 	}
 	
+	public static String LoginGenerator() {
+		while(true) {
+			String numbers = "0123456789";
+			String login = "";
+			for (int i = 0; i < 8; i++) {
+				login += numbers.charAt((int)(Math.random()*(numbers.length())));
+			}
+			System.out.println(login);
+			
+			if(!exist(login))
+				return login;
+			
+		}
+	}
+
 	
+	public static boolean exist(String login) {
+		String req = "Select * from Person where login = \""+login+"\"";
+		ResultSet rs =bdd.getResult(req);
+		return bdd.getRowCount(rs) !=0; 
+	}
 	
+	public static int LastInsertedID() {
+		String req = "Select max(idPerson) from Person";
+		ResultSet rs =bdd.getResult(req);
+		try {
+			while(rs.next())
+				return Integer.parseInt(rs.getString(1));
+		} catch (NumberFormatException | SQLException e) {
+			System.out.println("Erreur d'exécution");
+		}
+		return 0;
+	}
+	
+	public static String dateFormatSQL(String date) {
+		String[] tab = date.split("-");
+		return String.join("-", tab[2],tab[1],tab[0]);
+	}
 
 }

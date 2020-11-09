@@ -15,12 +15,8 @@ public class BDconnection{
 		try {
 			/* Connexion avec la base */
 			Class.forName(nom_driver);
-			System.out.println("Driver is Loaded");
 			connection = DriverManager.getConnection(url,login,pwd);
-			System.out.println("Database has connected");
-		} catch (ClassNotFoundException cnfe) {
-			System.out.println("Driver introuvable."); 	
-		} catch (SQLException e) {
+		} catch (SQLException | ClassNotFoundException e) {
 			System.out.println("Connexion to the database denied."); 
 		}
 		
@@ -39,12 +35,12 @@ public class BDconnection{
 	}
 	
 	public int getRowCount(ResultSet rs) {
-		int nombreLignes = 0;
+		int a = 0;
 		try {
-			rs.last(); 
-			nombreLignes = rs.getRow(); 
-			rs.beforeFirst();
-			return nombreLignes;
+			while (rs.next()){
+				a = rs.getInt(1); //typeID is the number of rows in the ResultSet
+			}
+		 return a;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -79,6 +75,34 @@ public class BDconnection{
 			System.out.println("Problème d'affichage.");
 		}
 	}
+
+	public ResultSet getResult(String req) {
+		Statement st = null;
+		ResultSet rs = null;
+		try {
+			st = connection.createStatement();
+			
+			//Selection 
+			rs = st.executeQuery(req);
+		}catch(SQLException e){
+			System.out.println("Problème d'exécution de requête");
+			e.printStackTrace();
+		}
+		
+		return rs;
+
+	}
 	
+	public void executeQuery(String req) {
+		Statement st = null;
+		try {
+			st = connection.createStatement();
+			st.executeUpdate(req);
+		}catch(SQLException e){
+			System.out.println("Problème d'exécution de requête .");
+			e.printStackTrace();
+		}
+	}
+
 	
 }
