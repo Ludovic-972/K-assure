@@ -1,52 +1,45 @@
-package Assurance;
+
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import Interface.*;
-import javax.swing.JButton;
+
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-public class scolaire extends JFrame implements ItemListener, ActionListener{
+public class scolaire extends JFrame implements ItemListener{
 	public JPanel panel;
 	public JPanel panel2;
-	public JButton home;
-	public scolaire() {
+	scolaire() {
 		
 		this.setLayout(new BorderLayout());
 		this.setSize(500,500);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setTitle("formulaire");
+		this.setTitle("Scolaire");
 		this.setLocationRelativeTo(null);
 		this.setResizable(true);
 				 
 		panel = new JPanel();
-		panel.setLayout(new FlowLayout());
-		panel2 = new JPanel();
-		panel2.setLayout(new FlowLayout());
+		
 		this.add(panel, BorderLayout.NORTH);
-		this.add(panel2, BorderLayout.CENTER);
 		this.setVisible(true);
 		Object[] Nb = new Object[]{"0","1", "2", "3", "4", "5"};
 		JComboBox nbenfant = new JComboBox(Nb);
 		
-		nbenfant.addItemListener(event ->nbEnfant(event));
-		home = new JButton("home");
-		home.addActionListener(this);
-		panel.add(home);
+		nbenfant.addItemListener(event ->nbEnfant(event));	
 		panel.add(nbenfant);		
 	}
 	public void nbEnfant(ItemEvent nb) {
 		String Nombre =(String)nb.getItem();
 		int n = Integer.parseInt(Nombre);
 		JComboBox[] JCB;
-		JComboBox[] TJCB;
-		TJCB=new JComboBox[n];
+		JCheckBox[] TJCB;
+		panel.setLayout(new GridLayout(n, 3, 7, 7));
 		JCB = new JComboBox[n];
 		if (  nb.getItem() == "0") {
 	}
@@ -59,38 +52,42 @@ public class scolaire extends JFrame implements ItemListener, ActionListener{
 					 JCB[i].addItem("11-18");
 					 JCB[i].addItemListener(event ->recup(event) );
 					 panel.add(JCB[i]);
-					 TJCB[i]=new JComboBox();
-					 TJCB[i].addItem("");
-					 TJCB[i].addItem("Protection Scolaire");
-					 TJCB[i].addItem("Trajet Scolaire");
-					 TJCB[i].addItem("Vie Périscolaire");
-					 TJCB[i].addItemListener(event -> recup(event));
-					 panel.add(TJCB[i]);
-					 
-					
+					 JCheckBox TJCB1=new JCheckBox("Protection Scolaire");
+					 JCheckBox TJCB2=new JCheckBox("Trajet Scolaire");
+					 JCheckBox TJCB3=new JCheckBox("Vie Périscolaire");
+					 TJCB1.addActionListener(event -> recup(event));
+					 TJCB2.addActionListener(event -> recup(event));
+					 TJCB3.addActionListener(event -> recup(event));
+					 panel.add(TJCB1); panel.add(TJCB2); panel.add(TJCB3); 					
 				}
 			this.setVisible(true);
 		}	
 		
 	}
-	public void recup(ItemEvent nb) { 
-		String recup = (String) nb.getItem();
-		System.out.println(recup);	
-		}
+	private void recup(ItemEvent event) {
+		// TODO Auto-generated method stub
+		String recup = (String) event.getItem();
+		System.out.println(recup);
 
-	public void actionPerformed(ActionEvent e) {
-		Object source = e.getSource();
-		
-		if (source == home) {
-			this.dispose();
-			fenetre test = new fenetre();
-			
-		
-		}
 	}
-	
-	
+	public void recup(ActionEvent event) { 
+System.out.println(event.getActionCommand());
+		}
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	@Override
 	public void itemStateChanged(ItemEvent e) {
