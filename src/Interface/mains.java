@@ -1,10 +1,7 @@
-//package Interface;
+package Interface;
 
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
-import java.awt.Window;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.sql.*;
@@ -19,7 +16,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.text.MaskFormatter;
 
-//import BDgestion.BDconnection;
+import BDgestion.BDconnection;
 
 public class mains{
 	static JFormattedTextField numero;
@@ -48,11 +45,7 @@ public class mains{
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public static void main(String[] args) {
 			
-<<<<<<< HEAD
 		fenetre1 = new JFrame("inscription");
-=======
-		JFrame fenetre1 = new JFrame("Inscription");
->>>>>>> 2ff8641daa2e0ca29b1471070a3ab861b8e49b02
 		fenetre1.setLayout(new FlowLayout());
 		fenetre1.setSize(800,800);
 		fenetre1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -63,28 +56,28 @@ public class mains{
 		
 		
 		JLabel surnames = new JLabel("Nom :");
-		JTextField surnam = new JTextField("");
+		JTextField surnam = new JTextField();
 		panel1.add(surnames);
 		panel1.add(surnam);
 		
 		JLabel names = new JLabel("Prenom :");
-		JTextField nam = new JTextField("");
+		JTextField nam = new JTextField();
 		panel1.add(names);
 		panel1.add(nam);
 		
-		JLabel categorys = new JLabel("Catï¿½gorie :");
+		JLabel categorys = new JLabel("catégorie :");
 		JComboBox categori = new JComboBox();
 		categori.addItem("enfant");
 		categori.addItem("adulte");
 		panel1.add(categorys);
 		panel1.add(categori);
 		
-		JLabel adresse = new JLabel("Adresse :");
-		JTextField adresss = new JTextField("");
+		JLabel adresse = new JLabel("adresse :");
+		JTextField adresss = new JTextField();
 		panel1.add(adresse);
 		panel1.add(adresss);
 			
-		JLabel number = new JLabel("Numï¿½ro de tï¿½lï¿½phone : ");
+		JLabel number = new JLabel("numéro de téléphone : ");
 		try {
 	         MaskFormatter formatter = new MaskFormatter("##-##-##-##-##");
 	         formatter.setPlaceholderCharacter('#');
@@ -96,7 +89,7 @@ public class mains{
 		panel1.add(number);
 		panel1.add(numero);
 		
-		JLabel birthdates = new JLabel("Date de naissance : ");
+		JLabel birthdates = new JLabel("date de naissance : ");
 		try {
 	         MaskFormatter formatter = new MaskFormatter("##-##-####");
 	         formatter.setPlaceholderCharacter('#');
@@ -110,35 +103,22 @@ public class mains{
 		
 		JLabel situation = new JLabel("Situation familiale :");
 		JComboBox familiale = new JComboBox();
-<<<<<<< HEAD
 		familiale.addItem("Marié.ée");
 		familiale.addItem("Pacsé.ée");
 		familiale.addItem("Divorcé.ée");
 		familiale.addItem("Séparé.ée");
 		familiale.addItem("Célibataire");
 		familiale.addItem("Veuf-ve");
-=======
-		familiale.addItem("mariï¿½");
-		familiale.addItem("pacsï¿½");
-		familiale.addItem("divorcï¿½");
-		familiale.addItem("sï¿½parï¿½");
-		familiale.addItem("cï¿½libataire");
-		familiale.addItem("veuf");
->>>>>>> 2ff8641daa2e0ca29b1471070a3ab861b8e49b02
 		panel1.add(situation);
 		panel1.add(familiale);
 		
 		JLabel i = new JLabel("Adresse email :");
-<<<<<<< HEAD
 		JTextField mail = new JTextField();
-=======
-		JTextField mail = new JTextField("");
->>>>>>> 2ff8641daa2e0ca29b1471070a3ab861b8e49b02
 		panel1.add(i);
 		panel1.add(mail);
 		
 		JLabel Ville = new JLabel("Ville :");
-		JTextField city = new JTextField("");
+		JTextField city = new JTextField();
 		panel1.add(Ville);
 		panel1.add(city);
 		
@@ -166,11 +146,7 @@ public class mains{
 		panel1.add(enfant);
 		panel1.add(nombre);
 		
-<<<<<<< HEAD
 		JLabel driver = new JLabel("Date d'obtention du permis conduire : ");
-=======
-		JLabel driver = new JLabel("Obtention permis conduire : ");
->>>>>>> 2ff8641daa2e0ca29b1471070a3ab861b8e49b02
 		try {
 	         MaskFormatter formatter = new MaskFormatter("##-##-####");
 	         formatter.setPlaceholderCharacter('#');
@@ -183,15 +159,9 @@ public class mains{
 		panel1.add(permi);
 		
 		JLabel revenue = new JLabel("Revenu annuel : ");
-<<<<<<< HEAD
 		JTextField annuel = new JTextField();
-=======
-		JTextField annuel = new JTextField("");
->>>>>>> 2ff8641daa2e0ca29b1471070a3ab861b8e49b02
 		annuel.addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent ke) {
-	            String value = annuel.getText();
-	            int l = value.length();
 	            if (ke.getKeyChar() >= '0' && ke.getKeyChar() <= '9' || ke.getKeyChar() == '\u0008' || ke.getKeyChar() == ' ') {
 	               annuel.setEditable(true);
 	            } else {
@@ -207,29 +177,27 @@ public class mains{
 		professionel.addItem("Services publics");
 		professionel.addItem("Professions administratives, commerciales et de gestion");
 		professionel.addItem("Commerce et artisanat");
-		professionel.addItem("Hï¿½tellerie ï¿½ Restauration");
+		professionel.addItem("Hôtellerie – Restauration");
 		professionel.addItem("Agronomie");
 		professionel.addItem("Professions scientifiques");
-		professionel.addItem("Politique, Social, Etude de la sociï¿½tï¿½");
+		professionel.addItem("Politique, Social, Etude de la société");
 		professionel.addItem("Transport et logistique");
-		professionel.addItem("Sciences mï¿½dicales et paramï¿½dicales");
+		professionel.addItem("Sciences médicales et paramédicales");
 		professionel.addItem("Arts et culture");
 		professionel.addItem("Juridique");
 		professionel.addItem("Communication");
 		professionel.addItem("Informatique");
 		professionel.addItem("Tourisme");
 		professionel.addItem("Enseignement");
-		professionel.addItem("Bï¿½timent & Gï¿½nie civil");
-		professionel.addItem("Industrie/Sciences appliquï¿½es");
+		professionel.addItem("Bâtiment & Génie civil");
+		professionel.addItem("Industrie/Sciences appliquées");
 		panel1.add(professions);
 		panel1.add(professionel);
 		
-		JLabel mdp = new JLabel("Mot de passe : ");
-		JTextField secret = new JTextField("");
+		JLabel mdp = new JLabel("mot de passe : ");
+		JTextField secret = new JTextField();
 		secret.addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent ki) {
-	            String value = secret.getText();
-	            int l = value.length();
 	            if (ki.getKeyChar() >= '0' && ki.getKeyChar() <= '9' || ki.getKeyChar() >= 'a' && ki.getKeyChar() <= 'z' || ki.getKeyChar() >= 'A' && ki.getKeyChar() <= 'Z' || ki.getKeyChar() == '\u0008') {
 	               secret.setEditable(true);
 	            } else {
@@ -240,6 +208,20 @@ public class mains{
 		panel1.add(mdp);
 		panel1.add(secret);
 		
+		 name = surnam.getText();
+		 surname = nam.getText();
+		 category = categori.getSelectedItem().toString();
+		 adress = adresss.getText();
+		 phoneNumber = numero.getText();
+		 birthdate = date.getText();
+		 familySituation = familiale.getSelectedItem().toString();
+		 email = mail.getText();
+		 ville = city.getText();
+		 zipCode = postal.getText();
+		 numberOfChild = nombre.getText();
+		 driverLicenceDate = permi.getText();
+		 netIncome = annuel.getText();
+		 profession = professionel.getSelectedItem().toString();
 	
 		JButton inscription = new JButton("Inscription");
 		inscription.addActionListener(event -> inscrit(surnam.getText(),nam.getText(),categori.getSelectedItem().toString(),adresss.getText(),numero.getText(),date.getText(),familiale.getSelectedItem().toString(),mail.getText(),city.getText(),postal.getText(),nombre.getText(),permi.getText(),annuel.getText(),professionel.getSelectedItem().toString(),secret.getText()));
@@ -255,7 +237,6 @@ public class mains{
 
 	public static void inscrit(String name, String surname, String category, String adress, String phoneNumber, String birthdate, String familySituation, String email, String ville, String zipCode, String numberOfChild, String driverLicenceDate, String netIncome, String profession, String password) {
 		
-<<<<<<< HEAD
 		System.out.println(" name = " + name + "\n surname = " + surname + "\n category = " + category + "\n adress = " 
 		+ adress + "\n phoneNumber = " + phoneNumber + "\n birthdate = " + dateFormatSQL(birthdate) + "\n familySituation = " 
 				+ familySituation + "\n email = " + email + "\n ville = " + ville + "\n zipCode = " 
@@ -279,21 +260,6 @@ public class mains{
 		fenetre1.dispose();
 		 JOptionPane.showMessageDialog(null, "Votre inscription est terminée. Votre login est "+login);
 		
-=======
-		if (name.equals("") && surname.equals("") && adress.equals("") && phoneNumber.equals("##-##-##-##-##") && birthdate.equals("##/##/####") && email.equals("") && ville.equals("") && zipCode.equals("#####") && numberOfChild.equals("#") && driverLicenceDate.equals("##/##/####") && netIncome.equals("") && password.equals("")) {
-			System.out.println(" name = " + name + "\n surname = " + surname + "\n category = " + category + "\n adress = " + adress + "\n phoneNumber = " + phoneNumber + "\n birthdate = " + birthdate + "\n familySituation = " + familySituation + "\n email = " + email + "\n ville = " + ville + "\n zipCode = " + zipCode + "\n numberOfChild = " + numberOfChild + "\n driverLicenceDate = " + driverLicenceDate + "\n netIncome = " + netIncome + "\n profession = " + profession + " \n password = " + password);
-		} else {
-			JFrame erreur = new JFrame("Erreur");
-			erreur.setLayout(new FlowLayout());
-			erreur.setSize(400,100);
-			erreur.setLocationRelativeTo(null);
-			
-			JLabel messageErreur = new JLabel("Tous les champs ne sont pas remplis");
-			erreur.add(messageErreur);
-			
-			erreur.setVisible(true);
-		}
->>>>>>> 2ff8641daa2e0ca29b1471070a3ab861b8e49b02
 	}
 	
 	
