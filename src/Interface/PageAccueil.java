@@ -105,7 +105,7 @@ public class PageAccueil extends JFrame
     
     // methode d'ecoute du bouton de connection qui permet d'ouvrir la classe PagedeConnection apres cliquement sur le bouton
     public void connection(ActionEvent event) {
-    	PagedeConnection PDC = new PagedeConnection();
+    	new PagedeConnection();
     	this.dispose();
     	
     	

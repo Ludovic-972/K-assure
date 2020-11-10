@@ -10,13 +10,20 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import BDgestion.BDconnection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+
 public class PagedeConnection extends JFrame {
 	/**
 	 * 
 	 */
 	private JFrame f;
 	private JButton JB;
-	boolean Admin;
+	String user;
+	char[] pwd;
+	BDconnection bdd = new BDconnection();
 	private static final long serialVersionUID = 1L;
 
 	public PagedeConnection() {
@@ -52,27 +59,49 @@ public class PagedeConnection extends JFrame {
 	}
 	 public void actionPerformed(String Username,char[] cs) {
 		 
-		 char[] password =cs;
-		 char[] AdminPass = new char[] {'a','d','m','i','n'};
+		 user = Username;
+		 pwd = cs;
 			 
-		 if (Username.equals("Admin") && Arrays.equals(password,AdminPass)) {
+		 if (isAdmin(user, pwd)) {
 	        f.dispose();	
-	        PageAdmin PA = new PageAdmin();
-		 }else 
-			 System.out.println("Je ne vous connais pas "+Username+" "+cs);
-		boolean Admin= false;
-		this.SetReconnu(Admin);		 
-	 }
-	 public boolean SetReconnu(boolean a) {
-		return Admin;	 
-	 }
-
+	        System.out.println("Connexion Admin réussie");
+	        new PageAdmin();
+		 }else if(estInscrit(user,pwd)){
+			 f.dispose();	
+			 System.out.println("Connexion User réussie");
+			 new PageAccueil();
+		 }else {
+			 System.out.println("Je ne vous connais pas "+Username+" "+String.valueOf(pwd));
 	 
-	public boolean getReconnu() {
-		return Admin;
+		 }
+	 }
+	 
+	 
+	 private boolean estInscrit(String username, char[] pw) {
+		ResultSet inscrit = bdd.getResult("SELECT login,pwd from Person where login = '"+username+"'");
+		char[] inscrit_pwd = null;
+		try {
+			while(inscrit.next())
+				inscrit_pwd = inscrit.getString(2).toCharArray();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		if (Arrays.equals(inscrit_pwd,pw)) {
+			return true;
+		}
+		return false;
 	}
+	public boolean isAdmin(String username,char[] pw) {
+		 char[] AdminPass = new char[] {'a','d','m','i','n'};
+		 if (username.equals("Admin") && Arrays.equals(pw,AdminPass)) {
+			 return true;
+		 }
+		 return false;	 
+	 }
 	 
-	 
+	 public static void main(String[] args) {
+		new PagedeConnection();
+	}
 	 
 	 
 	 
