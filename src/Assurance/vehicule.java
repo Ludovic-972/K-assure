@@ -12,10 +12,13 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+@SuppressWarnings({ "unchecked", "rawtypes", "serial" })
 public class vehicule extends JFrame implements ItemListener, ActionListener{
 	public JPanel panel;
 	public JPanel panel2;
 	public JButton home;
+	
+	
 	public vehicule() {
 		
 		this.setLayout(new BorderLayout());

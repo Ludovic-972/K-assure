@@ -1,18 +1,16 @@
-
+package Assurance;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
-import java.awt.GridLayout;
-import java.awt.event.ItemListener;
 
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+@SuppressWarnings({ "unchecked", "rawtypes", "serial" })
 public class habitation extends JFrame  {
 	public JPanel panel;
-	habitation() {
+	public habitation() {
 		// creation de la jframe Habitation
 		this.setLayout(new BorderLayout());//definition de la methode de disposition des elements dans la fenetre
 		this.setSize(500,500);// Taille de la fenetre

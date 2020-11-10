@@ -1,3 +1,5 @@
+package Interface;
+
 // Liste des imports d'outils depuis la bibliotheque Java
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
@@ -11,8 +13,10 @@ import javax.swing.JScrollPane;
 import javax.swing.JTree;
 import javax.swing.SwingUtilities;
 import javax.swing.event.TreeSelectionEvent;
-import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
+import Assurance.*;
+
+@SuppressWarnings("serial")
 public class PageAccueil extends JFrame 
 {
     private JTree tree;//initialisation d'un arbre de fichier

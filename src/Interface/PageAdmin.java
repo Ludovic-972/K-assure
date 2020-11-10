@@ -1,9 +1,8 @@
-
+package Interface;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -21,6 +20,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 
 
 
+@SuppressWarnings("serial")
 public class PageAdmin extends JFrame {
 	private JTree tree;
     private DefaultMutableTreeNode root;

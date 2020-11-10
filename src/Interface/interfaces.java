@@ -1,8 +1,8 @@
 package Interface;
 
-import java.awt.*;
 import javax.swing.*;
 
+@SuppressWarnings("serial")
 public class interfaces extends JFrame {
 
 	

@@ -1,10 +1,12 @@
-
+package Interface;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import Assurance.*;
 
+@SuppressWarnings({ "unchecked", "rawtypes" })
 public class NouveauxContrat extends JFrame implements ItemListener {
 
 	
@@ -15,6 +17,8 @@ public class NouveauxContrat extends JFrame implements ItemListener {
 	public JComboBox contrat;
 	public JFrame fenetre1;
 			
+	
+	
 	public NouveauxContrat() {
 		fenetre1 = new JFrame();
 		fenetre1.setLayout(new BorderLayout());
@@ -60,13 +64,13 @@ public class NouveauxContrat extends JFrame implements ItemListener {
 			
 		}else if (item.getItem() == "santé") {
 			
-			santé sante = new santé(item.getItem());
+			sante sante = new sante(item.getItem());
 			sante.setVisible(true);
 			fenetre1.setVisible(false);
 				
 		
 	}else if (item.getItem() == "véhicule") {
-		véhicule veh = new véhicule();
+		vehicule veh = new vehicule();
 		veh.setVisible(true);
 		fenetre1.setVisible(false);
 			

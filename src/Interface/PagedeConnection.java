@@ -1,9 +1,6 @@
+package Interface;
 
-
-import java.awt.BorderLayout;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.lang.reflect.Array;
 import java.util.Arrays;
 
 import javax.swing.JButton;
@@ -22,7 +19,7 @@ public class PagedeConnection extends JFrame {
 	boolean Admin;
 	private static final long serialVersionUID = 1L;
 
-	PagedeConnection() {
+	public PagedeConnection() {
 		
 		
 		

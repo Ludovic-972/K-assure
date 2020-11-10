@@ -1,7 +1,6 @@
-
+package Assurance;
 
 import java.awt.BorderLayout;
-import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ItemEvent;
@@ -12,10 +11,13 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+@SuppressWarnings("serial")
 public class scolaire extends JFrame implements ItemListener{
 	public JPanel panel;
 	public JPanel panel2;
-	scolaire() {
+	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public scolaire() {
 		
 		this.setLayout(new BorderLayout());
 		this.setSize(500,500);
@@ -34,11 +36,11 @@ public class scolaire extends JFrame implements ItemListener{
 		nbenfant.addItemListener(event ->nbEnfant(event));	
 		panel.add(nbenfant);		
 	}
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public void nbEnfant(ItemEvent nb) {
 		String Nombre =(String)nb.getItem();
 		int n = Integer.parseInt(Nombre);
 		JComboBox[] JCB;
-		JCheckBox[] TJCB;
 		panel.setLayout(new GridLayout(n, 3, 7, 7));
 		JCB = new JComboBox[n];
 		if (  nb.getItem() == "0") {

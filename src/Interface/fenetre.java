@@ -6,6 +6,7 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import Assurance.*;
 
+@SuppressWarnings({ "unchecked", "rawtypes" })
 public class fenetre extends JFrame implements ItemListener {
 
 	
@@ -16,6 +17,7 @@ public class fenetre extends JFrame implements ItemListener {
 	public JComboBox contrat;
 	public JFrame fenetre1;
 			
+	
 	public fenetre() {
 		fenetre1 = new JFrame();
 		fenetre1.setLayout(new BorderLayout());
@@ -61,7 +63,7 @@ public class fenetre extends JFrame implements ItemListener {
 					
 			
 		}else if (item.getItem() == "santé") {
-			sante sante = new sante();
+			sante sante = new sante(item.getItem());
 			sante.setVisible(true);
 			fenetre1.dispose();
 				
