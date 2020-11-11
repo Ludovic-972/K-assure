@@ -1,6 +1,9 @@
 package Gestion;
 
-import java.util.Date;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import BDgestion.BDconnection;
 
 
 public abstract class Person {
@@ -14,22 +17,57 @@ public abstract class Person {
     private String category;
     private String address;
     private String phoneNumber;
-    private Date birthdate;
+    private String birthdate;
     private String birthcity;
     private String familySituation;
     private String email; 
     private String city;
     private String zipCode;
     private int numberOfChild;
-    private Date driverLicenceDate;
+    private String driverLicenceDate;
     private int netIncome;
     private String profession;
     
     
-    public Person(String login) {
-    	
+    private BDconnection bdd = new BDconnection();
+    
+    
+    public Person(String _login) {
+    	login = _login;
     }
 
+    
+    public void RecupInfo() {
+    	ResultSet rs = bdd.getResult("Select * from Person where login = \""+login+"\"");
+    	try {
+	    	idPerson = rs.getInt(1);
+	        name = rs.getString(2);
+	        surname = rs.getString(3);
+	        sexe = rs.getString(4);
+	        login = rs.getString(5);
+	        pwd = rs.getString(6);
+	        category = rs.getString(7);
+	        address = rs.getString(8);
+	        phoneNumber = rs.getString(9);
+	        birthdate = FormatDDMMYY(rs.getString(10));
+	        birthcity = rs.getString(11);
+	        familySituation = rs.getString(12);
+	        email = rs.getString(13); 
+	        city = rs.getString(14);
+	        zipCode = rs.getString(15);
+	        numberOfChild = rs.getInt(16);
+	        driverLicenceDate = rs.getString(17);
+	        netIncome = rs.getInt(18);
+	        profession = rs.getString(19);
+    	}catch(SQLException e) {
+    		e.printStackTrace();
+    	}
+    }
+  
+    public String FormatDDMMYY(String date) {
+		String[] tab = date.split("-");
+		return String.join("-", tab[2],tab[1],tab[0]);
+	}
     
     
     public int getIdPerson() {
@@ -83,12 +121,12 @@ public abstract class Person {
 	}
 
 
-	public Date getDriverLicenceDate() {
+	public String getDriverLicenceDate() {
 		return driverLicenceDate;
 	}
 
 
-	public void setDriverLicenceDate(Date driverLicenceDate) {
+	public void setDriverLicenceDate(String driverLicenceDate) {
 		this.driverLicenceDate = driverLicenceDate;
 	}
 
@@ -160,13 +198,13 @@ public abstract class Person {
     }
 
     
-    Date getBirthdate() {
+    String getBirthdate() {
         // Automatically generated method. Please delete this comment before entering specific code.
         return this.birthdate;
     }
 
     
-    void setBirthdate(Date value) {
+    void setBirthdate(String value) {
         // Automatically generated method. Please delete this comment before entering specific code.
         this.birthdate = value;
     }

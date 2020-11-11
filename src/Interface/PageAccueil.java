@@ -22,6 +22,8 @@ public class PageAccueil extends JFrame
     private JButton Connection;//initialisation  d'un bouton
     private DefaultMutableTreeNode root;//initialisation de la racine de l'arbre de fichier
     private JPanel panel ;//initialisation  d'un conteneur panel 
+    
+    
     public PageAccueil(String user)
     {
         panel = new JPanel();//creation d'un conteneur
