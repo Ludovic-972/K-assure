@@ -1,6 +1,7 @@
 package BDgestion;
 import java.sql.*;
 
+
 public class BDconnection{
 	
 	private Connection connection;
@@ -59,20 +60,25 @@ public class BDconnection{
 	
 	public void affiche(String req) {
 		try {
-			Statement st = connection.createStatement();
-			System.out.println("Statement created.");
-			
-			//Selection 
-			ResultSet rs = st.executeQuery(req);
-			while (rs.next()) {
-				   for (int i = 1; i <= getColomnCount(rs); i++) {
-					   String a = rs.getString(i);
-					   System.out.print(a+" | ");
-				   }
-				   System.out.println();
-				}
-		} catch (SQLException e) {
-			System.out.println("Problème d'affichage.");
+			testRequete(req);
+			try {
+				Statement st = connection.createStatement();
+				System.out.println("Statement created.");
+				
+				//Selection 
+				ResultSet rs = st.executeQuery(req);
+				while (rs.next()) {
+					   for (int i = 1; i <= getColomnCount(rs); i++) {
+						   String a = rs.getString(i);
+						   System.out.print(a+" | ");
+					   }
+					   System.out.println();
+					}
+			} catch (SQLException e) {
+				System.out.println("Problème d'affichage.");
+			}
+		} catch (RequeteNull e1) {
+			e1.printStackTrace();
 		}
 	}
 
@@ -80,29 +86,42 @@ public class BDconnection{
 		Statement st = null;
 		ResultSet rs = null;
 		try {
-			st = connection.createStatement();
+			testRequete(req);
+			try {
+				st = connection.createStatement();
+				
+				//Selection 
+				rs = st.executeQuery(req);
+			}catch(SQLException e){
+				System.out.println("Problème d'exécution de requête");
+				e.printStackTrace();
+			}
 			
-			//Selection 
-			rs = st.executeQuery(req);
-		}catch(SQLException e){
-			System.out.println("Problème d'exécution de requête");
-			e.printStackTrace();
+		} catch (RequeteNull e1) {
+			e1.printStackTrace();
 		}
-		
 		return rs;
 
 	}
 	
 	public void executeQuery(String req) {
-		Statement st = null;
 		try {
-			st = connection.createStatement();
-			st.executeUpdate(req);
-		}catch(SQLException e){
-			System.out.println("Problème d'exécution de requête .");
-			e.printStackTrace();
+			testRequete(req);
+			Statement st = null;
+			try {
+				st = connection.createStatement();
+				st.executeUpdate(req);
+			}catch(SQLException e){
+				System.out.println("Problème d'exécution de requête .");
+				e.printStackTrace();
+			}
+		} catch (RequeteNull e1) {
+			e1.printStackTrace();
 		}
 	}
 
-	
+	public void testRequete(String s)throws RequeteNull {
+		if(s.equals(null))
+			throw new RequeteNull("Requete nulle.");
+	}
 }

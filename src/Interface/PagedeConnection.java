@@ -11,17 +11,19 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import BDgestion.BDconnection;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 
-public class PagedeConnection extends JFrame {
+public class PagedeConnection extends JFrame{
 	/**
 	 * 
 	 */
 	private JFrame f;
-	private JButton JB;
-	String user;
+	private JButton Connex;
+	private String user;
+	private JButton inscription;
 	char[] pwd;
 	BDconnection bdd = new BDconnection();
 	private static final long serialVersionUID = 1L;
@@ -38,17 +40,19 @@ public class PagedeConnection extends JFrame {
  	    
 	    JMdp.setEchoChar ('*');
 	    JPanel p = new JPanel( );
-	    JB = new JButton("Connection");
+	    Connex = new JButton("Connection");
+	    inscription = new JButton("Inscription");
 	    
-	    JB.addActionListener(event -> actionPerformed(JUser.getText() ,JMdp.getPassword()));
-	    p.setLayout(new GridLayout(3, 2, 7, 7));
-	    
+	    Connex.addActionListener(event -> actionPerformed(JUser.getText() ,JMdp.getPassword()));
+	    inscription.addActionListener(event -> inscription());
+	    p.setLayout(new GridLayout(4, 2, 7, 7));
 	   
 	    p.add(User);
 	    p.add(JUser);
 	    p.add(Mdp);
 	    p.add(JMdp);
-	    p.add(JB);
+	    p.add(Connex);
+	    p.add(inscription);
  
 	     
 	    f = new JFrame("Connection");
@@ -69,12 +73,19 @@ public class PagedeConnection extends JFrame {
 		 }else if(estInscrit(user,pwd)){
 			 f.dispose();	
 			 System.out.println("Connexion User réussie");
-			 new PageAccueil();
+			 new PageAccueil(user);
 		 }else {
 			 System.out.println("Je ne vous connais pas "+Username+" "+String.valueOf(pwd));
 	 
 		 }
 	 }
+	 
+	
+		public void inscription() {
+			f.dispose();
+			new mains();
+			
+		}
 	 
 	 
 	 private boolean estInscrit(String username, char[] pw) {
@@ -102,6 +113,7 @@ public class PagedeConnection extends JFrame {
 	 public static void main(String[] args) {
 		new PagedeConnection();
 	}
+	
 	 
 	 
 	 

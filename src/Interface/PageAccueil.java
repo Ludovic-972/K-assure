@@ -11,7 +11,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTree;
-import javax.swing.SwingUtilities;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.tree.DefaultMutableTreeNode;
 import Assurance.*;
@@ -23,7 +22,7 @@ public class PageAccueil extends JFrame
     private JButton Connection;//initialisation  d'un bouton
     private DefaultMutableTreeNode root;//initialisation de la racine de l'arbre de fichier
     private JPanel panel ;//initialisation  d'un conteneur panel 
-    public PageAccueil()
+    public PageAccueil(String user)
     {
         panel = new JPanel();//creation d'un conteneur
         root = new DefaultMutableTreeNode("Root");
@@ -111,14 +110,5 @@ public class PageAccueil extends JFrame
     	
     }
      
-    //methode d'affiche et d'execution du programme
-    public static void main(String[] args)
-    {
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                new PageAccueil();
-            }
-        });
-    }       
+  
 }
