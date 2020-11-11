@@ -2,14 +2,14 @@ package Assurance;
 
 import java.util.Date;
 
-import Gestion.Person;
+import Gestion.Adult;
 
 public class healthInsurance extends Insurance {
     
-	private Person subscriber;
+	private Adult subscriber;
     private String social_security_number;
 
-    public healthInsurance(Person _asker, Date _startDate, boolean _simulation, Person _subscriber, String _social_security_number) {
+    public healthInsurance(Adult _asker, Date _startDate, boolean _simulation, Adult _subscriber, String _social_security_number) {
 		super(_asker, _startDate, _simulation);
 
 
@@ -17,13 +17,13 @@ public class healthInsurance extends Insurance {
 		this.social_security_number = _social_security_number;
 	}
     
-    Person getSubscriber() {
+    Adult getSubscriber() {
         // Automatically generated method. Please delete this comment before entering specific code.
         return this.subscriber;
     }
 
     
-    void setSubscriber(Person value) {
+    void setSubscriber(Adult value) {
         // Automatically generated method. Please delete this comment before entering specific code.
         this.subscriber = value;
     }

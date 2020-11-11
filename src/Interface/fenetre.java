@@ -7,7 +7,7 @@ import java.awt.event.ItemListener;
 import Assurance.*;
 
 @SuppressWarnings({ "unchecked", "rawtypes" })
-public class fenetre extends JFrame implements ItemListener {
+public class Fenetre extends JFrame implements ItemListener {
 
 	
 	private static final long serialVersionUID = 1L;
@@ -18,7 +18,7 @@ public class fenetre extends JFrame implements ItemListener {
 	public JFrame fenetre1;
 			
 	
-	public fenetre() {
+	public Fenetre() {
 		fenetre1 = new JFrame();
 		fenetre1.setLayout(new BorderLayout());
 		fenetre1.setSize(500,500);
@@ -50,26 +50,26 @@ public class fenetre extends JFrame implements ItemListener {
 	
 	public void itemStateChanged(ItemEvent item) {
 		if ( item.getItem() == "habitation") {
-			habitation hab = new habitation();
+			Habitation hab = new Habitation();
 			hab.setVisible(true);
 			fenetre1.dispose();
 				
 
 		}
 		else if (item.getItem() == "scolaire") {
-				scolaire sco = new scolaire();
+				Scolaire sco = new Scolaire();
 				sco.setVisible(true);
 				fenetre1.dispose();
 					
 			
 		}else if (item.getItem() == "santé") {
-			sante sante = new sante(item.getItem());
+			Sante sante = new Sante(item.getItem());
 			sante.setVisible(true);
 			fenetre1.dispose();
 				
 		
 	}else if (item.getItem() == "véhicule") {
-		vehicule veh = new vehicule();
+		Vehicule veh = new Vehicule();
 		veh.setVisible(true);
 		fenetre1.dispose();
 			

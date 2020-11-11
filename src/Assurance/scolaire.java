@@ -12,12 +12,12 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 @SuppressWarnings("serial")
-public class scolaire extends JFrame implements ItemListener{
+public class Scolaire extends JFrame implements ItemListener{
 	public JPanel panel;
 	public JPanel panel2;
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public scolaire() {
+	public Scolaire() {
 		
 		this.setLayout(new BorderLayout());
 		this.setSize(500,500);

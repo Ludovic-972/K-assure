@@ -2,7 +2,7 @@ package Assurance;
 
 import java.util.Date;
 
-import Gestion.Person;
+import Gestion.Adult;
 import Gestion.Vehicle;
 
 
@@ -15,7 +15,7 @@ public class carInsurance extends Insurance {
     private float bonus_malus;
     private boolean allRisksCover;
     
-    public carInsurance(Person _asker, Date _startDate, boolean _simulation, Vehicle _car, int _mileage, String _periodOfuse, boolean _insuredInLast3Years, float _bonus_malus, boolean _allRisksCover) {
+    public carInsurance(Adult _asker, Date _startDate, boolean _simulation, Vehicle _car, int _mileage, String _periodOfuse, boolean _insuredInLast3Years, float _bonus_malus, boolean _allRisksCover) {
     	
 		super(_asker, _startDate, _simulation);
 

@@ -2,31 +2,31 @@ package Assurance;
 
 import java.util.Date;
 
-import Gestion.Person;
-import Gestion.residency;
+import Gestion.Adult;
+import Gestion.Residency;
 
 public class homeInsurance extends Insurance {
     
 	
-	private residency residency;
+	private Residency Residency;
 	
-    public homeInsurance(Person _asker, Date _startDate, boolean _simulation, Gestion.residency _residency) {
+    public homeInsurance(Adult _asker, Date _startDate, boolean _simulation, Gestion.Residency _Residency) {
 		super(_asker, _startDate, _simulation);
 
-		this.residency = _residency;
+		this.Residency = _Residency;
 	}
 
 
     
-    residency getResidency() {
+    Residency getResidency() {
         // Automatically generated method. Please delete this comment before entering specific code.
-        return this.residency;
+        return this.Residency;
     }
 
     
-    void setResidency(residency value) {
+    void setResidency(Residency value) {
         // Automatically generated method. Please delete this comment before entering specific code.
-        this.residency = value;
+        this.Residency = value;
     }
 
 }

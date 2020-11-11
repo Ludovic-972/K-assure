@@ -51,26 +51,26 @@ public class NouveauxContrat extends JFrame implements ItemListener {
 	
 	public void itemStateChanged(ItemEvent item) {
 		if ( item.getItem() == "habitation") {
-			habitation hab = new habitation();
+			Habitation hab = new Habitation();
 			hab.setVisible(true);			
 			fenetre1.setVisible(false);
 
 		}
 		else if (item.getItem() == "scolaire") {
-				scolaire sco = new scolaire();
+				Scolaire sco = new Scolaire();
 				sco.setVisible(true);
 				fenetre1.setVisible(false);
 					
 			
 		}else if (item.getItem() == "santé") {
 			
-			sante sante = new sante(item.getItem());
+			Sante sante = new Sante(item.getItem());
 			sante.setVisible(true);
 			fenetre1.setVisible(false);
 				
 		
 	}else if (item.getItem() == "véhicule") {
-		vehicule veh = new vehicule();
+		Vehicule veh = new Vehicule();
 		veh.setVisible(true);
 		fenetre1.setVisible(false);
 			

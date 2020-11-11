@@ -14,18 +14,25 @@ import javax.swing.JTree;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.tree.DefaultMutableTreeNode;
 import Assurance.*;
+import Gestion.*;
 
 @SuppressWarnings("serial")
-public class PageAccueil extends JFrame 
-{
+public class PageAccueil extends JFrame{
     private JTree tree;//initialisation d'un arbre de fichier
     private JButton Connection;//initialisation  d'un bouton
     private DefaultMutableTreeNode root;//initialisation de la racine de l'arbre de fichier
     private JPanel panel ;//initialisation  d'un conteneur panel 
+
     
     
-    public PageAccueil(String user)
-    {
+    public PageAccueil(String user,String cat){	
+    	
+    	if (cat.equals("Adulte")) {
+    		Adult utilisateur = new Adult(user);
+		} else if (cat.equals("Enfant")){
+			Child utilisateur = new Child(user);
+		}
+    	
         panel = new JPanel();//creation d'un conteneur
         root = new DefaultMutableTreeNode("Root");
         //creation des elements de l'arbre de fichier 

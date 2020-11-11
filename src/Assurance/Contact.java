@@ -65,16 +65,16 @@ public class Contact extends JFrame{
 	    	DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
 	    	String choix =  selectedNode.getUserObject().toString();
 	    	System.out.println(selectedNode);
-//	        if (choix == "Contact") {
-//	        	this.setTitle("Contactez K-Assure");
-//	        	JPanel panel = new JPanel();
-//	        	JLabel JL1 = new JLabel("Voici la page de contact");
-//	        	JLabel JL2 = new JLabel("Numéro de téléphone : 0123456789");
-//	        	JLabel JL3 = new JLabel("Adresse Mail de l'agence : KAssure@monmail.com");
-//	        	panel.add(JL1);
-//	        	panel.add(JL2);
-//	        	panel.add(JL3);
-//	        	
+/*	        if (choix == "Contact") {
+	        	this.setTitle("Contactez K-Assure");
+	        	JPanel panel = new JPanel();
+	        	JLabel JL1 = new JLabel("Voici la page de contact");
+	        	JLabel JL2 = new JLabel("Numéro de téléphone : 0123456789");
+	        	JLabel JL3 = new JLabel("Adresse Mail de l'agence : KAssure@monmail.com");
+	        	panel.add(JL1);
+	        	panel.add(JL2);
+	        	panel.add(JL3);
+*/	        	
 //	        	
 //	        	
 //	        	

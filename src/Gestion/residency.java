@@ -4,7 +4,7 @@ import java.util.Date;
 
 
 
-public abstract class residency {
+public abstract class Residency {
     
     private String value;
     private String type;
@@ -13,7 +13,7 @@ public abstract class residency {
     private Date entryDate;
     private String constructionYear;
     
-    public residency(String _type, int _area, String _value, String _constructionYear, int _numberOfrooms, Date _entryDate) {
+    public Residency(String _type, int _area, String _value, String _constructionYear, int _numberOfrooms, Date _entryDate) {
     	this.type = _type;
     	this.area = _area;
     	this.value = _value;

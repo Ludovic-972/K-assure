@@ -14,13 +14,14 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 @SuppressWarnings({ "rawtypes", "unchecked", "serial" })
-public class sante extends JFrame implements ItemListener{
+public class Sante extends JFrame implements ItemListener{
+	
 	public JPanel panel;
 	private static JButton[] t;
 	String get;
 
 	
-	public sante(Object sante) {
+	public Sante(Object sante) {
 		
 		this.setLayout(new BorderLayout());
 		this.setSize(500,500);

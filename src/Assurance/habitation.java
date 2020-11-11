@@ -8,9 +8,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 @SuppressWarnings({ "unchecked", "rawtypes", "serial" })
-public class habitation extends JFrame  {
+public class Habitation extends JFrame  {
 	public JPanel panel;
-	public habitation() {
+	public Habitation() {
 		// creation de la jframe Habitation
 		this.setLayout(new BorderLayout());//definition de la methode de disposition des elements dans la fenetre
 		this.setSize(500,500);// Taille de la fenetre

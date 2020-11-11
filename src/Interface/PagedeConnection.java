@@ -73,7 +73,7 @@ public class PagedeConnection extends JFrame{
 		 }else if(estInscrit(user,pwd)){
 			 f.dispose();	
 			 System.out.println("Connexion User réussie");
-			 new PageAccueil(user);
+			 new PageAccueil(user,getCategory());
 		 }else {
 			 System.out.println("Je ne vous connais pas "+Username+" "+String.valueOf(pwd));
 	 
@@ -81,11 +81,24 @@ public class PagedeConnection extends JFrame{
 	 }
 	 
 	
-		public void inscription() {
-			f.dispose();
-			new inscription();
-			
+	public void inscription() {
+		f.dispose();
+		new Inscription();		
+	}
+	
+	public String getCategory() {
+		ResultSet category = bdd.getResult("SELECT category from Person where login = '"+user+"'");
+		try {
+			if (category.next()) {
+				System.out.println(category.getString(1));
+				return category.getString(1);
+			}
+
+		} catch (SQLException e) {
+			System.out.println("Erreur de récupération");
 		}
+		return "";
+	}
 	 
 	 
 	 private boolean estInscrit(String username, char[] pw) {

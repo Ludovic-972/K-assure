@@ -2,28 +2,28 @@ package Assurance;
 
 import java.util.Date;
 
-import Gestion.Person;
+import Gestion.Adult;
 
 
 public abstract class Insurance {
     
-    private Person asker;
+    private Adult asker;
     private Date startDate;
     private boolean simulation = false;
 
-    public Insurance(Person _asker, Date _startDate, boolean _simulation) {
+    public Insurance(Adult _asker, Date _startDate, boolean _simulation) {
 		this.asker = _asker;
 		this.startDate = _startDate;
 		this.simulation = _simulation;
 	}
     
-    void setAsker(Person value) {
+    void setAsker(Adult value) {
         // Automatically generated method. Please delete this comment before entering specific code.
         this.asker = value;
     }
 
     
-    Person getAsker() {
+    Adult getAsker() {
         // Automatically generated method. Please delete this comment before entering specific code.
         return this.asker;
     }

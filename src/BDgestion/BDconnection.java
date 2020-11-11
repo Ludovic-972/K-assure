@@ -88,7 +88,7 @@ public class BDconnection{
 		try {
 			testRequete(req);
 			try {
-				st = connection.createStatement();
+				st = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
 				
 				//Selection 
 				rs = st.executeQuery(req);
@@ -109,7 +109,7 @@ public class BDconnection{
 			testRequete(req);
 			Statement st = null;
 			try {
-				st = connection.createStatement();
+				st = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
 				st.executeUpdate(req);
 			}catch(SQLException e){
 				System.out.println("Problème d'exécution de requête .");

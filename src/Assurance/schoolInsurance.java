@@ -2,15 +2,15 @@ package Assurance;
 
 import java.util.Date;
 
+import Gestion.Adult;
 import Gestion.Child;
-import Gestion.Person;
 
 public class schoolInsurance extends Insurance {
 	
 	private Child child;
     private String school;
     
-    public schoolInsurance(Person _asker, Date _startDate, boolean _simulation, Child _child, String _school) {
+    public schoolInsurance(Adult _asker, Date _startDate, boolean _simulation, Child _child, String _school) {
 		super(_asker, _startDate, _simulation);
 		this.child = _child;
 		this.school = _school;

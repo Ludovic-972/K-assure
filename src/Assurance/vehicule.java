@@ -13,13 +13,13 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 @SuppressWarnings({ "unchecked", "rawtypes", "serial" })
-public class vehicule extends JFrame implements ItemListener, ActionListener{
+public class Vehicule extends JFrame implements ItemListener, ActionListener{
 	public JPanel panel;
 	public JPanel panel2;
 	public JButton home;
 	
 	
-	public vehicule() {
+	public Vehicule() {
 		
 		this.setLayout(new BorderLayout());
 		this.setSize(500,500);
@@ -91,7 +91,7 @@ public class vehicule extends JFrame implements ItemListener, ActionListener{
 			
 			if (source == home) {
 				this.dispose();
-				fenetre test = new fenetre();
+				new Fenetre();
 				
 			
 			}

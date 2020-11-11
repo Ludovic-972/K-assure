@@ -21,7 +21,7 @@ import javax.swing.text.MaskFormatter;
 import BDgestion.BDconnection;
 
 @SuppressWarnings({ "unchecked", "rawtypes" })
-public class inscription{
+public class Inscription{
 	
 	private JFormattedTextField numero;
 	private JFormattedTextField date;
@@ -67,7 +67,7 @@ public class inscription{
 	
 	
 	
-	public inscription(String _cat) {
+	public Inscription(String _cat) {
 		
 		category = _cat;
 			
@@ -290,7 +290,7 @@ public class inscription{
 		
 		}
 
-	public inscription() {
+	public Inscription() {
 		demande = new JFrame("Vous êtes ?");
 		JPanel pan = new JPanel();
 		pan.setLayout(new GridLayout(3, 1,5,5));
@@ -312,7 +312,7 @@ public class inscription{
 	
 	private void setCategory(String cat) {
 		demande.dispose();
-		new inscription(cat);
+		new Inscription(cat);
 		
 	}
 

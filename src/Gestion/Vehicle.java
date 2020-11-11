@@ -13,8 +13,8 @@ public class Vehicle {
     private Date obtainingDate; 
     private String gearboxType; 
     private String energy;
-    private List<Person> drivers = new ArrayList<Person>();
-    private Person owner;
+    private List<Adult> drivers = new ArrayList<Adult>();
+    private Adult owner;
     private String model;
     private String carbodyType;
     private int age;
@@ -23,7 +23,7 @@ public class Vehicle {
     private String tradeName;
     private String garage;
     
-    public Vehicle(Person _owner, List<Person> _drivers, Date _obtainingDate, String _numberplate, String _make, String _model, String _energy, String _power, String _gearboxType, String _carbodyType, String _tradeName, int _age, int _numberOfdoors, String _garage, String _use) {
+    public Vehicle(Adult _owner, List<Adult> _drivers, Date _obtainingDate, String _numberplate, String _make, String _model, String _energy, String _power, String _gearboxType, String _carbodyType, String _tradeName, int _age, int _numberOfdoors, String _garage, String _use) {
     	this.owner = _owner;
     	this.drivers = _drivers;
     	this.obtainingDate = _obtainingDate;
@@ -112,25 +112,25 @@ public class Vehicle {
         this.energy = value;
     }
     
-    void setOwner(Person value) {
+    void setOwner(Adult value) {
         // Automatically generated method. Please delete this comment before entering specific code.
         this.owner = value;
     }
 
     
-    Person getOwner() {
+    Adult getOwner() {
         // Automatically generated method. Please delete this comment before entering specific code.
         return this.owner;
     }
 
     
-    List<Person> getDrivers() {
+    List<Adult> getDrivers() {
         // Automatically generated method. Please delete this comment before entering specific code.
         return this.drivers;
     }
 
     
-    void setDrivers(List<Person> value) {
+    void setDrivers(List<Adult> value) {
         // Automatically generated method. Please delete this comment before entering specific code.
         this.drivers = value;
     }
@@ -219,7 +219,7 @@ public class Vehicle {
         this.garage = value;
     }
     
-    void addDrivers(Person new_driver) {
+    void addDrivers(Adult new_driver) {
     	drivers.add(new_driver);
     }
 

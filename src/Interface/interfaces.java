@@ -3,13 +3,13 @@ package Interface;
 import javax.swing.*;
 
 @SuppressWarnings("serial")
-public class interfaces extends JFrame {
+public class Interfaces extends JFrame {
 
 	
 	
 	public static void main(String[] args) {
 		
-		fenetre test = new fenetre();
+		 new Fenetre();
 		
 	}
 }
