@@ -5,6 +5,7 @@ import java.awt.GridLayout;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.sql.*;
+import java.text.SimpleDateFormat;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -194,7 +195,7 @@ public class inscription{
 		}
 		
 		if (_cat.equals("Adulte")) {
-			JLabel driver = new JLabel("Date d'obtention du permis conduire : ");
+			JLabel driver = new JLabel("Date d'obtention du permis conduire* : ");
 			try {
 		         MaskFormatter formatter = new MaskFormatter("##-##-####");
 		         formatter.setPlaceholderCharacter('#');
@@ -280,6 +281,9 @@ public class inscription{
 		retour.addActionListener(event -> retour());
 		panel1.add(retour);
 		
+		JLabel info = new JLabel("*laissez ##-##-#### si vous n'avez pas le permis");
+		panel1.add(info);
+		
 		fenetre1.add(panel1);
 		fenetre1.setVisible(true);
 		
@@ -329,65 +333,78 @@ public class inscription{
 			 email = mail.getText();
 			 familySituation = familiale.getSelectedItem().toString();
 			 numberOfChild = nombre.getText();
-			 driverLicenceDate = permi.getText();
+			 driverLicenceDate = (permi.getText().equals("##-##-####")) ? "NULL" : permi.getText();
 			 netIncome = annuel.getText();
 			 profession = professionel.getSelectedItem().toString();
 		}else {
 			loginparent1 = loginp1.getText();
-			loginparent2 = (loginp2.getText().equals("")) ? "NULL" : loginp2.getText();
+			loginparent2 = (loginp2.getText().equals("x")) ? "NULL" : loginp2.getText();
 		}
 		
 		
-		
-		if (!ChampsVide()) {
-			System.out.println(" name = " + name + "\n surname = " + surname +"\n sexe = " + sexe + "\n category = " + category + "\n adress = " 
-					+ adress + "\n phoneNumber = " + phoneNumber + "\n birthdate = " + dateFormatSQL(birthdate) +"\n birthcity = " + birthcity +
-					"\n familySituation = " + familySituation + "\n email = " + email + "\n ville = " + ville + "\n zipCode = " 
-					+ zipCode + "\n numberOfChild = " + numberOfChild + "\n driverLicenceDate = "
-							+ driverLicenceDate + "\n netIncome = " + netIncome + "\n profession = " 
-					+ profession + " \n password = " + pwd+ "\n p1 = " + loginparent1 + "\n p2 = " + loginparent2);
-			String login = LoginGenerator();
-			String req,req2 = null;
-			if (category.equals("Adulte")) {
-				
-				req = "INSERT INTO `Person`(`name`, `surname`,`sexe`, `login`, `pwd`, `category`, `adress`,"
-						+ " `phoneNumber`, `birthdate`,`birthcity`, `family_situation`, `email`, `ville`, `zipCode`,"
-						+ " `numberOfChild`, `driverLicenceDate`, `netIncome`, `profession`) VALUES ('"+name
-						+"','"+surname+"','"+sexe+"','"+login+"','"+pwd+"','"+category+"','"+adress+"','"
-						+phoneNumber+"','"+dateFormatSQL(birthdate)+"','"+birthcity+"','"+familySituation
-						+"','"+email+"','"+ville+"','"+zipCode+"',"+numberOfChild+",'"
-						+dateFormatSQL(driverLicenceDate)+"',"+netIncome+",'"+profession+"')";
-			}else {
-				req = "INSERT INTO `Person`(`name`, `surname`,`sexe`, `login`, `pwd`, `category`, `adress`,"
-						+ " `phoneNumber`, `birthdate`,`birthcity`, `family_situation`, `email`, `ville`, `zipCode`,"
-						+ " `numberOfChild`, `driverLicenceDate`, `netIncome`, `profession`) VALUES ('"+name
-						+"','"+surname+"','"+sexe+"','"+login+"','"+pwd+"','"+category+"','"+adress+"',NULL"
-						+",'"+dateFormatSQL(birthdate)+"','"+birthcity+"',NULL,NULL,'"+ville+"','"+zipCode+"',NULL,NULL,NULL,NULL);";
-				req2 = "INSERT INTO `Child`(`loginChild`, `loginParent1`, `loginParent2`, `name`, `surname`, `birthDate`)  VALUES "
-						+ "('"+login+"','"+loginparent1+"','"+loginparent2+"','"+name+"','"+surname+"','"+dateFormatSQL(birthdate)+"')";
-			}
-			
-			if ( (category.equals("Enfant") && exist(loginparent1)) ) {
-				if (loginparent2.equals("NULL") ^ exist(loginparent2)) { 
-					bdd.executeQuery(req);
-					bdd.executeQuery(req2);
-					fenetre1.dispose();
-					JOptionPane.showMessageDialog(null, "Votre inscription est terminée. Votre login est "+login);
-					new PagedeConnection();
+		if (DateValid(birthdate) && DateValid(driverLicenceDate)) {
+	
+			if (!ChampsVide()) {
+				System.out.println(" name = " + name + "\n surname = " + surname +"\n sexe = " + sexe + "\n category = " + category + "\n adress = " 
+						+ adress + "\n phoneNumber = " + phoneNumber + "\n birthdate = " + dateFormatSQL(birthdate) +"\n birthcity = " + birthcity +
+						"\n familySituation = " + familySituation + "\n email = " + email + "\n ville = " + ville + "\n zipCode = " 
+						+ zipCode + "\n numberOfChild = " + numberOfChild + "\n driverLicenceDate = "
+								+ driverLicenceDate + "\n netIncome = " + netIncome + "\n profession = " 
+						+ profession + " \n password = " + pwd+ "\n p1 = " + loginparent1 + "\n p2 = " + loginparent2);
+				String login = LoginGenerator();
+				String req,req2 = null;
+				if (category.equals("Adulte")) {
+					if (driverLicenceDate.equals("NULL")) {
+						req = "INSERT INTO `Person`(`name`, `surname`,`sexe`, `login`, `pwd`, `category`, `adress`,"
+								+ " `phoneNumber`, `birthdate`,`birthcity`, `family_situation`, `email`, `ville`, `zipCode`,"
+								+ " `numberOfChild`, `driverLicenceDate`, `netIncome`, `profession`) VALUES ('"+name
+								+"','"+surname+"','"+sexe+"','"+login+"','"+pwd+"','"+category+"','"+adress+"','"
+								+phoneNumber+"','"+dateFormatSQL(birthdate)+"','"+birthcity+"','"+familySituation
+								+"','"+email+"','"+ville+"','"+zipCode+"','"+numberOfChild+"',NULL,'"+netIncome+"','"+profession+"')";
+					} else {
+						req = "INSERT INTO `Person`(`name`, `surname`,`sexe`, `login`, `pwd`, `category`, `adress`,"
+								+ " `phoneNumber`, `birthdate`,`birthcity`, `family_situation`, `email`, `ville`, `zipCode`,"
+								+ " `numberOfChild`, `driverLicenceDate`, `netIncome`, `profession`) VALUES ('"+name
+								+"','"+surname+"','"+sexe+"','"+login+"','"+pwd+"','"+category+"','"+adress+"','"
+								+phoneNumber+"','"+dateFormatSQL(birthdate)+"','"+birthcity+"','"+familySituation
+								+"','"+email+"','"+ville+"','"+zipCode+"','"+numberOfChild+"','"
+								+dateFormatSQL(driverLicenceDate)+"','"+netIncome+"','"+profession+"')";
+					}
+					
 				}else {
-					JOptionPane.showMessageDialog(null, "Un des deux parents n'existe pas");
+					req = "INSERT INTO `Person`(`name`, `surname`,`sexe`, `login`, `pwd`, `category`, `adress`,"
+							+ " `phoneNumber`, `birthdate`,`birthcity`, `family_situation`, `email`, `ville`, `zipCode`,"
+							+ " `numberOfChild`, `driverLicenceDate`, `netIncome`, `profession`) VALUES ('"+name
+							+"','"+surname+"','"+sexe+"','"+login+"','"+pwd+"','"+category+"','"+adress+"',NULL"
+							+",'"+dateFormatSQL(birthdate)+"','"+birthcity+"',NULL,NULL,'"+ville+"','"+zipCode+"',NULL,NULL,NULL,NULL);";
+					req2 = "INSERT INTO `Child`(`loginChild`, `loginParent1`, `loginParent2`, `name`, `surname`, `birthDate`)  VALUES "
+							+ "('"+login+"','"+loginparent1+"','"+loginparent2+"','"+name+"','"+surname+"','"+dateFormatSQL(birthdate)+"')";
 				}
-			}else if(category.equals("Adulte")) {
-				bdd.executeQuery(req);
-				fenetre1.dispose();
-				JOptionPane.showMessageDialog(null, "Votre inscription est terminée. Votre login est "+login);
-				new PagedeConnection();
-			}
-			
 				
-		} else {
-			JOptionPane.showMessageDialog(null, "Tous les champs ne sont pas remplis");
-        }
+				if ( (category.equals("Enfant") && exist(loginparent1)) ) {
+					if (loginparent2.equals("NULL") ^ exist(loginparent2)) { 
+						bdd.executeQuery(req);
+						bdd.executeQuery(req2);
+						fenetre1.dispose();
+						JOptionPane.showMessageDialog(null, "Votre inscription est terminée. Votre login est "+login+".");
+						new PagedeConnection();
+					}else {
+						JOptionPane.showMessageDialog(null, "Un des deux parents n'existe pas.");
+					}
+				}else if(category.equals("Adulte")) {
+					bdd.executeQuery(req);
+					fenetre1.dispose();
+					JOptionPane.showMessageDialog(null, "Votre inscription est terminée. Votre login est "+login+".");
+					new PagedeConnection();
+				}
+				
+					
+			} else {
+				JOptionPane.showMessageDialog(null, "Tous les champs ne sont pas remplis.");
+	        }
+		}else {
+			JOptionPane.showMessageDialog(null, "Date non valide.");
+		}
 				
 	}
 	
@@ -395,6 +412,64 @@ public class inscription{
 		fenetre1.dispose();
 		new PagedeConnection();
 	}
+	
+	public boolean bissextile(int year) {
+
+	    if ((year % 400 == 0) || ((year % 4 == 0) && (year % 100 != 0))) {
+	        return true;
+	    } else {
+	        return false;
+	    }
+	    }
+	 
+	 public boolean DateValid(String date){
+		 try {
+			 System.out.println(date.length());
+			 if(date == "NULL"){
+				 return true;
+			 }
+			 String[] tab = date.split("-");
+			 int jour = Integer.parseInt(tab[0]);
+			 int mois = Integer.parseInt(tab[1]);
+			 int annee = Integer.parseInt(tab[2]);
+			 
+			 int annee_actuel = Integer.parseInt(new SimpleDateFormat("yyyy").format(date));
+			 
+			 
+			 if (mois <= 12 || annee <= annee_actuel) {
+				 if (mois == 02) {
+					 if (bissextile(annee) && jour <= 29)  
+						return true;
+					 else if(jour <= 28)
+						return true;
+				}else if (jours30(mois) && jour <= 30) {
+					return true;
+				}else if(jour <=31){
+					return true;
+				}
+			}
+		} catch (NumberFormatException e) {
+			return false;
+		}
+		 
+		 
+		 return false;
+		 
+	        
+	    }
+	 
+	 public boolean jours30(int a) {
+		 int[] tab = {4,6,9,11};
+		 for (int mois : tab) {
+			if (mois == a) {
+				return true;
+			}
+		}
+		 return false;
+	 }
+		
+		
+		
 	
 	public boolean ChampsVide() {
 		if (category.equals("Adulte") && (name.equals("") || surname.equals("") || sexe.equals("") || adress.equals("") || phoneNumber.equals("##-##-##-##-##") 
@@ -439,7 +514,8 @@ public class inscription{
 	//mise en format SQL des dates (ex: 10-12-1995 -> 1995-12-10)
 	public String dateFormatSQL(String date) {
 		String[] tab = date.split("-");
-		return String.join("-", tab[2],tab[1],tab[0]);
+		date = String.join("-", tab[2],tab[1],tab[0]);
+		return "'"+date+"'";
 	}
 	
 
