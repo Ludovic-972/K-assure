@@ -83,7 +83,7 @@ public class PagedeConnection extends JFrame{
 	
 		public void inscription() {
 			f.dispose();
-			new mains();
+			new inscription();
 			
 		}
 	 
