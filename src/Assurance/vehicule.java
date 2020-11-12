@@ -14,9 +14,9 @@ import javax.swing.JPanel;
 
 @SuppressWarnings({ "unchecked", "rawtypes", "serial" })
 public class Vehicule extends JFrame implements ItemListener, ActionListener{
-	public JPanel panel;
-	public JPanel panel2;
-	public JButton home;
+	private JPanel panel;
+	private JPanel panel2;
+	private JButton home;
 	
 	
 	public Vehicule() {

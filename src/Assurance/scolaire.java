@@ -13,8 +13,8 @@ import javax.swing.JPanel;
 
 @SuppressWarnings("serial")
 public class Scolaire extends JFrame implements ItemListener{
-	public JPanel panel;
-	public JPanel panel2;
+	private JPanel panel;
+	private JPanel panel2;
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public Scolaire() {

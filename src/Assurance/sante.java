@@ -16,9 +16,9 @@ import javax.swing.JTextField;
 @SuppressWarnings({ "rawtypes", "unchecked", "serial" })
 public class Sante extends JFrame implements ItemListener{
 	
-	public JPanel panel;
+	private JPanel panel;
 	private static JButton[] t;
-	String get;
+	private String get;
 
 	
 	public Sante(Object sante) {

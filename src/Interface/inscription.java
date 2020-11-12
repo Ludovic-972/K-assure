@@ -6,6 +6,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.sql.*;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 
 import javax.swing.JButton;
@@ -225,23 +226,25 @@ public class Inscription{
 		JLabel professions = new JLabel("Profession :");
 		professionel = new JComboBox();
 		professionel.addItem("");
-		professionel.addItem("Services publics");
-		professionel.addItem("Professions administratives, commerciales et de gestion");
-		professionel.addItem("Commerce et artisanat");
-		professionel.addItem("Hôtellerie – Restauration");
-		professionel.addItem("Agronomie");
-		professionel.addItem("Professions scientifiques");
-		professionel.addItem("Politique, Social, Etude de la société");
-		professionel.addItem("Transport et logistique");
-		professionel.addItem("Sciences médicales et paramédicales");
-		professionel.addItem("Arts et culture");
-		professionel.addItem("Juridique");
-		professionel.addItem("Communication");
-		professionel.addItem("Informatique");
-		professionel.addItem("Tourisme");
-		professionel.addItem("Enseignement");
-		professionel.addItem("Bâtiment & Génie civil");
-		professionel.addItem("Industrie/Sciences appliquées");
+		professionel.addItem("Salarié.e");
+		professionel.addItem("Salarié.e cadre");
+		professionel.addItem("Fonction publique d'état");
+		professionel.addItem("Fonction publique territoriale");
+		professionel.addItem("Fonction publique hospitalière");
+		professionel.addItem("Artisan.e");
+		professionel.addItem("Ouvrier.ère");
+		professionel.addItem("Commerçant.e");
+		professionel.addItem("Profession libérale");
+		professionel.addItem("Chef.ffe d'entreprise");
+		professionel.addItem("Enseignant.e");
+		professionel.addItem("Agriculteur.se");
+		professionel.addItem("Exploitant.e agricole");
+		professionel.addItem("VRP(voyageur.se,représentant.e,placier.ère)");
+		professionel.addItem("Visiteur.se médical");
+		professionel.addItem("Etudiant.e");
+		professionel.addItem("Retraité.e");
+		professionel.addItem("Sans profession");
+		professionel.addItem("En recherche d'emploi");
 		panel1.add(professions);
 		panel1.add(professionel);
 		}
@@ -346,13 +349,7 @@ public class Inscription{
 			 if (DateValid(birthdate) && DateValid(driverLicenceDate)) {
 			
 				 if (EmailValidator(email)) {
-	
-					System.out.println(" name = " + name + "\n surname = " + surname +"\n sexe = " + sexe + "\n category = " + category + "\n adress = " 
-							+ adress + "\n phoneNumber = " + phoneNumber + "\n birthdate = " + dateFormatSQL(birthdate) +"\n birthcity = " + birthcity +
-							"\n familySituation = " + familySituation + "\n email = " + email + "\n ville = " + ville + "\n zipCode = " 
-							+ zipCode + "\n numberOfChild = " + numberOfChild + "\n driverLicenceDate = "
-									+ driverLicenceDate + "\n netIncome = " + netIncome + "\n profession = " 
-							+ profession + " \n password = " + pwd+ "\n p1 = " + loginparent1 + "\n p2 = " + loginparent2);
+
 					String login = LoginGenerator();
 					String req,req2 = null;
 					if (category.equals("Adulte")) {
@@ -361,16 +358,16 @@ public class Inscription{
 									+ " `phoneNumber`, `birthdate`,`birthcity`, `family_situation`, `email`, `ville`, `zipCode`,"
 									+ " `numberOfChild`, `driverLicenceDate`, `netIncome`, `profession`) VALUES ('"+name
 									+"','"+surname+"','"+sexe+"','"+login+"','"+pwd+"','"+category+"','"+adress+"','"
-									+phoneNumber+"','"+dateFormatSQL(birthdate)+"','"+birthcity+"','"+familySituation
+									+phoneNumber+"',"+dateFormatSQL(birthdate)+",'"+birthcity+"','"+familySituation
 									+"','"+email+"','"+ville+"','"+zipCode+"','"+numberOfChild+"',NULL,'"+netIncome+"','"+profession+"')";
 						} else {
 							req = "INSERT INTO `Person`(`name`, `surname`,`sexe`, `login`, `pwd`, `category`, `adress`,"
 									+ " `phoneNumber`, `birthdate`,`birthcity`, `family_situation`, `email`, `ville`, `zipCode`,"
 									+ " `numberOfChild`, `driverLicenceDate`, `netIncome`, `profession`) VALUES ('"+name
 									+"','"+surname+"','"+sexe+"','"+login+"','"+pwd+"','"+category+"','"+adress+"','"
-									+phoneNumber+"','"+dateFormatSQL(birthdate)+"','"+birthcity+"','"+familySituation
-									+"','"+email+"','"+ville+"','"+zipCode+"','"+numberOfChild+"','"
-									+dateFormatSQL(driverLicenceDate)+"','"+netIncome+"','"+profession+"')";
+									+phoneNumber+"',"+dateFormatSQL(birthdate)+",'"+birthcity+"','"+familySituation
+									+"','"+email+"','"+ville+"','"+zipCode+"','"+numberOfChild+"',"
+									+dateFormatSQL(driverLicenceDate)+",'"+netIncome+"','"+profession+"')";
 						}
 						
 					}else {
@@ -378,11 +375,10 @@ public class Inscription{
 								+ " `phoneNumber`, `birthdate`,`birthcity`, `family_situation`, `email`, `ville`, `zipCode`,"
 								+ " `numberOfChild`, `driverLicenceDate`, `netIncome`, `profession`) VALUES ('"+name
 								+"','"+surname+"','"+sexe+"','"+login+"','"+pwd+"','"+category+"','"+adress+"',NULL"
-								+",'"+dateFormatSQL(birthdate)+"','"+birthcity+"',NULL,NULL,'"+ville+"','"+zipCode+"',NULL,NULL,NULL,NULL);";
+								+","+dateFormatSQL(birthdate)+",'"+birthcity+"',NULL,NULL,'"+ville+"','"+zipCode+"',NULL,NULL,NULL,NULL);";
 						req2 = "INSERT INTO `Child`(`loginChild`, `loginParent1`, `loginParent2`, `name`, `surname`, `birthDate`)  VALUES "
-								+ "('"+login+"','"+loginparent1+"','"+loginparent2+"','"+name+"','"+surname+"','"+dateFormatSQL(birthdate)+"')";
+								+ "('"+login+"','"+loginparent1+"','"+loginparent2+"','"+name+"','"+surname+"',"+dateFormatSQL(birthdate)+")";
 					}
-					
 					if ( (category.equals("Enfant") && exist(loginparent1)) ) {
 						if (loginparent2.equals("NULL") ^ exist(loginparent2)) { 
 							bdd.executeQuery(req);
@@ -438,7 +434,7 @@ public class Inscription{
 			 int mois = Integer.parseInt(tab[1]);
 			 int annee = Integer.parseInt(tab[2]);
 			 
-			 int annee_actuel = Integer.parseInt(new SimpleDateFormat("yyyy").format(date));
+			 int annee_actuel = Integer.parseInt(new SimpleDateFormat("yyyy").format(new Date()));
 			 
 			 
 			 if (mois <= 12 || annee <= annee_actuel) {

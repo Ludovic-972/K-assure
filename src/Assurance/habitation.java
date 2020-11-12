@@ -9,7 +9,7 @@ import javax.swing.JPanel;
 
 @SuppressWarnings({ "unchecked", "rawtypes", "serial" })
 public class Habitation extends JFrame  {
-	public JPanel panel;
+	private JPanel panel;
 	public Habitation() {
 		// creation de la jframe Habitation
 		this.setLayout(new BorderLayout());//definition de la methode de disposition des elements dans la fenetre
