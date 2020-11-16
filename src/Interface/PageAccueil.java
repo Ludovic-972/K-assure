@@ -22,15 +22,16 @@ public class PageAccueil extends JFrame{
     private JButton Connection;//initialisation  d'un bouton
     private DefaultMutableTreeNode root;//initialisation de la racine de l'arbre de fichier
     private JPanel panel ;//initialisation  d'un conteneur panel 
+    private Person utilisateur;
 
     
     
     public PageAccueil(String user,String cat){	
     	
     	if (cat.equals("Adulte")) {
-    		Adult utilisateur = new Adult(user);
+    		utilisateur = new Adult(user);
 		} else if (cat.equals("Enfant")){
-			Child utilisateur = new Child(user);
+			utilisateur = new Child(user);
 		}
     	
         panel = new JPanel();//creation d'un conteneur
@@ -42,7 +43,7 @@ public class PageAccueil extends JFrame{
         
         
     	//creation de zone de text, avec le text ainsi que sa position
-    	JLabel JL1 = new JLabel("Bienvenue chez K-Assure", JLabel.CENTER);
+    	JLabel JL1 = new JLabel("Bonjour "+utilisateur.getSurname()+",", JLabel.CENTER);
     	JLabel JL2 = new JLabel("Vous pouvez nous contactez via la page dédiez", JLabel.CENTER);
     	JLabel JL3 = new JLabel("Ou bien vous renseignez sur les contrats existant", JLabel.CENTER);
     	
@@ -62,7 +63,7 @@ public class PageAccueil extends JFrame{
         
         //creation du boutton de connection
      
-        Connection = new JButton("Connection Assu");
+        Connection = new JButton("Déconnexion");
         
         //ajout du Bouton, contneur et arbre a la fenetre
         add(Connection, BorderLayout.SOUTH);
@@ -72,7 +73,7 @@ public class PageAccueil extends JFrame{
         
         
         //Ajout d'evenement "d'ecoute" pour le bouton et les fichier de l'arbre
-        Connection.addActionListener(event -> connection(event));        
+        Connection.addActionListener(event -> deconnexion(event));        
         tree.getSelectionModel().addTreeSelectionListener(event -> valueChanged(event));       		
                   
         
@@ -112,7 +113,7 @@ public class PageAccueil extends JFrame{
         }
     
     // methode d'ecoute du bouton de connection qui permet d'ouvrir la classe PagedeConnection apres cliquement sur le bouton
-    public void connection(ActionEvent event) {
+    public void deconnexion(ActionEvent event) {
     	new PagedeConnection();
     	this.dispose();
     	

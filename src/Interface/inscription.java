@@ -370,7 +370,7 @@ public class Inscription{
 									+dateFormatSQL(driverLicenceDate)+",'"+netIncome+"','"+profession+"')";
 						}
 						
-					}else {
+					} else {
 						req = "INSERT INTO `Person`(`name`, `surname`,`sexe`, `login`, `pwd`, `category`, `adress`,"
 								+ " `phoneNumber`, `birthdate`,`birthcity`, `family_situation`, `email`, `ville`, `zipCode`,"
 								+ " `numberOfChild`, `driverLicenceDate`, `netIncome`, `profession`) VALUES ('"+name

@@ -6,6 +6,7 @@ import java.util.Arrays;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -75,7 +76,7 @@ public class PagedeConnection extends JFrame{
 			 System.out.println("Connexion User réussie");
 			 new PageAccueil(user,getCategory());
 		 }else {
-			 System.out.println("Je ne vous connais pas "+Username+" "+String.valueOf(pwd));
+			 JOptionPane.showMessageDialog(null,"Informations incorrectes.");
 	 
 		 }
 	 }
@@ -90,7 +91,6 @@ public class PagedeConnection extends JFrame{
 		ResultSet category = bdd.getResult("SELECT category from Person where login = '"+user+"'");
 		try {
 			if (category.next()) {
-				System.out.println(category.getString(1));
 				return category.getString(1);
 			}
 
