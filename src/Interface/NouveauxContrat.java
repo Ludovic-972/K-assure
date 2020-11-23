@@ -31,10 +31,10 @@ public class NouveauxContrat extends JFrame implements ItemListener {
 		
 		contrat = new JComboBox();
 		contrat.addItem(" ");
-		contrat.addItem("habitation");
-		contrat.addItem("santé");
-		contrat.addItem("véhicule");
-		contrat.addItem("scolaire");
+		contrat.addItem("Habitation");
+		contrat.addItem("Santé");
+		contrat.addItem("Véhicule");
+		contrat.addItem("Scolaire");
 		contrat.addItemListener(this);
 		
 		 
@@ -50,26 +50,26 @@ public class NouveauxContrat extends JFrame implements ItemListener {
 		}
 	
 	public void itemStateChanged(ItemEvent item) {
-		if ( item.getItem() == "habitation") {
+		if ( item.getItem() == "Habitation") {
 			Habitation hab = new Habitation();
 			hab.setVisible(true);			
 			fenetre1.setVisible(false);
 
 		}
-		else if (item.getItem() == "scolaire") {
+		else if (item.getItem() == "Scolaire") {
 				Scolaire sco = new Scolaire();
 				sco.setVisible(true);
 				fenetre1.setVisible(false);
 					
 			
-		}else if (item.getItem() == "santé") {
+		}else if (item.getItem() == "Santé") {
 			
 			Sante sante = new Sante(item.getItem());
 			sante.setVisible(true);
 			fenetre1.setVisible(false);
 				
 		
-	}else if (item.getItem() == "véhicule") {
+	}else if (item.getItem() == "Véhicule") {
 		Vehicule veh = new Vehicule();
 		veh.setVisible(true);
 		fenetre1.setVisible(false);

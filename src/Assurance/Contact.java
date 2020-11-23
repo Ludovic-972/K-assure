@@ -12,6 +12,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JTree;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.tree.DefaultMutableTreeNode;
+
+import Gestion.Person;
+import Interface.PageAccueil;
 import Interface.PagedeConnection;
 
 @SuppressWarnings("serial")
@@ -22,8 +25,12 @@ public class Contact extends JFrame{
 	    private JButton Connection;
 	    private DefaultMutableTreeNode root;
 	    private JPanel panel ;
-	    public Contact()
-	    {
+	    private String user;
+	    private String cat;
+	    
+	    public Contact(String _login,String _cat) {
+	    	this.user = _login;
+	    	this.cat = _cat;
 	        root = new DefaultMutableTreeNode("Root");
 	        //create the child nodes
 	        DefaultMutableTreeNode vegetableNode = new DefaultMutableTreeNode("Contact");
@@ -46,7 +53,7 @@ public class Contact extends JFrame{
 	        //create the tree by passing in the root node
 	        
 	        tree = new JTree(root);
-	        Connection = new JButton("Connection Assu");
+	        Connection = new JButton("Retour à l'accueil");
 	        add(panel,BorderLayout.EAST);
 	        add(Connection, BorderLayout.SOUTH);
 	        add(tree);
@@ -59,6 +66,7 @@ public class Contact extends JFrame{
 	        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	        this.setTitle("Contactez K-Assure");      
 	        this.pack();
+	        this.setLocationRelativeTo(null);
 	        this.setVisible(true);
 }
 	    public void valueChanged(TreeSelectionEvent e) {
@@ -92,7 +100,7 @@ public class Contact extends JFrame{
 	    
 	    public void connection(ActionEvent event) {
 	    	this.dispose();
-	    	new PagedeConnection();	
+	    	new PageAccueil(user,cat);	
 	    	
 	    	
 	    }

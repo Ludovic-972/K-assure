@@ -82,8 +82,9 @@ public class PageAccueil extends JFrame{
          
         //Configuration de la fenetre 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setTitle("JTree Example");       
+        this.setTitle(utilisateur.getName()+" "+utilisateur.getSurname());       
         this.pack();
+        this.setLocationRelativeTo(null);
         this.setVisible(true);
     }
     
@@ -96,7 +97,7 @@ public class PageAccueil extends JFrame{
 
     	//Ouverture de la classe Contact si le fichier contact a ete selectionner dans l'arbre
         if (choix == "Contact") {
-        	Contact Contact = new Contact();
+        	Contact Contact = new Contact(utilisateur.getLogin(),utilisateur.getCategory());
         	Contact.setVisible(true);
         	this.dispose();
         	
