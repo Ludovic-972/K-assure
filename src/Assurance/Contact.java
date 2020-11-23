@@ -91,9 +91,8 @@ public class Contact extends JFrame{
 	    
 	    
 	    public void connection(ActionEvent event) {
-	    	PagedeConnection PDC = new PagedeConnection();
-	    	PDC.setVisible(true);	
 	    	this.dispose();
+	    	new PagedeConnection();	
 	    	
 	    	
 	    }

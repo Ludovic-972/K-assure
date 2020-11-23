@@ -1,5 +1,6 @@
 package Interface;
 
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.util.Arrays;
 
@@ -17,7 +18,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 
-public class PagedeConnection extends JFrame{
+public class PagedeConnection {
 	/**
 	 * 
 	 */
@@ -27,7 +28,6 @@ public class PagedeConnection extends JFrame{
 	private JButton inscription;
 	char[] pwd;
 	BDconnection bdd = new BDconnection();
-	private static final long serialVersionUID = 1L;
 
 	public PagedeConnection() {
 		
@@ -58,8 +58,10 @@ public class PagedeConnection extends JFrame{
 	     
 	    f = new JFrame("Connection");
 	    f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+	    f.setPreferredSize(new Dimension(400,200));
 	    f.setContentPane(p);
 	    f.pack();
+	    f.setLocationRelativeTo(null);
 	    f.setVisible(true);
 	}
 	 public void actionPerformed(String Username,char[] cs) {
@@ -76,7 +78,7 @@ public class PagedeConnection extends JFrame{
 			 System.out.println("Connexion User réussie");
 			 new PageAccueil(user,getCategory());
 		 }else {
-			 JOptionPane.showMessageDialog(null,"Informations incorrectes.");
+			 JOptionPane.showMessageDialog(null,"Login ou mot de passe incorrecte.");
 	 
 		 }
 	 }

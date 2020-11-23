@@ -67,7 +67,6 @@ public class Scolaire extends JFrame implements ItemListener{
 		
 	}
 	private void recup(ItemEvent event) {
-		// TODO Auto-generated method stub
 		String recup = (String) event.getItem();
 		System.out.println(recup);
 

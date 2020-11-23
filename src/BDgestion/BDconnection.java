@@ -2,7 +2,7 @@ package BDgestion;
 import java.sql.*;
 
 /**
- * <b>BDconnection est la classe utilisée pour créer une connexion à la base de données<b>
+ * <b>BDconnection est la classe utilisée pour créer une connexion à la base de données</b>
  * <p>
  * Elle contient une instance de la classe Connection qui réalise 
  * la connexion et l'authentification à la base de données. 
@@ -34,8 +34,6 @@ public class BDconnection{
 	 *à la base grâce à l'url de celle-ci,le login de l'utilisateur et son mot de passe.
 	 *</p>
 	 *
-	 *@throws SQLException ou ClassNotFoundException en cas d'inexistant de la classe 
-	 *			ou d'erreur d'authentification à la base.
 	 *
 	 *@see BDconnection#connection 
 	 *
@@ -147,7 +145,7 @@ public class BDconnection{
 	
 	/**
 	 * <p>
-	 * Exécute la requête demandée généralement utilisée pour les <i>INSERTs<i> ou les <i>UPDATEs<i>.
+	 * Exécute la requête demandée généralement utilisée pour les <i>INSERTs</i> ou les <i>UPDATEs</i>.
 	 * Le ResultSet défini dans la création du Statement a deux arguments:
 	 *</p>
 	 *<ul>
@@ -184,6 +182,7 @@ public class BDconnection{
 	 * 
 	 * @see RequeteNull
 	 * @since 2.0
+	 * @throws RequeteNull si la requête en paramètre est null
 	 * */
 	public void testRequete(String s)throws RequeteNull {
 		if(s.equals(null))

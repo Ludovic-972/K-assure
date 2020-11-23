@@ -1,5 +1,6 @@
 package Interface;
 
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.KeyAdapter;
@@ -74,15 +75,17 @@ public class Inscription{
 			
 		fenetre1 = new JFrame("Inscription "+_cat);
 		fenetre1.setLayout(new FlowLayout());
-		fenetre1.setSize(800,800);
 		fenetre1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		fenetre1.setLocationRelativeTo(null);
 		fenetre1.setResizable(true);
 		JPanel panel1 = new JPanel();
+		
+		
 		if (_cat.equals("Adulte")) {
 			panel1.setLayout(new GridLayout(18,2,7,7));
+			fenetre1.setSize(700,650);
 		}else {
-			panel1.setLayout(new GridLayout(16,2,7,7));
+			panel1.setLayout(new GridLayout(15,2,7,7));
+			fenetre1.setSize(700,550);
 		}
 		
 		
@@ -285,10 +288,13 @@ public class Inscription{
 		retour.addActionListener(event -> retour());
 		panel1.add(retour);
 		
-		JLabel info = new JLabel("*laissez ##-##-#### si vous n'avez pas le permis");
-		panel1.add(info);
+		if (_cat.equals("Adulte")) {
+			JLabel info = new JLabel("*laissez ##-##-#### si vous n'avez pas le permis");
+			panel1.add(info);
+		}
 		
 		fenetre1.add(panel1);
+		fenetre1.setLocationRelativeTo(null);
 		fenetre1.setVisible(true);
 		
 		}
@@ -297,17 +303,21 @@ public class Inscription{
 		demande = new JFrame("Vous êtes ?");
 		JPanel pan = new JPanel();
 		pan.setLayout(new GridLayout(3, 1,5,5));
-		JLabel txt = new JLabel("De quel catégorie êtes vous ?");
+		JLabel txt = new JLabel("De quel catégorie êtes vous ?",JLabel.CENTER);
 		JButton b1 = new JButton("Enfant");
 		JButton b2 = new JButton("Adulte");
+		b1.setPreferredSize(new Dimension(200,50));
+		b1.setPreferredSize(new Dimension(200,50));
 		b1.addActionListener(event -> setCategory(b1.getText()));
 		b2.addActionListener(event -> setCategory(b2.getText()));
 		pan.add(txt);
 		pan.add(b1);
 		pan.add(b2);
 		demande.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		demande.setPreferredSize(new Dimension(400,200));
 	    demande.setContentPane(pan);
 	    demande.pack();
+	    demande.setLocationRelativeTo(null);
 	    demande.setVisible(true);
 	}
 	
