@@ -26,8 +26,8 @@ public class PagedeConnection {
 	private JButton Connex;
 	private String user;
 	private JButton inscription;
-	char[] pwd;
-	BDconnection bdd = new BDconnection();
+	private char[] pwd;
+	private BDconnection bdd = new BDconnection();
 
 	public PagedeConnection() {
 		
@@ -103,7 +103,7 @@ public class PagedeConnection {
 	}
 	 
 	 
-	 private boolean estInscrit(String username, char[] pw) {
+	 public boolean estInscrit(String username, char[] pw) {
 		ResultSet inscrit = bdd.getResult("SELECT login,pwd from Person where login = '"+username+"'");
 		char[] inscrit_pwd = null;
 		try {
