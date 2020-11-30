@@ -22,53 +22,325 @@ import javax.swing.text.MaskFormatter;
 
 import BDgestion.BDconnection;
 
+
+/**
+ * Inscription est la classe permettant de s'inscrire au logiciel K-assure.
+ * 
+ * @author Charpentier Ewan,Rittaud Paul
+ * @version 3.0
+ * */
 @SuppressWarnings({ "unchecked", "rawtypes" })
 public class Inscription{
 	
-	private JFormattedTextField numero;
-	private JFormattedTextField date;
-	private JFormattedTextField postal;
-	private JFormattedTextField nombre;
-	private JFormattedTextField permi;
-	private JTextField annuel;
+	/**
+	  * Nom de l'utilisateur.
+	  * 
+	  * @since 1.0
+	  * */
 	private String name;
+	
+	/**
+	  * Prénom de l'utilisateur.
+	  * 
+	  * @since 1.0
+	  * */
 	private String surname;
+	
+	/**
+	  * Catégorie de l'utilisateur (Adulte ou Enfant).
+	  * 
+	  * @since 1.0
+	  * */
 	private String category;
+	
+	/**
+	  * Sexe de l'utilisateur.
+	  * 
+	  * @since 1.0
+	  * */
 	private String sexe;
+	
+	/**
+	  * Adresse de l'utilisateur.
+	  * 
+	  * @since 1.0
+	  * */
 	private String adress;
+	
+	/**
+	  * Numéro de téléphone de l'utilisateur.
+	  * (Cas où l'utilisateur est un adulte)
+	  * 
+	  * @since 1.0
+	  * */
 	private String phoneNumber;
+	
+	/**
+	  * Date de naissance de l'utilisateur.
+	  * 
+	  * @since 1.0
+	  * */
 	private String birthdate;
+	
+	/**
+	  * Ville de naissance de l'utilisateur.
+	  * 
+	  * @since 1.0
+	  * */
 	private String birthcity;
+	
+	/**
+	  * Situation familiale de l'utilisateur.
+	  * (Cas où l'utilisateur est un adulte)
+	  * 
+	  * @since 1.0
+	  * */
 	private String familySituation;
+	
+	/**
+	  * Email de l'utilisateur.
+	  * (Cas où l'utilisateur est un adulte)
+	  * 
+	  * @since 1.0
+	  * */
 	private String email;
+	
+	/**
+	  * Ville de l'utilisateur.
+	  * 
+	  * @since 1.0
+	  * */
 	private String ville;
+	
+	/**
+	  * Code postal de l'utilisateur.
+	  * 
+	  * @since 1.0
+	  * */
 	private String zipCode;
+	
+	/**
+	  * Nombre d'enfants de l'utilisateur.
+	  * (Cas où l'utilisateur est un adulte)
+	  * 
+	  * @since 1.0
+	  * */
 	private String numberOfChild;
+
+	/**
+	  * Date d'obtention du permis de conduire de l'utilisateur.
+	  * (Cas où l'utilisateur est un adulte)
+	  * 
+	  * @since 1.0
+	  * */
 	private String driverLicenceDate;
+	
+	/**
+	  * Revenu net de l'utilisateur.
+	  * (Cas où l'utilisateur est un adulte)
+	  * 
+	  * @since 1.0
+	  * */
 	private String netIncome;
+	
+	/**
+	  * Profession de l'utilisateur.
+	  * (Cas où l'utilisateur est un adulte)
+	  * 
+	  * @since 1.0
+	  * */
 	private String profession;
+	
+	/**
+	  * Mot de passe de l'utilisateur.
+	  * 
+	  * @since 1.0
+	  * */
 	private String pwd;
+	
+	/**
+	  *	Login du parent 1 de l'utilisateur.
+	  * (Cas où l'utilisateur est un enfant)
+	  * 
+	  * @since 2.0
+	  * */
 	private String loginparent1;
+	
+	/**
+	  *	Login du parent 2 de l'utilisateur.
+	  * (Cas où l'utilisateur est un enfant)
+	  * 
+	  * @since 2.0
+	  * */
 	private String loginparent2;
 	
+	/**
+	 * Connexion à la base de données.
+	 * 
+	 * <p>
+	 * Pour plus d'informations sur la connexion à la base de données,regarder 
+	 * la documentation de la classe BDconnection.
+	 * </p>
+	 * @see BDconnection
+	 * @since 1.0
+	 * */
 	private BDconnection bdd = new BDconnection();
+	
+	/**
+	 * Interface principale contenant les éléments permettant l'inscription.
+	 * 
+	 * @since 1.0
+	 **/
 	private JFrame fenetre1;
+	
+	/**
+	 * Interface demandant la catégorie à l'utilisateur afin d'adapter le formulaire.
+	 * 
+	 * @since 1.0
+	 **/
 	private JFrame demande;
+	
+	/**
+	  * Case d'entrée du numéro de téléphone de l'utilisateur.
+	  * 
+	  * @since 1.0
+	  * */
+	private JFormattedTextField numero;
+	
+	/**
+	  * Case d'entrée de la date de naissance de l'utilisateur.
+	  * 
+	  * @since 1.0
+	  * */
+	private JFormattedTextField date;
+	
+	/**
+	  * Case d'entrée du code postal de l'utilisateur.
+	  * 
+	  * @since 1.0
+	  * */
+	private JFormattedTextField postal;
+	
+	/**
+	  * Case d'entrée du nombre d'enfants de l'utilisateur.
+	  * (Cas où l'utilisateur est un adulte)
+	  * 
+	  * @since 1.0
+	  * */
+	private JFormattedTextField nombre;
+	
+	/**
+	  *Case d'entrée de la date d'obtention du permis de conduire de l'utilisateur.
+	  *(Cas où l'utilisateur est un adulte)
+	  * 
+	  * @since 1.0
+	  * */
+	private JFormattedTextField permi;
+	
+	/**
+	  * Case d'entrée du revenu net annuel de l'utilisateur.
+	  * (Cas où l'utilisateur est un adulte)
+	  * 
+	  * @since 1.0
+	  * */
+	private JTextField annuel;
+	
+	/**
+	  * Case d'entrée du prénom de l'utilisateur.
+	  * 
+	  * @since 1.0
+	  * */
 	private JTextField surnam;
+	
+	/**
+	  * Case d'entrée du nom de l'utilisateur
+	  * 
+	  * @since 1.0
+	  * */
 	private JTextField nam;
+	
+	/**
+	  * Case d'entrée du sexe de l'utilisateur
+	  * 
+	  * @since 1.0
+	  * */
 	private JComboBox sex;
+	
+	/**
+	  * Case d'entrée de l'adresse de l'utilisateur
+	  * 
+	  * @since 1.0
+	  * */
 	private JTextField adresss;
+	
+	/**
+	  * Case d'entrée de la ville de naissance de l'utilisateur
+	  * 
+	  * @since 1.0
+	  * */
 	private JTextField birthciti;
+	/**
+	  * Case d'entrée de la situation familiale de l'utilisateur.
+	  * (Cas où l'utilisateur est un adulte)
+	  * 
+	  * @since 1.0
+	  * */
 	private JComboBox familiale;
+	
+	/**
+	  * Case d'entrée de l'email de l'utilisateur
+	  * 
+	  * @since 1.0
+	  * */
 	private JTextField mail;
+	
+	/**
+	  * Case d'entrée de la ville de l'utilisateur
+	  * 
+	  * @since 1.0
+	  * */
 	private JTextField city;
+	
+	/**
+	  * Case d'entrée de la profession de l'utilisateur.
+	  * (Cas où l'utilisateur est un adulte)
+	  * 
+	  * @since 1.0
+	  * */
 	private JComboBox professionel;
+	
+	/**
+	  * Case d'entrée du mot de passe de l'utilisateur
+	  * 
+	  * @since 1.0
+	  * */
 	private JTextField secret;
+	
+	/**
+	  * Case d'entrée du login parent 1 de l'utilisateur
+	  * (Cas où l'utilisateur est un enfant)
+	  * 
+	  * @since 2.0
+	  * */
 	private JTextField loginp1;
+	
+	/**
+	  * Case d'entrée du login parent 2 de l'utilisateur
+	  * (Cas où l'utilisateur est un enfant)
+	  * 
+	  * @since 2.0
+	  * */
 	private JTextField loginp2;
 	
 	
-	
+	/**Constructeur 1 Inscription
+	  * <p>
+	  * Crée un formulaire d'inscription pour l'utilisateur.
+	  * </p>
+	  * @param _cat
+	  * 		Catégorie de l'utilisateur
+	  * @since 1.0
+	  * */
 	public Inscription(String _cat) {
 		
 		category = _cat;
@@ -298,7 +570,15 @@ public class Inscription{
 		fenetre1.setVisible(true);
 		
 		}
-
+	
+	/**Constructeur 2 Inscription
+	 * <p>
+	  * Demande à l'utilisateur sa catégorie.
+	  *</p>
+	  * 
+	  * @see Inscription#setCategory
+	  * @since 2.0
+	  * */
 	public Inscription() {
 		demande = new JFrame("Vous êtes ?");
 		JPanel pan = new JPanel();
@@ -322,13 +602,28 @@ public class Inscription{
 	}
 	
 
-	
-	private void setCategory(String cat) {
+	/**
+	 * Récupère la catégorie entrée par l'utilisateur puis crée un formulaire adapté.
+	  * 
+	  *@param cat
+	  * 		Catégorie de l'utilisateur.
+	  * @since 2.0
+	  * */
+	public void setCategory(String cat) {
 		demande.dispose();
 		new Inscription(cat);
 		
 	}
-
+	
+	
+	/**
+	 * Inscrit l'utilisateur dans la base de données,
+	 * donne un identifiant unique et redirige vers la page de connexion.
+	  * 
+	  * @param cat
+	  * 		Catégorie de l'utilisateur.
+	  * @since 1.0
+	  * */
 	public void inscrit(String cat) {
 		
 		name = surnam.getText();
@@ -419,11 +714,25 @@ public class Inscription{
 				
 	}
 	
+	/**
+	 * Permet de retourner à la page de connexion.
+	  * 
+	  * @see PagedeConnection
+	  * @since 2.0
+	  * */
 	public void retour() {
 		fenetre1.dispose();
 		new PagedeConnection();
 	}
 	
+	/**
+	 * Vérifie si l'année en paramètre est bissextile
+	 * 
+	  *@param year
+	  *		Année à vérifier. 
+	  *@return true si l'année est bissextile,false sinon.
+	  * @since 3.0
+	  * */
 	public boolean bissextile(int year) {
 
 	    if ((year % 400 == 0) || ((year % 4 == 0) && (year % 100 != 0))) {
@@ -433,6 +742,16 @@ public class Inscription{
 	    }
 	    }
 	 
+	
+	/**
+	 * Vérifie si la date en paramètre est valide.
+	 * 
+	  *@param date
+	  *		Date à vérifier. 
+	  *@return true si la date est valide,false sinon.
+	  *@since 3.0
+	  * 
+	  */
 	 public boolean DateValid(String date){
 		 try {
 			 System.out.println(date.length());
@@ -469,16 +788,36 @@ public class Inscription{
 	        
 	    }
 	 
-	 public boolean jours30(int a) {
+	 
+	 /**
+	  * Vérifie si le mois entré en paramètre à 30 jours.
+	  * 
+	  *@param mois
+	  *		Mois à vérifier. 
+	  *@return true si le mois a 30 jours,false sinon.
+	  *@see Inscription#jours30
+	  *@since 3.0
+	  * 
+	  */
+	 public boolean jours30(int mois) {
 		 int[] tab = {4,6,9,11};
-		 for (int mois : tab) {
-			if (mois == a) {
+		 for (int a : tab) {
+			if (a == mois) {
 				return true;
 			}
 		}
 		 return false;
 	 }
 		
+	 /**
+		 * Vérifie si l'email en paramètre est valide.
+		 * 
+		  *@param email
+		  *		Email à vérifier. 
+		  *@return True si l'email est valide,false sinon.
+		  *@since 3.0
+		  * 
+		  */
 	 public boolean EmailValidator(String email) {
 		 if (email == null) {
 			return true;
@@ -487,7 +826,12 @@ public class Inscription{
 
 	    }
 		
-	
+	 /**
+	  * Vérifie si les champs du formulaires sont vides.
+	  * 
+	  * @return True si au moins un champ obligatoire est vide,false sinon.
+	  * @since 1.0
+	  * */
 	public boolean ChampsVide() {
 		if (category.equals("Adulte") && (name.equals("") || surname.equals("") || sexe.equals("") || adress.equals("") || phoneNumber.equals("##-##-##-##-##") 
 				|| birthdate.equals("##-##-####") || birthcity.equals("")
@@ -502,10 +846,15 @@ public class Inscription{
 	}
 	
 	
-	
 
-
-	//Génération aléatoire du login de l'utilisateur
+	/**
+	 * Génère un login aléatoire unique.
+	  * 
+	  * @return Un Login composé de chiffre.
+	  * 
+	  * @see Inscription#exist
+	  * @since 1.0
+	  * */
 	public String LoginGenerator() {
 		while(true) {
 			String numbers = "0123456789";
@@ -520,7 +869,14 @@ public class Inscription{
 		}
 	}
 
-	//Vérifie si un utilisateur existe ou pas
+	/**
+	 * Vérifie si l'utilisateur existe dans la base de données.
+	  * 
+	  * @param login
+	  * 	Login de l'utilisateur
+	  *@return True si l'utilisateur existe,false sinon.
+	  * @since 1.0
+	  * */
 	public boolean exist(String login) {
 		String req = "Select * from Person where login = \""+login+"\"";
 		ResultSet rs =bdd.getResult(req);
@@ -529,6 +885,16 @@ public class Inscription{
 	
 	
 	//mise en format SQL des dates (ex: 10-12-1995 -> 1995-12-10)
+	/**
+	 * Mets la date en paramètre en format YYYY/MM/JJ
+	  * 
+	  * @param date
+	  * 		Date en format JJ/MM/YYYY
+	  * 
+	  * @return Date en format YYYY/MM/JJ
+	  * 
+	  * @since 3.0
+	  * */
 	public String dateFormatSQL(String date) {
 		String[] tab = date.split("-");
 		date = String.join("-", tab[2],tab[1],tab[0]);

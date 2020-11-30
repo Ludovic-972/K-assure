@@ -17,21 +17,73 @@ import BDgestion.BDconnection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-
+/**
+ *  PagedeConnection est la classe permettant de se connecter au logiciel K-assure 
+ * 
+ * @author Gaëtan Lory
+ * @version 2.0
+ * */
 public class PagedeConnection {
+	
 	/**
+	 * Interface principale contenant les éléments permettant l'authentification.
 	 * 
-	 */
+	 * @since 1.0
+	 **/
 	private JFrame f;
+	
+	/**
+	 * Bouton de connexion.
+	 * 
+	 * @since 1.0
+	 * */
 	private JButton Connex;
+	
+	/**
+	 * Login de l'utilisateur récupéré à la connexion.
+	 * 
+	 * @see PagedeConnection
+	 * @since 1.0
+	 * */
 	private String user;
+	
+	/**
+	 * Bouton d'inscription.
+	 * 
+	 * @since 1.0
+	 * */
 	private JButton inscription;
+	
+	/**
+	 * Mot de passe de l'utilisateur récupéré dans un tableau de caractère.
+	 * 
+	 * @since 1.0
+	 * */
 	private char[] pwd;
+	
+	/**
+	 * Connexion à la base de données.
+	 * 
+	 * <p>
+	 * Pour plus d'informations sur la connexion à la base de données,regarder 
+	 * la documentation de la classe BDconnection.
+	 * <p>
+	 * @see BDconnection
+	 * @since 1.0
+	 * */
 	private BDconnection bdd = new BDconnection();
-
+	
+	
+	
+	/**
+	 * Constructeur de Page de connexion.
+	 *  <p>
+	 * A la création de la page, une interface est créée où il faut s'inscrire ou se connecter.
+	 * </p>
+	 * 
+	 * @since 1.0
+	 * */
 	public PagedeConnection() {
-		
-		
 		
 		//creation des elements de zone de texte et de champ de texte
 	    JLabel User= new JLabel("Username", JLabel.CENTER);
@@ -64,9 +116,24 @@ public class PagedeConnection {
 	    f.setLocationRelativeTo(null);
 	    f.setVisible(true);
 	}
-	 public void actionPerformed(String Username,char[] cs) {
+	
+	/**
+	 * Connecte l'utilisateur sauf si il n'existe pas.
+	 * 
+	 * @param username
+	 * 			L'identifiant de l'utilisateur.
+	 * @param cs
+	 * 			Le mot de passe de l'utilisateur
+	 * 
+	 * @see PagedeConnection#getCategory
+	 * @see PagedeConnection#estInscrit
+	 * @see PagedeConnection#isAdmin
+	 * 
+	 * @since 1.0
+	 * */
+	 public void actionPerformed(String username,char[] cs) {
 		 
-		 user = Username;
+		 user = username;
 		 pwd = cs;
 			 
 		 if (isAdmin(user, pwd)) {
@@ -83,12 +150,26 @@ public class PagedeConnection {
 		 }
 	 }
 	 
-	
+	 /**
+	 * Ferme la page de connexion et envoie l'utilisateur sur la page d'inscription.
+	 *  	 
+	 * @since 2.0
+	 *
+	 **/
 	public void inscription() {
 		f.dispose();
 		new Inscription();		
 	}
 	
+	/**
+	 * Récupère la catégorie de l'utilisateur(enfant ou adulte) de façon
+	 * à adapter le logiciel à ses besoins.
+	 * 
+	 * @return La catégorie de l'utilisateur ou une chaîne de caractère vide si 
+	 * 			il y a une erreur de récupération.
+	 * 
+	 * @since 2.0
+	 * */
 	public String getCategory() {
 		ResultSet category = bdd.getResult("SELECT category from Person where login = '"+user+"'");
 		try {
@@ -102,7 +183,17 @@ public class PagedeConnection {
 		return "";
 	}
 	 
-	 
+	/**
+	 * Vérifie si l'utilisateur est inscrit.
+	 * 
+	 * @param username
+	 * 			L'identifiant de l'utilisateur.
+	 * @param pw
+	 * 			Le mot de passe de l'utilisateur
+	 * 
+	 * @return True si l'utilisateur est inscrit,false sinon.
+	 * @since 2.0
+	 * */
 	 public boolean estInscrit(String username, char[] pw) {
 		ResultSet inscrit = bdd.getResult("SELECT login,pwd from Person where login = '"+username+"'");
 		char[] inscrit_pwd = null;
@@ -110,13 +201,27 @@ public class PagedeConnection {
 			while(inscrit.next())
 				inscrit_pwd = inscrit.getString(2).toCharArray();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			return false;
 		}
 		if (Arrays.equals(inscrit_pwd,pw)) {
 			return true;
 		}
 		return false;
-	}
+	 }
+	 
+	 /**
+	 *  Vérifie l'identifiant et le mot de passe entrés par l'user
+	 *  pour savoir si c'est un administrateur.
+	 *  
+	 * @param username
+	 * 			L'identifiant de l'utilisateur.
+	 * @param pw
+	 * 			Le mot de passe de l'utilisateur
+	 * 
+	 *  @return True si l'utilisateur est un administrateur,false sinon.
+	 *  
+	 * @since 1.0
+	 * */
 	public boolean isAdmin(String username,char[] pw) {
 		 char[] AdminPass = new char[] {'a','d','m','i','n'};
 		 if (username.equals("Admin") && Arrays.equals(pw,AdminPass)) {
@@ -124,9 +229,18 @@ public class PagedeConnection {
 		 }
 		 return false;	 
 	 }
-	 
-	 public static void main(String[] args) {
+	
+	
+	/**
+	 * Méthode principale qui crée la Page de connection
+	 * 
+	 * @param args
+	 * 		Tableau de String
+	 * @since 1.0
+	 * */
+	public static void main(String[] args) {
 		new PagedeConnection();
+		
 	}
 	
 	 

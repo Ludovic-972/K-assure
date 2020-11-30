@@ -2,14 +2,14 @@ package BDgestion;
 import java.sql.*;
 
 /**
- * <b>BDconnection est la classe utilisée pour créer une connexion à la base de données</b>
+ * BDconnection est la classe utilisée pour créer une connexion à la base de données
  * <p>
  * Elle contient une instance de la classe Connection qui réalise 
  * la connexion et l'authentification à la base de données. 
  * </p>
  * <p>
  * De plus cette classe permet d'envoyer les reqûetes SQL à la base de données 
- * pour les exécuter et occasionnellement renvoyer les données dans un ResultSet.
+ * pour les exécuter ou renvoyer les données dans un ResultSet.
  * </p>
  * @author Ludovic Mathurin-Cayol
  * @version 2.0
@@ -18,7 +18,10 @@ import java.sql.*;
 public class BDconnection{
 	
 	/**
+	 * Connexion et authentification à la bases de données.
 	 * 
+	 * @see BDconnection
+	 * @since 1.0
 	 * */
 	private Connection connection;
 	
@@ -28,12 +31,6 @@ public class BDconnection{
 	 *A la construction d'un objet BDconnection une connexion et une authentification
 	 *à la base de données est créée par le biais d'une instance de la classe Connection. 
 	 *</p>
-	 *<p>
-	 *La connexion se fait d'abord par le chargement du pilote JDBC puis
-	 *par une instance de la classe Driver et enfin l'authentification 
-	 *à la base grâce à l'url de celle-ci,le login de l'utilisateur et son mot de passe.
-	 *</p>
-	 *
 	 *
 	 *@see BDconnection#connection 
 	 *
@@ -105,14 +102,6 @@ public class BDconnection{
 	 *<p>
 	 *Retourne un ResultSet contenant les données renvoyées
 	 *par la bases de données grâce à une requête SQL de type <i>SELECTs</i>.
-	 *Le ResultSet a deux arguments:
-	 *</p>
-	 *<ul>
-	 *	<li> TYPE_SCROLL_INSENSITIVE : ResultSet insensible aux modifications des valeurs dans la base de données.
-	 *								   Vue statique des données du ResultSet.
-	 *	<li> CONCUR_READ_ONLY: Indique que les données du ResultSet ne peuvent qu'être lues;
-	 *</ul>
-	 *
 	 *
 	 *@param req :Requête SQL envoyé à la base de donnée grâce à un Statement.
 	 *
@@ -146,13 +135,6 @@ public class BDconnection{
 	/**
 	 * <p>
 	 * Exécute la requête demandée généralement utilisée pour les <i>INSERTs</i> ou les <i>UPDATEs</i>.
-	 * Le ResultSet défini dans la création du Statement a deux arguments:
-	 *</p>
-	 *<ul>
-	 *	<li> TYPE_SCROLL_INSENSITIVE : ResultSet insensible aux modifications des valeurs dans la base de données.
-	 *								   Vue statique des données du ResultSet.
-	 *	<li> CONCUR_READ_ONLY: Indique que les données du ResultSet ne peuvent qu'être lues;
-	 *</ul>
 	 * 
 	 * @param req: Requête SQL envoyé à la base de donnée grâce à un Statement.
 	 * 
