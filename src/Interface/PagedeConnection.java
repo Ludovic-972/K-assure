@@ -20,7 +20,7 @@ import java.sql.SQLException;
 /**
  *  PagedeConnection est la classe permettant de se connecter au logiciel K-assure 
  * 
- * @author Gaëtan Lory
+ * @author Gaëtan Lory,Mathurin-Cayol Ludovic
  * @version 2.0
  * */
 public class PagedeConnection {

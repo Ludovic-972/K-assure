@@ -99,11 +99,7 @@ public class PageAccueil extends JFrame{
         if (choix == "Contact") {
         	Contact Contact = new Contact(utilisateur.getLogin(),utilisateur.getCategory());
         	Contact.setVisible(true);
-        	this.dispose();
-        	
-        	
-        	
-        	
+        	this.dispose();        	
         }
       //Ouverture de la classe Contrat si le fichier contrat a ete selectionner dans l'arbre
         else if (choix =="Contrats") {

@@ -1,41 +1,49 @@
 package Assurance;
 
 import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.util.Date;
 
-
+import javax.swing.AbstractButton;
+import javax.swing.Action;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-@SuppressWarnings({ "rawtypes", "unchecked", "serial" })
-public class Sante extends JFrame implements ItemListener{
+@SuppressWarnings({ "unused", "serial" })
+public class Sante extends JFrame {
 	
-	private JPanel panel;
-	private static JButton[] t;
-	private String get;
-
+	//Implementation des différentes variable
+	public JPanel panel,JP2;
+	private String get,JCBS[],Nombre,type,type1,type2,type3;
+	private int n;
 	
+	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public Sante(Object sante) {
 		
-		this.setLayout(new BorderLayout());
-		this.setSize(500,500);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setTitle("Santé");
-		this.setLocationRelativeTo(null);
-		this.setResizable(true);
+		
 				 
 		panel = new JPanel();
 
-		this.add(panel, BorderLayout.NORTH);
-		this.setVisible(true);
-		
+		//creation d'une fenetre déroulante pour le choixdu nombre de personne
 		JComboBox nbPersonne = new JComboBox();
+		
+		//ajout des choix
 		nbPersonne.addItem("0");
 		nbPersonne.addItem("1");
 		nbPersonne.addItem("2");
@@ -44,29 +52,71 @@ public class Sante extends JFrame implements ItemListener{
 		nbPersonne.addItem("5");
 		nbPersonne.addItem("6");
 		nbPersonne.addItem("7");
-		nbPersonne.addItemListener(event -> tranchedage(event,sante) );
 		
+		//Ajout d'un itemListener pour le choix fait 
+		nbPersonne.addItemListener(event -> NumberOfFamilyNumber(event,sante) );
+		
+		//ajout de  la fenetre deroulante au panel
 		panel.add(nbPersonne);
 		
-	}
-	public void tranchedage(ItemEvent nb, Object sante) {
-		// TODO Auto-generated method stub
-		String Nombre =(String)nb.getItem();
-		int n = Integer.parseInt(Nombre);
 		
-
+		//Reglage de la fenetre
+		this.setLayout(new BorderLayout());
+		this.setSize(500,500);
+		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		this.setTitle("Santé");
+		this.setLocation(1150,320);
+		this.setResizable(true);
+		this.add(panel, BorderLayout.NORTH);
+		this.setVisible(true);	
+	}
+	
+	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	
+	//methode d'action suite à la selection du nombre de personnes choisi
+	public void NumberOfFamilyNumber(ItemEvent nb, Object sante) {
+		
+		//transforme l'ibjet de la fenetre deroulante en nombre
+		Nombre =(String)nb.getItem();
+		n = Integer.parseInt(Nombre);
+		
+		//empeche de recuperer la valeur de la premier case de la fenetre deroulante
+		if (n==0);
+		
+		//permet de recuperer l'information dans un terminal
+		System.out.println(n);
+		
+		//creation des elements du panel
 		JComboBox[] JCB;
-		JComboBox[] TJCB;
-		TJCB=new JComboBox[n];
+		JCheckBox TJCB,TJCB1,TJCB2,TJCB3,TJCB4;
+		TJCB=new JCheckBox();
+		TJCB1 = new JCheckBox();
+		TJCB2=new JCheckBox();
+		TJCB3=new JCheckBox();
 		JCB = new JComboBox[n];
-		panel.setLayout(new GridLayout(n, 3, 7, 7));
+		
+		//Layout du panel
+		panel.setLayout(new GridBagLayout());
+		GridBagConstraints c = new GridBagConstraints();
+		
+		//indique au panel de prendre toute la place libre horizontalement
+		c.fill = GridBagConstraints.HORIZONTAL;
+		    
+		   
+		
+		//selecteur
 		if (  nb.getItem() == "0") {
 	}
 	else {	 
+		//on ferme la fenetre precedente pour effacer les anciennes données
 			panel.removeAll();	
-			t = new JButton[n];
+			
+			//on fait une boucle pour la creation des elements en fonction du nombre de personnes a assurer
 			for(int i=0;i<n;i++) {
 				int x=i;
+				
+				//ajout des elements a la fenetre deroulante
 					 JCB[i]=new JComboBox();
 					 JCB[i].addItem(" ");
 					 JCB[i].addItem("1-10");
@@ -75,65 +125,120 @@ public class Sante extends JFrame implements ItemListener{
 					 JCB[i].addItem("25-50");
 					 JCB[i].addItem("50-110");
 					 JCB[i].getSelectedItem();
-					 panel.add(JCB[i]);
-					 TJCB[i]=new JComboBox();
-					 TJCB[i].addItem("");
-					 TJCB[i].addItem("Opti");
-					 TJCB[i].addItem("gene");
-					 TJCB[i].addItem("specia");
-					 TJCB[i].addItem("denti");
-					 panel.add(TJCB[i]);
-					 					 
-					 t[x] = new JButton();
-					 panel.add(t[i]);
-				 t[i].addActionListener(event -> CreeAge((String) TJCB[x].getSelectedItem(),(String) JCB[x].getSelectedItem()));
+					 JCB[i].addActionListener(event -> RecupTrancheAge(JCB[x].getSelectedItem()));
 					 
-					
-				}
-			JPanel p2 = new JPanel();
-			p2.setLayout(new GridLayout(1,2,7,7));
-			JLabel JL = new JLabel("Information Complementaire",JLabel.CENTER);
-			JL.setSize(150,50);
-			JTextField JTF =new JTextField();
-			JTF.setSize(200,50);
-			
-			JButton JB = new JButton("validez");
-			p2.add(JL);
-			p2.add(JTF);
-			
-			
-			JPanel p3 = new JPanel();
-			p3.add(JB);
-			p3.setSize(230,500);
-			add(p3,BorderLayout.SOUTH);
-			JB.addActionListener(event -> AjoutComplementaire(JTF.getText()) );
-			
-			
-				
-			
-			
-			this.add(p2);
+					 //Tout ces if permettent le positionnement des fenetre a l'emplacement souhaiter dans le Layout en fonction du nombre de personne
+					    if(i==0) {
+					    c.gridx=0;
+					    c.gridy =i ;
+					    }
+					    else if (i==1) {
+					    	c.gridx=0;
+					    	c.gridy =2;
+					    }
+					    else {
+					    	c.gridx=0;
+					    	c.gridy =i*2;
+					    }
+					 panel.add(JCB[i],c);
+					 
+					 //creation des diffrente check box qui definise les couverture santés disponible et souhaiter pour chaque individue
+					 TJCB=new JCheckBox("Opti");
+					 	c.weightx = 0.25;
+					    c.fill = GridBagConstraints.HORIZONTAL;
+					    c.gridx = 0;
+					    
+					    //pareil que precedement on definit le positionnement des check box en fonction du nombre de personne
+					    if(i==0) {
+						    c.gridy =1 ;
+						    }
+					    else if (i==1) {
+					       	c.gridy =3;
+					    }
+					    else {
+					    	c.gridy =i*2+1;
+					    }
+					    
+					    type = TJCB.getText();
+					   
+					    //ici on recupere si la case est coche ou non et le contenue de la case pour pouvoir les envoyer plus tard dans un autre terminale
+					    TJCB.addItemListener(event-> recuptype(event,type));
+					    panel.add(TJCB, c);
+					    
+					 TJCB1=new JCheckBox("gene");
+					 	c.fill = GridBagConstraints.HORIZONTAL;
+					    c.weightx = 0.25;
+					    c.gridx = 1;
+					    if(i==0) {
+						    c.gridy =1 ;
+						    }
+					    else if (i==1) {
+					       	c.gridy =3;
+					    }
+					    else {
+					    	c.gridy =i*2+1;
+					    }
+					    type1 = TJCB1.getText();
+					    TJCB1.addItemListener(event-> recuptype(event, type1)); 
+					    panel.add(TJCB1, c);
+					    
+					 TJCB2=new JCheckBox("specia");
+					 	c.fill = GridBagConstraints.HORIZONTAL;
+					    c.weightx = 0.25;
+					    c.gridx = 2;
+					    if(i==0) {
+						    c.gridy =1 ;
+						    }
+					    else if (i==1) {
+					       	c.gridy =3;
+					    }
+					    else {
+					    	c.gridy =i*2+1;
+					    }    
+					    type2 = TJCB2.getText();
+					    TJCB2.addItemListener(event-> recuptype(event, type2));
+					    panel.add(TJCB2, c);
+					   
+					 TJCB3=new JCheckBox("denti");
+					 c.fill = GridBagConstraints.HORIZONTAL;
+					    c.weightx = 0.25;
+					    c.gridx = 3;
+					    if(i==0) {
+						    c.gridy =1 ;
+						    }
+					    else if (i==1) {
+					       	c.gridy =3;
+					    }
+					    else {
+					    	c.gridy =i*2+1;
+					    }
+					    type3 = TJCB3.getText();
+					    TJCB3.addItemListener(event-> recuptype(event, type3));
+					    panel.add(TJCB3, c);
+					    
+					}
 			this.setVisible(true);
+			this.setLocation(1150,320);;
 		}	
 		
 	}
-	private void AjoutComplementaire(String text) {
-		// TODO Auto-generated method stub
+	
+	//ici on permet la recuperation des type de couverture souhaiter
+	private void recuptype(ItemEvent event, String _type) {
+		//on transforme l'event soit la box est check soit elle ne l'ai pas (0 ou 1)
+		int checked = event.getStateChange();
 		
-	System.out.println(text);
-		
-		
+		//verification si la box est check ou non si elle n'est aps check on ne recupere pas l'information (permet de uncheck sans rerecevoir l'information)
+		if(checked == 1)
+		System.out.println(_type);
 	}
-	private void CreeAge(String type, String age) {
-		// TODO Auto-generated method stub
-		System.out.println(type+" "+age);
-	}
-	@Override
-	public void itemStateChanged(ItemEvent e) {
-		// TODO Auto-generated method stub
-		
+	
+	//Permet de recuperer les information sur la tranche d'age des individues
+	private void RecupTrancheAge(Object object) {
+		System.out.println(object);
 	}
 
+	
 		
 		
 	

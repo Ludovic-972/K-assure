@@ -26,10 +26,9 @@ import BDgestion.BDconnection;
 /**
  * Inscription est la classe permettant de s'inscrire au logiciel K-assure.
  * 
- * @author Charpentier Ewan,Rittaud Paul
+ * @author Charpentier Ewan,Rittaud Paul,Mathurin-Cayol
  * @version 3.0
  * */
-@SuppressWarnings({ "unchecked", "rawtypes" })
 public class Inscription{
 	
 	/**
@@ -264,7 +263,7 @@ public class Inscription{
 	  * 
 	  * @since 1.0
 	  * */
-	private JComboBox sex;
+	private JComboBox<String> sex;
 	
 	/**
 	  * Case d'entrée de l'adresse de l'utilisateur
@@ -285,7 +284,7 @@ public class Inscription{
 	  * 
 	  * @since 1.0
 	  * */
-	private JComboBox familiale;
+	private JComboBox<String> familiale;
 	
 	/**
 	  * Case d'entrée de l'email de l'utilisateur
@@ -307,7 +306,7 @@ public class Inscription{
 	  * 
 	  * @since 1.0
 	  * */
-	private JComboBox professionel;
+	private JComboBox<String> professionel;
 	
 	/**
 	  * Case d'entrée du mot de passe de l'utilisateur
@@ -374,7 +373,7 @@ public class Inscription{
 
 		
 		JLabel sexes = new JLabel("Sexe :");
-		sex = new JComboBox();
+		sex = new JComboBox<String>();
 		sex.addItem("");
 		sex.addItem("Homme");
 		sex.addItem("Femme");
@@ -416,7 +415,7 @@ public class Inscription{
 		
 		if (_cat.equals("Adulte")) {
 			JLabel situation = new JLabel("Situation familiale :");
-			familiale = new JComboBox();
+			familiale = new JComboBox<String>();
 			familiale.addItem("");
 			familiale.addItem("Marié.e");
 			familiale.addItem("Pacsé.e");
@@ -499,7 +498,7 @@ public class Inscription{
 		panel1.add(annuel);
 		
 		JLabel professions = new JLabel("Profession :");
-		professionel = new JComboBox();
+		professionel = new JComboBox<String>();
 		professionel.addItem("");
 		professionel.addItem("Salarié.e");
 		professionel.addItem("Salarié.e cadre");

@@ -19,8 +19,6 @@ import javax.swing.tree.DefaultMutableTreeNode;
 
 
 
-
-@SuppressWarnings("serial")
 public class PageAdmin extends JFrame {
 	private JTree tree;
     private DefaultMutableTreeNode root;
