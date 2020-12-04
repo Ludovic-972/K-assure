@@ -1,26 +1,72 @@
 package Assurance;
 
-public class Refund extends RefundRequest {
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
-	private int amount;
+import BDgestion.BDconnection;
+
+public class Refund{
 	
-    public Refund(String _level, String _sector, int _amount) {
-		super(_level, _sector);
-
-		this.amount = _amount;
+	
+	private int niveau;
+	BDconnection bdd = new BDconnection();
+	
+	public Refund(String type,String code) {
+		switch (type) {
+			case "Habitation":
+				HabitationRefund(code);
+				break;
+			case "Santé":
+				SanteRefund(code);
+				break;
+			case "Scolaire":
+				ScolaireRefund(code);
+				break;
+			case "Vehicule":
+				VehiculeRefund(code);
+				break;
+	
+			default:
+				break;
+		}
 	}
 
+	private void VehiculeRefund(String code) {
+		ResultSet assu = bdd.getResult("SELECT * FROM VehicleAssurance WHERE codeVA="+code);
+		ResultSet vehicle = bdd.getResult("SELECT * FROM `Vehicle` where plateNumber = (SELECT vehicle from VehicleAssurance where codeVA = "+code+")");
+		List<Object> info_vehicle = new ArrayList<>();
+		List<Object> info_assu = new ArrayList<>();
+		
+		try {
+			for (int i = 1; assu.next(); i++) {
+				info_assu.add(i);
+			}
+			for (int i = 1; vehicle.next(); i++) {
+				info_vehicle.add(i);
+			}
+			
+		} catch (Exception e) {
+			System.out.println("Erreur de récupération d'information.");
+		}
+		
+	}
 
-    
-    void setAmount(int value) {
-        // Automatically generated method. Please delete this comment before entering specific code.
-        this.amount = value;
-    }
+	private void ScolaireRefund(String code) {
+		// TODO Auto-generated method stub
+		
+	}
 
-    
-    int getAmount() {
-        // Automatically generated method. Please delete this comment before entering specific code.
-        return this.amount;
-    }
+	private void SanteRefund(String code) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void HabitationRefund(String code) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+
 
 }

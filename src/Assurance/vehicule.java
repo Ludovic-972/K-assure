@@ -12,7 +12,7 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-@SuppressWarnings({ "unchecked", "rawtypes", "serial" })
+
 public class Vehicule extends JFrame implements ItemListener, ActionListener{
 	private JPanel panel;
 	private JPanel panel2;
@@ -36,7 +36,7 @@ public class Vehicule extends JFrame implements ItemListener, ActionListener{
 		this.add(panel2, BorderLayout.CENTER);
 		this.setVisible(true);
 		
-		JComboBox Marque = new JComboBox();
+		JComboBox<String> Marque = new JComboBox<String>();
 		Marque.addItem("");
 		Marque.addItem("Renault");
 		Marque.addItem("Peugeot");
@@ -59,20 +59,20 @@ public class Vehicule extends JFrame implements ItemListener, ActionListener{
 	 public void annee(ItemEvent nb) {
 		 if (  nb.getItem() == "") {
 			}else {
-		 JComboBox JCB=new JComboBox();	 
+		 JComboBox<String> JCB=new JComboBox<String>();	 
 		 JCB.addItem(" ");
 		 JCB.addItem("1-10");
 		 JCB.addItem("11-18");
 		 JCB.addItem("20+");
 		 JCB.addItemListener(event ->recup(event) );
 		 panel.add(JCB);
-		 JComboBox JCB1=new JComboBox();	 
+		 JComboBox<String> JCB1=new JComboBox<String>();	 
 		 JCB1.addItem(" ");
 		 JCB1.addItem("3");
 		 JCB1.addItem("5");
 		 JCB1.addItemListener(event ->recup(event) );
 		 panel.add(JCB1);
-		 JComboBox JCB2=new JComboBox();	 
+		 JComboBox<String> JCB2=new JComboBox<String>();	 
 		 JCB2.addItem(" ");
 		 JCB2.addItem("1-2");
 		 JCB2.addItem("3-6");
@@ -91,7 +91,7 @@ public class Vehicule extends JFrame implements ItemListener, ActionListener{
 			
 			if (source == home) {
 				this.dispose();
-				new Fenetre();
+				new PageAccueil("","");
 				
 			
 			}
