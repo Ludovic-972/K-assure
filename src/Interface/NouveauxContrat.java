@@ -25,7 +25,7 @@ public class NouveauxContrat extends JFrame implements ItemListener {
 		fenetre1.setSize(500,500);
 		fenetre1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		fenetre1.setTitle("formulaire");
-		fenetre1.setLocationRelativeTo(null);
+		fenetre1.setLocation(1200,280);
 		fenetre1.setResizable(true);
 		
 		

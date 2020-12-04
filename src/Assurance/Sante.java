@@ -1,3 +1,5 @@
+package Assurance;
+
 
 
 import java.awt.BorderLayout;
@@ -36,10 +38,11 @@ public class Sante extends JFrame {
 	private JCheckBox[] TJCB,TJCB1,TJCB2,TJCB3,TJCB4;
 	private JButton JBNumber,JBFormu;
 	private JLabel[] JL,JL1,JL2,JL3;
+	private JLabel Jl;
 	private int n,x;
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	Sante(Object sante) {
+	public Sante(Object sante) {
 		
 		
 				 
@@ -49,6 +52,9 @@ public class Sante extends JFrame {
 		nbPersonne = new JTextField();
 		nbPersonne.setColumns(10);
 		
+		//creation d'une zone de texte
+		Jl = new JLabel("Nombre de personne à assuerées");
+		
 		//creation d'un bouton de validation du choix
 		JBNumber = new JButton("Validez");
 		
@@ -56,6 +62,7 @@ public class Sante extends JFrame {
 		//Ajout d'un itemListener pour le choix fait 
 		JBNumber.addActionListener(event -> NumberOfFamilyNumber(nbPersonne.getText()));
 		//ajout de  la fenetre deroulante au panel
+		panel.add(Jl);
 		panel.add(nbPersonne);
 		panel.add(JBNumber);
 		

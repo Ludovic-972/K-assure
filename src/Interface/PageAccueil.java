@@ -23,6 +23,7 @@ public class PageAccueil extends JFrame{
     private DefaultMutableTreeNode root;//initialisation de la racine de l'arbre de fichier
     private JPanel panel ;//initialisation  d'un conteneur panel 
     private Person utilisateur;
+    JLabel JL1,JL2,JL3;
 
     
     
@@ -37,15 +38,17 @@ public class PageAccueil extends JFrame{
         panel = new JPanel();//creation d'un conteneur
         root = new DefaultMutableTreeNode("Root");
         //creation des elements de l'arbre de fichier 
-        DefaultMutableTreeNode vegetableNode = new DefaultMutableTreeNode("Contact");
-        DefaultMutableTreeNode vegetableNode2 = new DefaultMutableTreeNode("Contrats");
-        
+        DefaultMutableTreeNode vegetableNode = new DefaultMutableTreeNode("Accueil");
+        DefaultMutableTreeNode vegetableNode2 = new DefaultMutableTreeNode("Nouveaux Contrat");
+        DefaultMutableTreeNode vegetableNode3 = new DefaultMutableTreeNode("Contact");
+        DefaultMutableTreeNode vegetableNode4 = new DefaultMutableTreeNode("FAQ");
+        DefaultMutableTreeNode vegetableNode5 = new DefaultMutableTreeNode("Compte");
         
         
     	//creation de zone de text, avec le text ainsi que sa position
-    	JLabel JL1 = new JLabel("Bonjour "+utilisateur.getSurname()+",", JLabel.CENTER);
-    	JLabel JL2 = new JLabel("Vous pouvez nous contactez via la page dédiez", JLabel.CENTER);
-    	JLabel JL3 = new JLabel("Ou bien vous renseignez sur les contrats existant", JLabel.CENTER);
+    	JL1 = new JLabel("Bonjour "+utilisateur.getSurname()+",", JLabel.CENTER);
+    	JL2 = new JLabel("Vous pouvez nous contactez via la page dédiez", JLabel.CENTER);
+    	JL3 = new JLabel("Ou bien vous renseignez sur les contrats existant", JLabel.CENTER);
     	
     	//Ajout des zones de text dans le conteneur
     	panel.add(JL1);
@@ -57,6 +60,8 @@ public class PageAccueil extends JFrame{
        
         root.add(vegetableNode);
         root.add(vegetableNode2);
+        root.add(vegetableNode3);
+        root.add(vegetableNode4);
          
         //creation de l'arbre en ajoutant la racine
         tree = new JTree(root);
@@ -68,8 +73,8 @@ public class PageAccueil extends JFrame{
         //ajout du Bouton, contneur et arbre a la fenetre
         add(Connection, BorderLayout.SOUTH);
         add(panel,BorderLayout.EAST);
-        add(tree);
-        add(new JScrollPane(tree)); // ajout d'une barre de scroll au cas ou la page serait reduite en taille
+        add(tree,BorderLayout.WEST);
+        add(new JScrollPane(panel)); // ajout d'une barre de scroll au cas ou la page serait reduite en taille
         
         
         //Ajout d'evenement "d'ecoute" pour le bouton et les fichier de l'arbre
@@ -84,6 +89,7 @@ public class PageAccueil extends JFrame{
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setTitle(utilisateur.getName()+" "+utilisateur.getSurname());       
         this.pack();
+        this.setSize(500,500);
         this.setLocationRelativeTo(null);
         this.setVisible(true);
     }
@@ -97,14 +103,24 @@ public class PageAccueil extends JFrame{
 
     	//Ouverture de la classe Contact si le fichier contact a ete selectionner dans l'arbre
         if (choix == "Contact") {
-        	Contact Contact = new Contact(utilisateur.getLogin(),utilisateur.getCategory());
-        	Contact.setVisible(true);
-        	this.dispose();        	
+        	JL1.setText("Voici la page de contact");
+        	JL2.setText("Numéro de téléphone : 0123456789");
+        	JL3.setText("Adresse Mail agence : KAssure@monmail.com");      	
         }
       //Ouverture de la classe Contrat si le fichier contrat a ete selectionner dans l'arbre
-        else if (choix =="Contrats") {
-//        	ici la page de Paulo      	
-        	
+        else if (choix =="Nouveaux Contrat") {
+        	new NouveauxContrat();
+        }
+        else if (choix =="FAQ") {
+// Page de Paulo
+        }
+        else if (choix =="Compte") {
+// Page du compte a venir
+        }
+        else if (choix =="Accueil") {
+        	JL1.setText("Bonjour "+utilisateur.getSurname()+",");
+        	JL2.setText("Vous pouvez nous contactez via la page dédiez");
+        	JL3.setText("Ou bien vous renseignez sur les contrats existant");   	
         }
         	
         }

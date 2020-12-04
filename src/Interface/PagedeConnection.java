@@ -238,10 +238,10 @@ public class PagedeConnection {
 	 * 		Tableau de String
 	 * @since 1.0
 	 * */
-	public static void main(String[] args) {
-		new PagedeConnection();
-		
-	}
+//	public static void main(String[] args) {
+//		new PagedeConnection();
+//		
+//	}
 	
 	 
 	 
