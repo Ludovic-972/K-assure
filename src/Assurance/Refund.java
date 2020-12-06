@@ -9,8 +9,10 @@ import BDgestion.BDconnection;
 public class Refund{
 	
 	
-	private int niveau;
-	BDconnection bdd = new BDconnection();
+	private int niveau = 0;
+	private float amount;
+
+	private BDconnection bdd = new BDconnection();
 	
 	public Refund(String type,String code) {
 		switch (type) {
@@ -30,6 +32,14 @@ public class Refund{
 			default:
 				break;
 		}
+	}
+	
+	public float getAmount() {
+		return amount;
+	}
+
+	public void setAmount(float amount) {
+		this.amount = amount;
 	}
 
 	private void VehiculeRefund(String code) {
@@ -53,7 +63,7 @@ public class Refund{
 	}
 
 	private void ScolaireRefund(String code) {
-		// TODO Auto-generated method stub
+
 		
 	}
 
@@ -63,8 +73,22 @@ public class Refund{
 	}
 
 	private void HabitationRefund(String code) {
-		// TODO Auto-generated method stub
+		ResultSet assu = bdd.getResult("SELECT * FROM HomeAssurance WHERE codeVA="+code);
+		ResultSet maison = bdd.getResult("SELECT * FROM `Vehicle` where plateNumber = (SELECT vehicle from HomeAssurance where codeVA = "+code+")");
+		List<Object> info_maison = new ArrayList<>();
+		List<Object> info_assu = new ArrayList<>();
 		
+		try {
+			for (int i = 1; assu.next(); i++) {
+				info_assu.add(i);
+			}
+			for (int i = 1; maison.next(); i++) {
+				info_maison.add(i);
+			}
+		
+		} catch (Exception e) {
+			System.out.println("Erreur de récupération d'information.");
+		}
 	}
 	
 

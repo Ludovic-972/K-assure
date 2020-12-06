@@ -23,7 +23,7 @@ public class PageAccueil extends JFrame{
     private DefaultMutableTreeNode root;//initialisation de la racine de l'arbre de fichier
     private JPanel panel ;//initialisation  d'un conteneur panel 
     private Person utilisateur;
-    JLabel JL1,JL2,JL3;
+    private JLabel JL1,JL2,JL3;
 
     
     
