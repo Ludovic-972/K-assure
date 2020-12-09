@@ -12,14 +12,21 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import Gestion.*;
 
+
+@SuppressWarnings("serial")
 public class Vehicule extends JFrame implements ItemListener, ActionListener{
 	private JPanel panel;
 	private JPanel panel2;
 	private JButton home;
 	
+	private Person user;
 	
-	public Vehicule() {
+	public Vehicule(String _user) {
+		user = new Person(_user);
+		if (user.getCategory().equals("Adulte")) 
+    		user = new Adult(_user);
 		
 		this.setLayout(new BorderLayout());
 		this.setSize(500,500);
@@ -91,7 +98,7 @@ public class Vehicule extends JFrame implements ItemListener, ActionListener{
 			
 			if (source == home) {
 				this.dispose();
-				new PageAccueil("","");
+				new PageAccueil(user.getLogin());
 				
 			
 			}

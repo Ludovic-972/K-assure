@@ -27,11 +27,11 @@ public class PageAccueil extends JFrame{
 
     
     
-    public PageAccueil(String user,String cat){	
-    	
-    	if (cat.equals("Adulte")) {
+    public PageAccueil(String user){	
+    	utilisateur = new Person(user);
+    	if (utilisateur.getCategory().equals("Adulte")) {
     		utilisateur = new Adult(user);
-		} else if (cat.equals("Enfant")){
+		} else if (utilisateur.getCategory().equals("Enfant")){
 			utilisateur = new Child(user);
 		}
     	
@@ -109,7 +109,7 @@ public class PageAccueil extends JFrame{
         }
       //Ouverture de la classe Contrat si le fichier contrat a ete selectionner dans l'arbre
         else if (choix =="Nouveaux Contrat") {
-        	new NouveauxContrat();
+        	new NouveauxContrat(utilisateur.getLogin());
         }
         else if (choix =="FAQ") {
 // Page de Paulo

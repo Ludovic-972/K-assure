@@ -143,7 +143,7 @@ public class PagedeConnection {
 		 }else if(estInscrit(user,pwd)){
 			 f.dispose();	
 			 System.out.println("Connexion User réussie");
-			 new PageAccueil(user,getCategory());
+			 new PageAccueil(user);
 		 }else {
 			 JOptionPane.showMessageDialog(null,"Login ou mot de passe incorrecte.");
 	 
@@ -161,27 +161,7 @@ public class PagedeConnection {
 		new Inscription();		
 	}
 	
-	/**
-	 * Récupère la catégorie de l'utilisateur(enfant ou adulte) de façon
-	 * à adapter le logiciel à ses besoins.
-	 * 
-	 * @return La catégorie de l'utilisateur ou une chaîne de caractère vide si 
-	 * 			il y a une erreur de récupération.
-	 * 
-	 * @since 2.0
-	 * */
-	public String getCategory() {
-		ResultSet category = bdd.getResult("SELECT category from Person where login = '"+user+"'");
-		try {
-			if (category.next()) {
-				return category.getString(1);
-			}
 
-		} catch (SQLException e) {
-			System.out.println("Erreur de récupération");
-		}
-		return "";
-	}
 	 
 	/**
 	 * Vérifie si l'utilisateur est inscrit.
@@ -231,17 +211,7 @@ public class PagedeConnection {
 	 }
 	
 	
-	/**
-	 * Méthode principale qui crée la Page de connection
-	 * 
-	 * @param args
-	 * 		Tableau de String
-	 * @since 1.0
-	 * */
-//	public static void main(String[] args) {
-//		new PagedeConnection();
-//		
-//	}
+	
 	
 	 
 	 

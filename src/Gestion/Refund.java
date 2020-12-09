@@ -1,4 +1,4 @@
-package Assurance;
+package Gestion;
 
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -8,25 +8,28 @@ import BDgestion.BDconnection;
 
 public class Refund{
 	
-	
+	private boolean inscrit = false;
 	private int niveau = 0;
 	private float amount;
+	private float price;
+	private Sinistre sinistre;
 
 	private BDconnection bdd = new BDconnection();
 	
-	public Refund(String type,String code) {
-		switch (type) {
+	public Refund(String name,int IDAssu) {
+		sinistre = new Sinistre(name);
+		switch (sinistre.getSector()) {
 			case "Habitation":
-				HabitationRefund(code);
+				HabitationRefund(IDAssu);
 				break;
 			case "Santé":
-				SanteRefund(code);
+				SanteRefund(IDAssu);
 				break;
 			case "Scolaire":
-				ScolaireRefund(code);
+				ScolaireRefund(IDAssu);
 				break;
 			case "Vehicule":
-				VehiculeRefund(code);
+				VehiculeRefund(IDAssu);
 				break;
 	
 			default:
@@ -42,9 +45,9 @@ public class Refund{
 		this.amount = amount;
 	}
 
-	private void VehiculeRefund(String code) {
-		ResultSet assu = bdd.getResult("SELECT * FROM VehicleAssurance WHERE codeVA="+code);
-		ResultSet vehicle = bdd.getResult("SELECT * FROM `Vehicle` where plateNumber = (SELECT vehicle from VehicleAssurance where codeVA = "+code+")");
+	private void VehiculeRefund(int IDassu) {
+		ResultSet assu = bdd.getResult("SELECT * FROM VehicleAssurance WHERE idVA="+IDassu);
+		ResultSet vehicle = bdd.getResult("SELECT * FROM `Vehicle` where plateNumber = (SELECT vehicle from VehicleAssurance where idVA = "+IDassu+")");
 		List<Object> info_vehicle = new ArrayList<>();
 		List<Object> info_assu = new ArrayList<>();
 		
@@ -56,25 +59,27 @@ public class Refund{
 				info_vehicle.add(i);
 			}
 			
+			
+			
 		} catch (Exception e) {
 			System.out.println("Erreur de récupération d'information.");
 		}
 		
 	}
 
-	private void ScolaireRefund(String code) {
+	private void ScolaireRefund(int IDassu) {
 
 		
 	}
 
-	private void SanteRefund(String code) {
+	private void SanteRefund(int IDassu) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	private void HabitationRefund(String code) {
-		ResultSet assu = bdd.getResult("SELECT * FROM HomeAssurance WHERE codeVA="+code);
-		ResultSet maison = bdd.getResult("SELECT * FROM `Vehicle` where plateNumber = (SELECT vehicle from HomeAssurance where codeVA = "+code+")");
+	private void HabitationRefund(int IDassu) {
+		ResultSet assu = bdd.getResult("SELECT * FROM HomeAssurance WHERE idVA="+IDassu);
+		ResultSet maison = bdd.getResult("SELECT * FROM Residency where idResidency = (SELECT idResidency from HomeAssurance where idVA = "+IDassu+")");
 		List<Object> info_maison = new ArrayList<>();
 		List<Object> info_assu = new ArrayList<>();
 		
@@ -90,7 +95,11 @@ public class Refund{
 			System.out.println("Erreur de récupération d'information.");
 		}
 	}
-	
+
+	public boolean isInscrit() {
+		return inscrit;
+	}
+
 
 
 }

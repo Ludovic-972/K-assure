@@ -5,7 +5,7 @@ import java.sql.SQLException;
 
 import BDgestion.BDconnection;
 
-public abstract class Person {
+public class Person {
 	
 	private int idPerson;
     private String name;

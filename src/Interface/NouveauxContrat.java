@@ -12,14 +12,15 @@ public class NouveauxContrat extends JFrame implements ItemListener {
 	
 	private static final long serialVersionUID = 1L;
 	JPanel fenetre = new JPanel();
-	public JPanel panel;
-	public JPanel panel2;
-	public JComboBox contrat;
-	public JFrame fenetre1;
-			
+	private JPanel panel;
+	private JPanel panel2;
+	private JComboBox contrat;
+	private JFrame fenetre1;
+	private String user;
 	
 	
-	public NouveauxContrat() {
+	public NouveauxContrat(String login) {
+		user = login;
 		fenetre1 = new JFrame();
 		fenetre1.setLayout(new BorderLayout());
 		fenetre1.setSize(500,500);
@@ -70,7 +71,7 @@ public class NouveauxContrat extends JFrame implements ItemListener {
 				
 		
 	}else if (item.getItem() == "Véhicule") {
-		Vehicule veh = new Vehicule();
+		Vehicule veh = new Vehicule(user);
 		veh.setVisible(true);
 		fenetre1.setVisible(false);
 			

@@ -1,6 +1,8 @@
 package BDgestion;
 import java.sql.*;
 
+import javax.swing.JOptionPane;
+
 /**
  * BDconnection est la classe utilisée pour créer une connexion à la base de données
  * <p>
@@ -48,7 +50,7 @@ public class BDconnection{
 			Class.forName(nom_driver); // Chargement du pilote JDBC + instance de la classe Driver
 			this.connection = DriverManager.getConnection(url,login,pwd);  // Connexion à la base de données
 		} catch (SQLException | ClassNotFoundException e) {
-			System.out.println("Connexion to the database denied."); 
+			JOptionPane.showMessageDialog(null,"Erreur 503 : Erreur interne du serveur.");
 		}
 		
 	}

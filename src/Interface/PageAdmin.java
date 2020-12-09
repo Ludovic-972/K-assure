@@ -19,6 +19,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 
 
 
+@SuppressWarnings("serial")
 public class PageAdmin extends JFrame {
 	private JTree tree;
     private DefaultMutableTreeNode root;
@@ -76,7 +77,7 @@ public class PageAdmin extends JFrame {
     	String choix =  selectedNode.getUserObject().toString();
     	//renvoie sur la classe Nouveaux Formualaire
         if (choix == "Assurances") {
-     	   NouveauxContrat NC = new NouveauxContrat();
+     	   NouveauxContrat NC = new NouveauxContrat("");
      	   NC.setVisible(true);}
         else if (choix =="Contact") {
         	
