@@ -50,7 +50,7 @@ public class BDconnection{
 			Class.forName(nom_driver); // Chargement du pilote JDBC + instance de la classe Driver
 			this.connection = DriverManager.getConnection(url,login,pwd);  // Connexion à la base de données
 		} catch (SQLException | ClassNotFoundException e) {
-			JOptionPane.showMessageDialog(null,"Erreur 503 : Erreur interne du serveur.");
+			JOptionPane.showMessageDialog(null,"Pas de connexion.");
 		}
 		
 	}

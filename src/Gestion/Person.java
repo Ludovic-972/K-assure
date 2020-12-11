@@ -20,7 +20,7 @@ public class Person {
     private String birthcity;
     private String city;
     private String zipCode;
-    public Vehicle vehicle;
+    private Vehicle vehicle = null;
     
     private BDconnection bdd = new BDconnection();
 	
@@ -151,22 +151,6 @@ public class Person {
 
 	public void setZipCode(String zipCode) {
 		this.zipCode = zipCode;
-	}
-
-	public Vehicle getVehicle() {
-		return vehicle;
-	}
-
-	public void setVehicle(Vehicle vehicle) {
-		this.vehicle = vehicle;
-	}
-
-	public BDconnection getBdd() {
-		return bdd;
-	}
-
-	public void setBdd(BDconnection bdd) {
-		this.bdd = bdd;
 	}
 
 	public String FormatDDMMYY(String date) {

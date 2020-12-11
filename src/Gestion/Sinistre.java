@@ -15,7 +15,7 @@ public class Sinistre {
 	
 	public Sinistre(String _name){
 		this.name = _name;
-		ResultSet sinistre = bdd.getResult("SELECT * FROM sinister WHERE name = "+_name);
+		ResultSet sinistre = bdd.getResult("SELECT * FROM Sinister WHERE name = '"+_name+"'");
 		try {
 			while (sinistre.next()) {
 				this.criticity = sinistre.getInt(2);

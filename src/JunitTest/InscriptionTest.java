@@ -4,9 +4,17 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
 import Interface.Inscription;
+import jdk.javadoc.internal.tool.resources.javadoc;
 
+/**
+ * Classe Test des méthodes de la classe Inscription
+ * 
+ * @author Mathurin-Cayol Ludovic 
+ * @version 1.0
+ * @see Inscription
+ * */
 class InscriptionTest {
-
+	
 	@Test
 	void testBissextile() {
 		assertTrue(Inscription.bissextile(2000));

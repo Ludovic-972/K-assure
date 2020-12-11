@@ -4,29 +4,32 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import Assurance.carInsurance;
 import BDgestion.BDconnection;
 
 public class Refund{
 	
 	private boolean inscrit = false;
-	private int niveau = 0;
-	private float amount;
-	private float price;
+	private double rate;
+	private float DamageCost;
 	private Sinistre sinistre;
+	private Adult user;
+	private String bien;
 
 	private BDconnection bdd = new BDconnection();
 	
-	public Refund(String name,int IDAssu) {
-		sinistre = new Sinistre(name);
+	public Refund(String name,int IDAssu, float _cost,Adult _user,Sinistre sin,String _bien) {
+		System.out.println("coucou");
+		this.sinistre = sin;
+		this.DamageCost = _cost;
+		this.user = _user;
+		this.bien = _bien;
 		switch (sinistre.getSector()) {
 			case "Habitation":
 				HabitationRefund(IDAssu);
 				break;
 			case "Santé":
 				SanteRefund(IDAssu);
-				break;
-			case "Scolaire":
-				ScolaireRefund(IDAssu);
 				break;
 			case "Vehicule":
 				VehiculeRefund(IDAssu);
@@ -37,40 +40,44 @@ public class Refund{
 		}
 	}
 	
-	public float getAmount() {
-		return amount;
+	public double getRate() {
+		return rate;
 	}
 
-	public void setAmount(float amount) {
-		this.amount = amount;
+	public void setRate(double _rate) {
+		this.rate = _rate;
 	}
 
 	private void VehiculeRefund(int IDassu) {
-		ResultSet assu = bdd.getResult("SELECT * FROM VehicleAssurance WHERE idVA="+IDassu);
-		ResultSet vehicle = bdd.getResult("SELECT * FROM `Vehicle` where plateNumber = (SELECT vehicle from VehicleAssurance where idVA = "+IDassu+")");
-		List<Object> info_vehicle = new ArrayList<>();
-		List<Object> info_assu = new ArrayList<>();
+
+		carInsurance assu = new carInsurance(IDassu);
+		Vehicle car = new Vehicle(user.getLogin(), bien);
 		
-		try {
-			for (int i = 1; assu.next(); i++) {
-				info_assu.add(i);
-			}
-			for (int i = 1; vehicle.next(); i++) {
-				info_vehicle.add(i);
-			}
-			
-			
-			
-		} catch (Exception e) {
-			System.out.println("Erreur de récupération d'information.");
+		
+		switch (sinistre.getCriticity()) {
+			case 1:
+				
+				break;
+			case 2:
+				
+				break;
+			case 3:
+				
+				break;
+
+			default:
+				break;
 		}
+			
+		if (user.getProfession().equals("Etudiant.e boursier.ère")) {
+			rate = rate*1.5;
+		}	
+		inscrit = true;
+		
 		
 	}
 
-	private void ScolaireRefund(int IDassu) {
 
-		
-	}
 
 	private void SanteRefund(int IDassu) {
 		// TODO Auto-generated method stub

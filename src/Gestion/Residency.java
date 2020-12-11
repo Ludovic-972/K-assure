@@ -26,8 +26,8 @@ public class Residency {
     private BDconnection bdd = new BDconnection();
     
     
-    public Residency(int ID) {
-    	ResultSet rs = bdd.getResult("SELECT * FROM Residency WHERE idResidency = '"+ID+"'");
+    public Residency() {
+    	ResultSet rs = bdd.getResult("SELECT * FROM Residency");
     	try {
 			while(rs.next()) {
 				idResidency = rs.getInt(1);

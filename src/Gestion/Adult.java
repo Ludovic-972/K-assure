@@ -15,7 +15,7 @@ public class Adult extends Person{
     private String driverLicenceDate;
     private int netIncome;
     private String profession;
-    public Vehicle vehicle;
+    private Vehicle vehicle;
     
     private BDconnection bdd = new BDconnection();
     
@@ -28,9 +28,8 @@ public class Adult extends Person{
 		        familySituation = rs.getString(12);
 		        email = rs.getString(13); 
 		        numberOfChild = rs.getInt(16);
-		        driverLicenceDate = rs.getString(17);
-		        netIncome = rs.getInt(18);
-		        profession = rs.getString(19);
+		        netIncome = rs.getInt(17);
+		        profession = rs.getString(18);
     		}
     	}catch(SQLException e) {
     		e.printStackTrace();
@@ -127,15 +126,5 @@ public class Adult extends Person{
 	}
 	
 
-	public BDconnection getBdd() {
-		return bdd;
-	}
-	
-
-	public void setBdd(BDconnection bdd) {
-		this.bdd = bdd;
-	}
-    
-    
 
 }

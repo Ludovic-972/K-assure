@@ -183,7 +183,7 @@ public class Inscription{
 	 * @see BDconnection
 	 * @since 1.0
 	 * */
-	private BDconnection bdd = new BDconnection();
+	private static BDconnection bdd = new BDconnection();
 	
 	/**
 	 * Interface principale contenant les éléments permettant l'inscription.
@@ -487,7 +487,7 @@ public class Inscription{
 		annuel = new JTextField();
 		annuel.addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent ke) {
-	            if (ke.getKeyChar() >= '0' && ke.getKeyChar() <= '9' || ke.getKeyChar() == '\u0008' || ke.getKeyChar() == ' ') {
+	            if (ke.getKeyChar() >= '0' && ke.getKeyChar() <= '9' || ke.getKeyChar() == '\u0008') {
 	               annuel.setEditable(true);
 	            } else {
 	               annuel.setEditable(false);
@@ -732,7 +732,7 @@ public class Inscription{
 	  *@return true si l'année est bissextile,false sinon.
 	  * @since 3.0
 	  * */
-	public boolean bissextile(int year) {
+	public static boolean bissextile(int year) {
 
 	    if ((year % 400 == 0) || ((year % 4 == 0) && (year % 100 != 0))) {
 	        return true;
@@ -743,7 +743,7 @@ public class Inscription{
 	 
 	
 	/**
-	 * Vérifie si la date en paramètre est valide.
+	 * Vérifie si la date en paramètre est valide et inferieur à la date du jour.
 	 * 
 	  *@param date
 	  *		Date à vérifier. 
@@ -751,7 +751,7 @@ public class Inscription{
 	  *@since 3.0
 	  * 
 	  */
-	 public boolean DateValid(String date){
+	 public static boolean DateValid(String date){
 		 try {
 			 System.out.println(date.length());
 			 if(date == "NULL"){
@@ -765,7 +765,7 @@ public class Inscription{
 			 int annee_actuel = Integer.parseInt(new SimpleDateFormat("yyyy").format(new Date()));
 			 
 			 
-			 if (mois <= 12 || annee <= annee_actuel) {
+			 if (mois <= 12 && annee <= annee_actuel) {
 				 if (mois == 02) {
 					 if (bissextile(annee) && jour <= 29)  
 						return true;
@@ -798,7 +798,7 @@ public class Inscription{
 	  *@since 3.0
 	  * 
 	  */
-	 public boolean jours30(int mois) {
+	 public static boolean jours30(int mois) {
 		 int[] tab = {4,6,9,11};
 		 for (int a : tab) {
 			if (a == mois) {
@@ -817,11 +817,11 @@ public class Inscription{
 		  *@since 3.0
 		  * 
 		  */
-	 public boolean EmailValidator(String email) {
+	 public static boolean EmailValidator(String email) {
 		 if (email == null) {
 			return true;
 		}
-		return email.matches("^.+@.+\\..+$");
+		return email.matches("^[a-zA-Z1-9-\\.]+@[a-zA-Z1-9-]+\\.[a-zA-Z]{2,6}$");
 
 	    }
 		
@@ -849,12 +849,12 @@ public class Inscription{
 	/**
 	 * Génère un login aléatoire unique.
 	  * 
-	  * @return Un Login composé de chiffre.
+	  * @return Un Login composé de 7 chiffre.
 	  * 
 	  * @see Inscription#exist
 	  * @since 1.0
 	  * */
-	public String LoginGenerator() {
+	public static String LoginGenerator() {
 		while(true) {
 			String numbers = "0123456789";
 			String login = "";
@@ -876,14 +876,13 @@ public class Inscription{
 	  *@return True si l'utilisateur existe,false sinon.
 	  * @since 1.0
 	  * */
-	public boolean exist(String login) {
+	public static boolean exist(String login) {
 		String req = "Select * from Person where login = \""+login+"\"";
 		ResultSet rs =bdd.getResult(req);
 		return bdd.getRowCount(rs) !=0; 
 	}
 	
 	
-	//mise en format SQL des dates (ex: 10-12-1995 -> 1995-12-10)
 	/**
 	 * Mets la date en paramètre en format YYYY/MM/JJ
 	  * 
@@ -894,7 +893,7 @@ public class Inscription{
 	  * 
 	  * @since 3.0
 	  * */
-	public String dateFormatSQL(String date) {
+	public static String dateFormatSQL(String date) {
 		String[] tab = date.split("-");
 		date = String.join("-", tab[2],tab[1],tab[0]);
 		return "'"+date+"'";

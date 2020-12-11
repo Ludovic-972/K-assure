@@ -58,7 +58,7 @@ public class PageAccueilFront extends JFrame
        
         //creation du boutton de connection
      
-        Connection = new JButton("Connection Assu");
+        Connection = new JButton("Connexion");
         
         //ajout du Bouton, contneur et arbre a la fenetre
         add(Connection, BorderLayout.SOUTH);

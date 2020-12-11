@@ -1,226 +1,137 @@
 package Gestion;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-
+import BDgestion.BDconnection;
 public class Vehicle {
     
+	private Adult owner;
+	private String numberplate;
+	private String driverLicenceDate;
     private String make;
-    private String use;
-    private String power;
-    private Date obtainingDate; 
-    private String gearboxType; 
-    private String energy;
-    private List<Adult> drivers = new ArrayList<Adult>();
-    private Adult owner;
     private String model;
+    private String engine;
+    private String function;
+    private String buyingYear; 
+    private String energy;
     private String carbodyType;
     private int age;
-    private int numberOfdoors;
-    private String numberplate;
-    private String tradeName;
     private String garage;
+    private BDconnection bdd = new BDconnection();
     
-    public Vehicle(Adult _owner, List<Adult> _drivers, Date _obtainingDate, String _numberplate, String _make, String _model, String _energy, String _power, String _gearboxType, String _carbodyType, String _tradeName, int _age, int _numberOfdoors, String _garage, String _use) {
-    	this.owner = _owner;
-    	this.drivers = _drivers;
-    	this.obtainingDate = _obtainingDate;
-    	this.numberplate = _numberplate;
-		this.make = _make;
-		this.model = _model;
-		this.energy = _energy;
-		this.power = _power;
-		this.gearboxType = _gearboxType;
-		this.carbodyType = _carbodyType;
-		this.tradeName = _tradeName;
-		this.age = _age;
-		this.numberOfdoors = _numberOfdoors;
-		this.garage = _garage;
-		this.use = _use;
+    public Vehicle(String login,String numberplate) {
+    	ResultSet rs = bdd.getResult("SELECT * FROM Driving WHERE driverID in (SELECT idPerson FROM Person WHERE login =SELECT * FROM Driving WHERE driverID in (SELECT idPerson FROM Person WHERE login =  '"+login+"'");
+    	try {
+			while(rs.next()) {
+				this.owner = new Adult(login);
+				this.numberplate = rs.getString(2);
+				this.driverLicenceDate = rs.getString(3);
+			    this.make = rs.getString(4);
+			    this.model = rs.getString(5);
+			    this.engine = rs.getString(6);
+			    this.function = rs.getString(7);
+			    this.buyingYear = rs.getString(8); 
+			    this.energy = rs.getString(9);
+			    this.age = rs.getInt(10);
+			    this.garage = rs.getString(11);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public String getNumberplate() {
+		return numberplate;
+	}
+
+	public void setNumberplate(String numberplate) {
+		this.numberplate = numberplate;
+	}
+
+	public String getDriverLicenceDate() {
+		return driverLicenceDate;
+	}
+
+	public void setDriverLicenceDate(String driverLicenceDate) {
+		this.driverLicenceDate = driverLicenceDate;
+	}
+
+	public String getMake() {
+		return make;
+	}
+
+	public void setMake(String make) {
+		this.make = make;
+	}
+
+	public String getModel() {
+		return model;
+	}
+
+	public void setModel(String model) {
+		this.model = model;
+	}
+
+	public String getEngine() {
+		return engine;
+	}
+
+	public void setEngine(String engine) {
+		this.engine = engine;
+	}
+
+	public String getFunction() {
+		return function;
+	}
+
+	public void setFunction(String function) {
+		this.function = function;
+	}
+
+	public String getBuyingYear() {
+		return buyingYear;
+	}
+
+	public void setBuyingYear(String buyingYear) {
+		this.buyingYear = buyingYear;
+	}
+
+	public String getEnergy() {
+		return energy;
+	}
+
+	public void setEnergy(String energy) {
+		this.energy = energy;
+	}
+
+	public String getCarbodyType() {
+		return carbodyType;
+	}
+
+	public void setCarbodyType(String carbodyType) {
+		this.carbodyType = carbodyType;
+	}
+
+	public int getAge() {
+		return age;
+	}
+
+	public void setAge(int age) {
+		this.age = age;
+	}
+
+	public String getGarage() {
+		return garage;
+	}
+
+	public void setGarage(String garage) {
+		this.garage = garage;
 	}
 
     
-    String getMake() {
-        // Automatically generated method. Please delete this comment before entering specific code.
-        return this.make;
-    }
-
-    
-    void setMake(String value) {
-        // Automatically generated method. Please delete this comment before entering specific code.
-        this.make = value;
-    }
-
-    
-    String getUse() {
-        // Automatically generated method. Please delete this comment before entering specific code.
-        return this.use;
-    }
-
-    
-    void setUse(String value) {
-        // Automatically generated method. Please delete this comment before entering specific code.
-        this.use = value;
-    }
-    
-    String getPower() {
-        // Automatically generated method. Please delete this comment before entering specific code.
-        return this.power;
-    }
-
-    
-    void setPower(String value) {
-        // Automatically generated method. Please delete this comment before entering specific code.
-        this.power = value;
-    }
-
-    
-    Date getObtainingDate() {
-        // Automatically generated method. Please delete this comment before entering specific code.
-        return this.obtainingDate;
-    }
-
-    
-    void setObtainingDate(Date value) {
-        // Automatically generated method. Please delete this comment before entering specific code.
-        this.obtainingDate = value;
-    }
-
-    
-    String getGearboxType() {
-        // Automatically generated method. Please delete this comment before entering specific code.
-        return this.gearboxType;
-    }
-
-    
-    void setGearboxType(String value) {
-        // Automatically generated method. Please delete this comment before entering specific code.
-        this.gearboxType = value;
-    }
-
-    
-    String getEnergy() {
-        // Automatically generated method. Please delete this comment before entering specific code.
-        return this.energy;
-    }
-
-    
-    void setEnergy(String value) {
-        // Automatically generated method. Please delete this comment before entering specific code.
-        this.energy = value;
-    }
-    
-    void setOwner(Adult value) {
-        // Automatically generated method. Please delete this comment before entering specific code.
-        this.owner = value;
-    }
-
-    
-    Adult getOwner() {
-        // Automatically generated method. Please delete this comment before entering specific code.
-        return this.owner;
-    }
-
-    
-    List<Adult> getDrivers() {
-        // Automatically generated method. Please delete this comment before entering specific code.
-        return this.drivers;
-    }
-
-    
-    void setDrivers(List<Adult> value) {
-        // Automatically generated method. Please delete this comment before entering specific code.
-        this.drivers = value;
-    }
-
-    
-    String getModel() {
-        // Automatically generated method. Please delete this comment before entering specific code.
-        return this.model;
-    }
-
-    
-    void setModel(String value) {
-        // Automatically generated method. Please delete this comment before entering specific code.
-        this.model = value;
-    }
-
-    
-    String getCarbodyType() {
-        // Automatically generated method. Please delete this comment before entering specific code.
-        return this.carbodyType;
-    }
-
-    
-    void setCarbodyType(String value) {
-        // Automatically generated method. Please delete this comment before entering specific code.
-        this.carbodyType = value;
-    }
-
-    
-    int getAge() {
-        // Automatically generated method. Please delete this comment before entering specific code.
-        return this.age;
-    }
-
-    
-    void setAge(int value) {
-        // Automatically generated method. Please delete this comment before entering specific code.
-        this.age = value;
-    }
-
-    
-    int getNumberOfdoors() {
-        // Automatically generated method. Please delete this comment before entering specific code.
-        return this.numberOfdoors;
-    }
-
-    
-    void setNumberOfdoors(int value) {
-        // Automatically generated method. Please delete this comment before entering specific code.
-        this.numberOfdoors = value;
-    }
-
-    
-    String getNumberplate() {
-        // Automatically generated method. Please delete this comment before entering specific code.
-        return this.numberplate;
-    }
-
-    
-    void setNumberplate(String value) {
-        // Automatically generated method. Please delete this comment before entering specific code.
-        this.numberplate = value;
-    }
-
-    
-    String getTradeName() {
-        // Automatically generated method. Please delete this comment before entering specific code.
-        return this.tradeName;
-    }
-
-    
-    void setTradeName(String value) {
-        // Automatically generated method. Please delete this comment before entering specific code.
-        this.tradeName = value;
-    }
-
-    
-    String getGarage() {
-        // Automatically generated method. Please delete this comment before entering specific code.
-        return this.garage;
-    }
-
-    
-    void setGarage(String value) {
-        // Automatically generated method. Please delete this comment before entering specific code.
-        this.garage = value;
-    }
-    
-    void addDrivers(Adult new_driver) {
-    	drivers.add(new_driver);
-    }
-
 }
