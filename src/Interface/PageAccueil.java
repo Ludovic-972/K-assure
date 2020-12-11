@@ -39,6 +39,7 @@ public class PageAccueil extends JFrame{
         DefaultMutableTreeNode vegetableNode3 = new DefaultMutableTreeNode("Contact");
         DefaultMutableTreeNode vegetableNode4 = new DefaultMutableTreeNode("FAQ");
         DefaultMutableTreeNode vegetableNode5 = new DefaultMutableTreeNode("Compte");
+        DefaultMutableTreeNode vegetableNode6 = new DefaultMutableTreeNode("Declarez sinistre");
         
         
     	//creation de zone de text, avec le text ainsi que sa position
@@ -58,6 +59,7 @@ public class PageAccueil extends JFrame{
         root.add(vegetableNode2);
         root.add(vegetableNode3);
         root.add(vegetableNode4);
+        root.add(vegetableNode6);
          
         //creation de l'arbre en ajoutant la racine
         tree = new JTree(root);
@@ -108,7 +110,7 @@ public class PageAccueil extends JFrame{
         	new NouveauxContrat(user.getLogin());
         }
         else if (choix =="FAQ") {
-// Page de Paulo
+        	new FAQ();
         }
         else if (choix =="Compte") {
 // Page du compte a venir
@@ -117,6 +119,10 @@ public class PageAccueil extends JFrame{
         	JL1.setText("Bonjour "+user.getSurname()+",");
         	JL2.setText("Vous pouvez nous contactez via la page dédiez");
         	JL3.setText("Ou bien vous renseignez sur les contrats existant");   	
+        }
+        else if (choix=="Declarez sinistre") {
+        	new DeclarerSinistre("Véhicule",utilisateur.getLogin());
+        	
         }
         	
         }
