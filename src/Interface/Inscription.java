@@ -126,13 +126,6 @@ public class Inscription{
 	  * */
 	private String numberOfChild;
 
-	/**
-	  * Date d'obtention du permis de conduire de l'utilisateur.
-	  * (Cas où l'utilisateur est un adulte)
-	  * 
-	  * @since 1.0
-	  * */
-	private String driverLicenceDate;
 	
 	/**
 	  * Revenu net de l'utilisateur.
@@ -227,14 +220,6 @@ public class Inscription{
 	  * @since 1.0
 	  * */
 	private JFormattedTextField nombre;
-	
-	/**
-	  *Case d'entrée de la date d'obtention du permis de conduire de l'utilisateur.
-	  *(Cas où l'utilisateur est un adulte)
-	  * 
-	  * @since 1.0
-	  * */
-	private JFormattedTextField permi;
 	
 	/**
 	  * Case d'entrée du revenu net annuel de l'utilisateur.
@@ -352,7 +337,7 @@ public class Inscription{
 		
 		
 		if (_cat.equals("Adulte")) {
-			panel1.setLayout(new GridLayout(18,2,7,7));
+			panel1.setLayout(new GridLayout(17,2,7,7));
 			fenetre1.setSize(700,650);
 		}else {
 			panel1.setLayout(new GridLayout(15,2,7,7));
@@ -471,18 +456,6 @@ public class Inscription{
 		}
 		
 		if (_cat.equals("Adulte")) {
-			JLabel driver = new JLabel("Date d'obtention du permis conduire* : ");
-			try {
-		         MaskFormatter formatter = new MaskFormatter("##-##-####");
-		         formatter.setPlaceholderCharacter('#');
-		         permi = new JFormattedTextField(formatter);
-		         permi.setColumns(20);
-		      } catch(Exception e) {
-		         e.printStackTrace();
-		      }
-			panel1.add(driver);
-			panel1.add(permi);
-		
 		JLabel revenue = new JLabel("Revenu annuel : ");
 		annuel = new JTextField();
 		annuel.addKeyListener(new KeyAdapter() {
@@ -516,6 +489,7 @@ public class Inscription{
 		professionel.addItem("VRP(voyageur.se,représentant.e,placier.ère)");
 		professionel.addItem("Visiteur.se médical");
 		professionel.addItem("Etudiant.e");
+		professionel.addItem("Etudiant.e boursier.ère");
 		professionel.addItem("Retraité.e");
 		professionel.addItem("Sans profession");
 		professionel.addItem("En recherche d'emploi");
@@ -559,10 +533,6 @@ public class Inscription{
 		retour.addActionListener(event -> retour());
 		panel1.add(retour);
 		
-		if (_cat.equals("Adulte")) {
-			JLabel info = new JLabel("*laissez ##-##-#### si vous n'avez pas le permis");
-			panel1.add(info);
-		}
 		
 		fenetre1.add(panel1);
 		fenetre1.setLocationRelativeTo(null);
@@ -641,7 +611,6 @@ public class Inscription{
 			 email = mail.getText();
 			 familySituation = familiale.getSelectedItem().toString();
 			 numberOfChild = nombre.getText();
-			 driverLicenceDate = (permi.getText().equals("##-##-####")) ? "NULL" : permi.getText();
 			 netIncome = annuel.getText();
 			 profession = professionel.getSelectedItem().toString();
 		}else {
@@ -650,36 +619,25 @@ public class Inscription{
 		}
 		
 		 if (!ChampsVide()) {
-			 if (DateValid(birthdate) && DateValid(driverLicenceDate)) {
+			 if (DateValid(birthdate)) {
 			
 				 if (EmailValidator(email)) {
 
 					String login = LoginGenerator();
 					String req,req2 = null;
 					if (category.equals("Adulte")) {
-						if (driverLicenceDate.equals("NULL")) {
-							req = "INSERT INTO `Person`(`name`, `surname`,`sexe`, `login`, `pwd`, `category`, `adress`,"
-									+ " `phoneNumber`, `birthdate`,`birthcity`, `family_situation`, `email`, `ville`, `zipCode`,"
-									+ " `numberOfChild`, `driverLicenceDate`, `netIncome`, `profession`) VALUES ('"+name
-									+"','"+surname+"','"+sexe+"','"+login+"','"+pwd+"','"+category+"','"+adress+"','"
-									+phoneNumber+"',"+dateFormatSQL(birthdate)+",'"+birthcity+"','"+familySituation
-									+"','"+email+"','"+ville+"','"+zipCode+"','"+numberOfChild+"',NULL,'"+netIncome+"','"+profession+"')";
-						} else {
-							req = "INSERT INTO `Person`(`name`, `surname`,`sexe`, `login`, `pwd`, `category`, `adress`,"
-									+ " `phoneNumber`, `birthdate`,`birthcity`, `family_situation`, `email`, `ville`, `zipCode`,"
-									+ " `numberOfChild`, `driverLicenceDate`, `netIncome`, `profession`) VALUES ('"+name
-									+"','"+surname+"','"+sexe+"','"+login+"','"+pwd+"','"+category+"','"+adress+"','"
-									+phoneNumber+"',"+dateFormatSQL(birthdate)+",'"+birthcity+"','"+familySituation
-									+"','"+email+"','"+ville+"','"+zipCode+"','"+numberOfChild+"',"
-									+dateFormatSQL(driverLicenceDate)+",'"+netIncome+"','"+profession+"')";
-						}
-						
+						req = "INSERT INTO `Person`(`name`, `surname`,`sexe`, `login`, `pwd`, `category`, `adress`,"
+								+ " `phoneNumber`, `birthdate`,`birthcity`, `family_situation`, `email`, `ville`, `zipCode`,"
+								+ " `numberOfChild`, `driverLicenceDate`, `netIncome`, `profession`) VALUES ('"+name
+								+"','"+surname+"','"+sexe+"','"+login+"','"+pwd+"','"+category+"','"+adress+"','"
+								+phoneNumber+"',"+dateFormatSQL(birthdate)+",'"+birthcity+"','"+familySituation
+								+"','"+email+"','"+ville+"','"+zipCode+"','"+numberOfChild+"','"+netIncome+"','"+profession+"')";			
 					} else {
 						req = "INSERT INTO `Person`(`name`, `surname`,`sexe`, `login`, `pwd`, `category`, `adress`,"
 								+ " `phoneNumber`, `birthdate`,`birthcity`, `family_situation`, `email`, `ville`, `zipCode`,"
 								+ " `numberOfChild`, `driverLicenceDate`, `netIncome`, `profession`) VALUES ('"+name
 								+"','"+surname+"','"+sexe+"','"+login+"','"+pwd+"','"+category+"','"+adress+"',NULL"
-								+","+dateFormatSQL(birthdate)+",'"+birthcity+"',NULL,NULL,'"+ville+"','"+zipCode+"',NULL,NULL,NULL,NULL);";
+								+","+dateFormatSQL(birthdate)+",'"+birthcity+"',NULL,NULL,'"+ville+"','"+zipCode+"',NULL,NULL,NULL);";
 						req2 = "INSERT INTO `Child`(`loginChild`, `loginParent1`, `loginParent2`, `name`, `surname`, `birthDate`)  VALUES "
 								+ "('"+login+"','"+loginparent1+"','"+loginparent2+"','"+name+"','"+surname+"',"+dateFormatSQL(birthdate)+")";
 					}
@@ -748,6 +706,7 @@ public class Inscription{
 	  *@param date
 	  *		Date à vérifier. 
 	  *@return true si la date est valide,false sinon.
+	  *@see Inscription#jours30
 	  *@since 3.0
 	  * 
 	  */
@@ -794,7 +753,6 @@ public class Inscription{
 	  *@param mois
 	  *		Mois à vérifier. 
 	  *@return true si le mois a 30 jours,false sinon.
-	  *@see Inscription#jours30
 	  *@since 3.0
 	  * 
 	  */
@@ -835,7 +793,7 @@ public class Inscription{
 		if (category.equals("Adulte") && (name.equals("") || surname.equals("") || sexe.equals("") || adress.equals("") || phoneNumber.equals("##-##-##-##-##") 
 				|| birthdate.equals("##-##-####") || birthcity.equals("")
 				|| email.equals("") || ville.equals("") || zipCode.equals("#####") || numberOfChild.equals("#") 
-				|| driverLicenceDate.equals("##-##-####") || netIncome.equals("") || pwd.equals(""))) {		
+				|| netIncome.equals("") || pwd.equals(""))) {		
 			return true;
 		}else if(category.equals("Enfant") && (name.equals("") || surname.equals("") || sexe.equals("") || adress.equals("") || 
 				birthdate.equals("##-##-####") || ville.equals("") || zipCode.equals("#####") || loginparent1.equals("") || pwd.equals("")))  {
