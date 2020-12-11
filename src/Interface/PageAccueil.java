@@ -22,18 +22,14 @@ public class PageAccueil extends JFrame{
     private JButton Connection;//initialisation  d'un bouton
     private DefaultMutableTreeNode root;//initialisation de la racine de l'arbre de fichier
     private JPanel panel ;//initialisation  d'un conteneur panel 
-    private Person utilisateur;
+    private Person user;
     private JLabel JL1,JL2,JL3;
 
     
     
-    public PageAccueil(String user){	
-    	utilisateur = new Person(user);
-    	if (utilisateur.getCategory().equals("Adulte")) {
-    		utilisateur = new Adult(user);
-		} else if (utilisateur.getCategory().equals("Enfant")){
-			utilisateur = new Child(user);
-		}
+    public PageAccueil(Person _user){	
+    	this.user = _user;
+
     	
         panel = new JPanel();//creation d'un conteneur
         root = new DefaultMutableTreeNode("Root");
@@ -46,7 +42,7 @@ public class PageAccueil extends JFrame{
         
         
     	//creation de zone de text, avec le text ainsi que sa position
-    	JL1 = new JLabel("Bonjour "+utilisateur.getSurname()+",", JLabel.CENTER);
+    	JL1 = new JLabel("Bonjour "+user.getSurname()+",", JLabel.CENTER);
     	JL2 = new JLabel("Vous pouvez nous contactez via la page dédiez", JLabel.CENTER);
     	JL3 = new JLabel("Ou bien vous renseignez sur les contrats existant", JLabel.CENTER);
     	
@@ -87,7 +83,7 @@ public class PageAccueil extends JFrame{
          
         //Configuration de la fenetre 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setTitle(utilisateur.getName()+" "+utilisateur.getSurname());       
+        this.setTitle(user.getName()+" "+user.getSurname());       
         this.pack();
         this.setSize(500,500);
         this.setLocationRelativeTo(null);
@@ -109,7 +105,7 @@ public class PageAccueil extends JFrame{
         }
       //Ouverture de la classe Contrat si le fichier contrat a ete selectionner dans l'arbre
         else if (choix =="Nouveaux Contrat") {
-        	new NouveauxContrat(utilisateur.getLogin());
+        	new NouveauxContrat(user.getLogin());
         }
         else if (choix =="FAQ") {
 // Page de Paulo
@@ -118,7 +114,7 @@ public class PageAccueil extends JFrame{
 // Page du compte a venir
         }
         else if (choix =="Accueil") {
-        	JL1.setText("Bonjour "+utilisateur.getSurname()+",");
+        	JL1.setText("Bonjour "+user.getSurname()+",");
         	JL2.setText("Vous pouvez nous contactez via la page dédiez");
         	JL3.setText("Ou bien vous renseignez sur les contrats existant");   	
         }

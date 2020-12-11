@@ -13,6 +13,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import BDgestion.BDconnection;
+import Gestion.Person;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -108,7 +109,7 @@ public class PagedeConnection {
 	    p.add(inscription);
  
 	     
-	    f = new JFrame("Connection");
+	    f = new JFrame("Connexion");
 	    f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	    f.setPreferredSize(new Dimension(400,200));
 	    f.setContentPane(p);
@@ -143,7 +144,7 @@ public class PagedeConnection {
 		 }else if(estInscrit(user,pwd)){
 			 f.dispose();	
 			 System.out.println("Connexion User réussie");
-			 new PageAccueil(user);
+			 new PageAccueil(new Person(user));
 		 }else {
 			 JOptionPane.showMessageDialog(null,"Login ou mot de passe incorrecte.");
 	 

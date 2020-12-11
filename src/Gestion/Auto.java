@@ -2,14 +2,11 @@ package Gestion;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 import BDgestion.BDconnection;
-public class Vehicle {
+public class Auto {
     
-	private Adult owner;
+	private Person owner;
 	private String numberplate;
 	private String driverLicenceDate;
     private String make;
@@ -23,11 +20,12 @@ public class Vehicle {
     private String garage;
     private BDconnection bdd = new BDconnection();
     
-    public Vehicle(String login,String numberplate) {
-    	ResultSet rs = bdd.getResult("SELECT * FROM Driving WHERE driverID in (SELECT idPerson FROM Person WHERE login =SELECT * FROM Driving WHERE driverID in (SELECT idPerson FROM Person WHERE login =  '"+login+"'");
+    public Auto(String login,String numberplate) {
+    	ResultSet rs = bdd.getResult("SELECT * FROM Driving WHERE plateNumber = '"+numberplate+"'"
+    					+ " AND driverID = (SELECT idPerson FROM Person WHERE login =  '"+login+"')");
     	try {
 			while(rs.next()) {
-				this.owner = new Adult(login);
+				this.owner = new Person(login);
 				this.numberplate = rs.getString(2);
 				this.driverLicenceDate = rs.getString(3);
 			    this.make = rs.getString(4);
@@ -43,6 +41,18 @@ public class Vehicle {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+
+	public Person getOwner() {
+		return owner;
+	}
+
+	public void setOwner(Person owner) {
+		this.owner = owner;
+	}
+
+	public BDconnection getBdd() {
+		return bdd;
 	}
 
 	public String getNumberplate() {
