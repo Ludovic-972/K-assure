@@ -30,7 +30,7 @@ import Gestion.Person;
  * @author Charpentier Ewan,Rittaud Paul,Mathurin-Cayol
  * @version 3.0
  * */
-public class ModifierUtilisateur{
+public class ModifierCompte{
 	
 	/**
 	  * Nom de l'utilisateur.
@@ -291,6 +291,8 @@ public class ModifierUtilisateur{
 	private JTextField loginp2;
 	
 	private Person Utilisateur;
+	private JTextField secret;
+	private String pwd;
 	
 	
 	/**Constructeur 1 Inscription
@@ -301,7 +303,7 @@ public class ModifierUtilisateur{
 	  * 		Catégorie de l'utilisateur
 	  * @since 1.0
 	  * */
-	public ModifierUtilisateur(String Login) {
+	public ModifierCompte(String Login) {
 		Utilisateur = new Person(Login);
 			
 		fenetre1 = new JFrame("Modification "+Utilisateur.getName());
@@ -468,6 +470,22 @@ public class ModifierUtilisateur{
 		panel1.add(professionel);
 		}
 		
+
+		JLabel mdp = new JLabel("mot de passe : ");
+		secret = new JTextField();
+		secret.addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent ki) {
+	            if (ki.getKeyChar() >= '0' && ki.getKeyChar() <= '9' || ki.getKeyChar() >= 'a' && ki.getKeyChar() <= 'z' || ki.getKeyChar() >= 'A' && ki.getKeyChar() <= 'Z' || ki.getKeyChar() == '\u0008') {
+	               secret.setEditable(true);
+	            } else {
+	               secret.setEditable(false);
+	            }
+	         }
+	      });
+		panel1.add(mdp);
+		panel1.add(secret);
+		
+		
 		if(Utilisateur.getCategory().equals("Enfant")) {
 			JLabel loginp1txt = new JLabel("Login parent 1 :");
 			loginp1 = new JTextField();
@@ -495,36 +513,7 @@ public class ModifierUtilisateur{
 		
 		}
 	
-	/**Constructeur 2 Inscription
-	 * <p>
-	  * Demande à l'utilisateur sa catégorie.
-	  *</p>
-	  * 
-	  * @see ModifierUtilisateur#setCategory
-	  * @since 2.0
-	  * */
-	public ModifierUtilisateur() {
-		demande = new JFrame("Vous êtes ?");
-		JPanel pan = new JPanel();
-		pan.setLayout(new GridLayout(3, 1,5,5));
-		JLabel txt = new JLabel("De quel catégorie êtes vous ?",JLabel.CENTER);
-		JButton b1 = new JButton("Enfant");
-		JButton b2 = new JButton("Adulte");
-		b1.setPreferredSize(new Dimension(200,50));
-		b1.setPreferredSize(new Dimension(200,50));
-		b1.addActionListener(event -> setCategory(b1.getText()));
-		b2.addActionListener(event -> setCategory(b2.getText()));
-		pan.add(txt);
-		pan.add(b1);
-		pan.add(b2);
-		demande.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		demande.setPreferredSize(new Dimension(400,200));
-	    demande.setContentPane(pan);
-	    demande.pack();
-	    demande.setLocationRelativeTo(null);
-	    demande.setVisible(true);
-	}
-	
+
 
 	/**
 	 * Récupère la catégorie entrée par l'utilisateur puis crée un formulaire adapté.
@@ -535,7 +524,7 @@ public class ModifierUtilisateur{
 	  * */
 	public void setCategory(String cat) {
 		demande.dispose();
-		new ModifierUtilisateur(cat);
+		new ModifierCompte(cat);
 		
 	}
 	
@@ -566,6 +555,7 @@ public class ModifierUtilisateur{
 			 familySituation = familiale.getSelectedItem().toString();
 			 numberOfChild = nombre.getText();
 			 profession = professionel.getSelectedItem().toString();
+			 String pwd= secret.getText();
 		}else {
 			loginparent1 = loginp1.getText();
 			loginparent2 = (loginp2.getText().equals("x")) ? "NULL" : loginp2.getText();
@@ -579,7 +569,7 @@ public class ModifierUtilisateur{
 					String req,req2 = null;
 					if (category.equals("Adulte")) {
 						req = "UPDATE `Person` SET `name`='"+name+"',`surname`='"+surname+"',`sexe`='"+sexe+"',"
-								+"`login`='"+login+"',`category`='"+category+"',`adress`='"+adress+"',`phoneNumber`='"+phoneNumber+"',"
+								+"`login`='"+login+"',`pwd`='"+pwd+"',category`='"+category+"',`adress`='"+adress+"',`phoneNumber`='"+phoneNumber+"',"
 								+"`birthdate`="+dateFormatSQL(birthdate)+",`birthcity`='"+birthcity+"',`family_situation`='"+familySituation+"',`email`='"+email+"',"
 								+"`ville`='"+ville+"',`zipCode`='"+zipCode+"',`numberOfChild`='"+numberOfChild+"',`profession`='"+profession+"'WHERE login ='"+Utilisateur.getLogin()+"';";
 						
@@ -656,7 +646,7 @@ public class ModifierUtilisateur{
 	  *@param date
 	  *		Date à vérifier. 
 	  *@return true si la date est valide,false sinon.
-	  *@see ModifierUtilisateur#jours30
+	  *@see ModifierCompte#jours30
 	  *@since 3.0
 	  * 
 	  */
@@ -758,7 +748,7 @@ public class ModifierUtilisateur{
 	  * 
 	  * @return Un Login composé de 7 chiffre.
 	  * 
-	  * @see ModifierUtilisateur#exist
+	  * @see ModifierCompte#exist
 	  * @since 1.0
 	  * */
 	public static String LoginGenerator() {
