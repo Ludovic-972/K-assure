@@ -7,6 +7,7 @@ import BDgestion.BDconnection;
 
 public class Person {
 	
+	private String Situation = null;
 	private int idPerson;
     private String name;
     private String surname;
@@ -20,16 +21,14 @@ public class Person {
     private String birthcity;
     private String city;
     private String zipCode;
-    private String familySituation;
-    private String email; 
-    private int numberOfChild;
-    private String driverLicenceDate;
-    private int netIncome;
-    private String profession; 
-    BDconnection bdd = new BDconnection();
+    private String email;
+    private String Profession;
+    private int NumberOfChild;
+     private Vehicle vehicle = null;
+    
+    private BDconnection bdd = new BDconnection();
 	
 	public Person(String _login) {
-		
 		
 		login = _login;
     	ResultSet rs = bdd.getResult("Select * from Person where login = \""+login+"\"");
@@ -45,27 +44,35 @@ public class Person {
 		        phoneNumber = rs.getString(9);
 		        birthdate = FormatDDMMYY(rs.getString(10));
 		        birthcity = rs.getString(11);
+		        Situation = rs.getString(12);
+		        email = rs.getString(13);
 		        city = rs.getString(14);
 		        zipCode = rs.getString(15);
-		        familySituation = rs.getString(12);
-		        email = rs.getString(13); 
-		        numberOfChild = rs.getInt(16);
-		        netIncome = rs.getInt(17);
-		        profession = rs.getString(18);
+		        NumberOfChild=rs.getInt(16);
+		        Profession = rs.getString(18);
     		}
     	}catch(SQLException e) {
     		e.printStackTrace();
 		
-    	}finally {
-			try {
-				rs.close();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
+    	}
 	}
-    	
+    
+	public String getProfession() {
+		return Profession;
+	}
+	
+	public void setProfession(String Profession) {
+		this.Profession= Profession;
+	}
+	
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	
+	
     public int getIdPerson() {
 		return idPerson;
 	}
@@ -170,68 +177,24 @@ public class Person {
 		this.zipCode = zipCode;
 	}
 
-	public String getFamilySituation() {
-		return familySituation;
-	}
-	
-
-	public void setFamilySituation(String familySituation) {
-		this.familySituation = familySituation;
-	}
-	
-
-	public String getEmail() {
-		return email;
-	}
-	
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-	
-
+	public String FormatDDMMYY(String date) {
+    		String[] tab = date.split("-");
+    		return String.join("-", tab[2],tab[1],tab[0]);
+   		}
 
 	public int getNumberOfChild() {
-		return numberOfChild;
+		return NumberOfChild;
+	}
+	public void setNumberOfChild(int NumberOfChild) {
+		this.NumberOfChild=NumberOfChild;
+	}
+
+	public String getSituation() {
+		// TODO Auto-generated method stub
+		return Situation;
+	}
+	public void setSituation(String Situation) {
+		this.Situation=Situation;
 	}
 	
-
-	public void setNumberOfChild(int numberOfChild) {
-		this.numberOfChild = numberOfChild;
-	}
-	
-
-	public String getDriverLicenceDate() {
-		return driverLicenceDate;
-	}
-	
-
-	public void setDriverLicenceDate(String driverLicenceDate) {
-		this.driverLicenceDate = driverLicenceDate;
-	}
-	
-
-	public int getNetIncome() {
-		return netIncome;
-	}
-	
-
-	public void setNetIncome(int netIncome) {
-		this.netIncome = netIncome;
-	}
-	
-
-	public String getProfession() {
-		return profession;
-	}
-	
-
-	public void setProfession(String profession) {
-		this.profession = profession;
-	}
-
-	public String FormatDDMMYY(String date) {
-    	String[] tab = date.split("-");
-    	return String.join("-", tab[2],tab[1],tab[0]);
-   	}
 }

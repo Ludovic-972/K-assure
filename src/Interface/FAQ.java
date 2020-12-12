@@ -1,13 +1,12 @@
 package Interface;
 
-
+import java.awt.BorderLayout;
 import java.awt.GridLayout;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-@SuppressWarnings("serial")
 public class FAQ  extends JFrame{
 	
 	private JPanel panel;

@@ -117,9 +117,13 @@ public class Compte extends JFrame {
     			c.gridy=7;
     	    panel.add(Jl16,c);
     	    
+    	    
+    	    
+    	    
+    	    
     	   jb=new JButton();
     	   c.weightx = 0.5;
-			c.gridx=2;
+			c.gridx=1;
 			c.gridy=8;
     	   
     	   jb.addActionListener(event-> modif(utilisateur.getLogin()));
@@ -128,7 +132,7 @@ public class Compte extends JFrame {
 	
 	
 	add(panel,BorderLayout.NORTH);
-	this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     this.setTitle(utilisateur.getName()+" "+utilisateur.getSurname());       
     this.pack();
     this.setSize(500,500);
@@ -137,7 +141,7 @@ public class Compte extends JFrame {
 	}
 
 	private void modif(String login) {
-		new ModifierUtilisateur(utilisateur.getLogin());	
+		new ModifierCompte(utilisateur.getLogin());	
 	}
 	
 	
