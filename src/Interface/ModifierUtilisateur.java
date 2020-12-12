@@ -306,7 +306,7 @@ public class ModifierUtilisateur{
 			
 		fenetre1 = new JFrame("Modification "+user.getName());
 		fenetre1.setLayout(new FlowLayout());
-		fenetre1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		fenetre1.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		fenetre1.setResizable(true);
 		JPanel panel1 = new JPanel();
 		

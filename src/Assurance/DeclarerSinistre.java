@@ -140,7 +140,7 @@ public class DeclarerSinistre {
 		pan.add(retour);
 		fenetre.add(pan);
 		fenetre.setResizable(false);
-		fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		fenetre.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         fenetre.pack();
         fenetre.setSize(580,200);
         fenetre.setLocationRelativeTo(null);

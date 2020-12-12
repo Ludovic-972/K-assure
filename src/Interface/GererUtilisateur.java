@@ -42,7 +42,7 @@ private JButton Jb;
 		
 		
 		add(panel,BorderLayout.NORTH);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	    this.setTitle("Utilisateurs enregistré");       
 	    this.pack();
 	    this.setSize(300,300);
