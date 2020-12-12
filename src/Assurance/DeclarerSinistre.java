@@ -132,13 +132,7 @@ public class DeclarerSinistre {
 				}
 			});
 		JButton retour = new JButton("Retour");
-		retour.addActionListener(new ActionListener() {
-			
-			public void actionPerformed(ActionEvent e) {
-				fenetre.dispose();
-				new PageAccueil(user);
-			}
-		});
+		retour.addActionListener(event ->fenetre.dispose());
 		
 		pan.add(declarer);
 		pan.add(retour);

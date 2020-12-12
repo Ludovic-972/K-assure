@@ -29,8 +29,8 @@ public class Residency {
     
     
     public Residency(int ID,Person user) {
-    	ResultSet rs = bdd.getResult("SELECT * FROM Residency WHERE idResidency = '"+ID+"' AND "
-    			+ " AND driverID = (SELECT idPerson FROM Person WHERE login =  '"+user.getLogin()+"')");
+    	ResultSet rs = bdd.getResult("SELECT * FROM Residency WHERE idResidency = '"+ID+"'"
+    			+ " AND idResident = (SELECT idPerson FROM Person WHERE login =  '"+user.getLogin()+"')");
     	try {
 			while(rs.next()) {
 				idResidency = rs.getInt(1);

@@ -373,7 +373,6 @@ public class Inscription{
 		         MaskFormatter formatter = new MaskFormatter("##-##-##-##-##");
 		         formatter.setPlaceholderCharacter('#');
 		         numero = new JFormattedTextField(formatter);
-		         numero.setColumns(20);
 		      } catch(Exception e) {
 		         e.printStackTrace();
 		      }
@@ -386,7 +385,6 @@ public class Inscription{
 	         MaskFormatter formatter = new MaskFormatter("##-##-####");
 	         formatter.setPlaceholderCharacter('#');
 	         date = new JFormattedTextField(formatter);
-	         date.setColumns(20);
 	      } catch(Exception e) {
 	         e.printStackTrace();
 	      }
@@ -434,7 +432,6 @@ public class Inscription{
 	         MaskFormatter formatter = new MaskFormatter("#####");
 	         formatter.setPlaceholderCharacter('#');
 	         postal = new JFormattedTextField(formatter);
-	         postal.setColumns(20);
 	      } catch(Exception e) {
 	         e.printStackTrace();
 	      }
@@ -447,7 +444,6 @@ public class Inscription{
 		         MaskFormatter formatter = new MaskFormatter("#");
 		         formatter.setPlaceholderCharacter('#');
 		         nombre = new JFormattedTextField(formatter);
-		         nombre.setColumns(20);
 		      } catch(Exception e) {
 		         e.printStackTrace();
 		      }

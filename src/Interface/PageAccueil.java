@@ -41,7 +41,8 @@ public class PageAccueil extends JFrame{
         DefaultMutableTreeNode vegetableNode4 = new DefaultMutableTreeNode("FAQ");
         DefaultMutableTreeNode vegetableNode5 = new DefaultMutableTreeNode("Compte");
         DefaultMutableTreeNode vegetableNode6 = new DefaultMutableTreeNode("Declarez sinistre");
-        DefaultMutableTreeNode vegetableNode7 = new DefaultMutableTreeNode("S'assurer");
+        DefaultMutableTreeNode vegetableNode7 = new DefaultMutableTreeNode("Simuler un sinistre");
+        DefaultMutableTreeNode vegetableNode8 = new DefaultMutableTreeNode("S'assurer");
         
         
     	//creation de zone de text, avec le text ainsi que sa position
@@ -60,7 +61,8 @@ public class PageAccueil extends JFrame{
         root.add(vegetableNode);
         root.add(vegetableNode2);
         root.add(vegetableNode3);
-        root.add(vegetableNode5);;
+        root.add(vegetableNode5);
+        root.add(vegetableNode8);
         root.add(vegetableNode6);
         root.add(vegetableNode7);
         root.add(vegetableNode4);
@@ -133,7 +135,7 @@ public class PageAccueil extends JFrame{
         	
         }else if (choix=="Declarez sinistre") {
         	String[] options = { "Habitation", "Véhicule" };
-        	int x =JOptionPane.showOptionDialog(null, "Quel type d'assurance voulez-vous ?", "S'assurer",
+        	int x =JOptionPane.showOptionDialog(null, "Quel type de sinitre déclarez-vous ?", "Déclarer un sinistre",
         			JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE,
         			null, options, options[0]);
         	if(x!=-1)
@@ -141,11 +143,12 @@ public class PageAccueil extends JFrame{
         	
         }else if (choix=="Simuler un sinistre") {
         	String[] options = { "Habitation", "Véhicule" };
-        	int x =JOptionPane.showOptionDialog(null, "Quel type d'assurance voulez-vous ?", "S'assurer",
+        	int x =JOptionPane.showOptionDialog(null, "Quel type de sinistre voulez-vous simulez ?", "Simuler un sinistre",
         			JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE,
         			null, options, options[0]);
         	if(x!=-1)
-        		new DeclarerSinistre(options[x],user.getLogin(),false);
+        		new DeclarerSinistre(options[x],user.getLogin(),true);
+
         	
         }
         	
