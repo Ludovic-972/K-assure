@@ -7,9 +7,11 @@ import java.sql.SQLException;
 public class Residency {
     
     private int idResidency;
+    private Person Resident;
     private String type;
-    private String askerType;
+    private String residentType;
     private String MSR;
+    private int rent;
     private String city;
     private String zipCode;
     private String RenderUse;
@@ -25,21 +27,17 @@ public class Residency {
     
     private BDconnection bdd = new BDconnection();
     
-    
-<<<<<<< HEAD
-    public Residency(int ID,Person user) {
-    	ResultSet rs = bdd.getResult("SELECT * FROM Residency WHERE idResidency = '"+ID+"'"
-    			+ " AND idResident = (SELECT idPerson FROM Person WHERE login =  '"+user.getLogin()+"')");
-=======
-    public Residency(int ID) {
-    	ResultSet rs = bdd.getResult("SELECT * FROM Residency WHERE idResidency = '"+ID+"'");
->>>>>>> 45e1dd309534fcc6b386536e5688a1e4eab3ed1b
+
+    public Residency(int ID,String user) {
+    	ResultSet rs = bdd.getResult("SELECT * FROM Residency WHERE idResidency = '"+ID+"' AND "
+    			+ " AND driverID = (SELECT idPerson idResident FROM Person WHERE login =  '"+user+"')");
     	try {
 			while(rs.next()) {
 				idResidency = rs.getInt(1);
-			    type = rs.getString(2);
-			    askerType = rs.getString(3);
-			    MSR = rs.getString(4);
+			    type = rs.getString(3);
+			    residentType = rs.getString(4);
+			    MSR = rs.getString(5);
+			    rent = rs.getInt(6);
 			    city = rs.getString(5);
 			    zipCode = rs.getString(6);
 			    RenderUse = rs.getString(7);
@@ -69,6 +67,16 @@ public class Residency {
 	}
 
 
+	public Person getResident() {
+		return Resident;
+	}
+
+
+	public void setResident(Person resident) {
+		Resident = resident;
+	}
+
+
 	public String getType() {
 		return type;
 	}
@@ -79,13 +87,13 @@ public class Residency {
 	}
 
 
-	public String getAskerType() {
-		return askerType;
+	public String getResidentType() {
+		return residentType;
 	}
 
 
-	public void setAskerType(String askerType) {
-		this.askerType = askerType;
+	public void setResidentType(String residentType) {
+		this.residentType = residentType;
 	}
 
 
@@ -96,6 +104,16 @@ public class Residency {
 
 	public void setMSR(String mSR) {
 		MSR = mSR;
+	}
+
+
+	public int getRent() {
+		return rent;
+	}
+
+
+	public void setRent(int rent) {
+		this.rent = rent;
 	}
 
 

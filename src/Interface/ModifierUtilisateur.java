@@ -290,7 +290,7 @@ public class ModifierUtilisateur{
 	  * */
 	private JTextField loginp2;
 	
-	private Person Utilisateur;
+	private Person user;
 	
 	
 	/**Constructeur 1 Inscription
@@ -302,16 +302,16 @@ public class ModifierUtilisateur{
 	  * @since 1.0
 	  * */
 	public ModifierUtilisateur(String Login) {
-		Utilisateur = new Person(Login);
+		user = new Person(Login);
 			
-		fenetre1 = new JFrame("Modification "+Utilisateur.getName());
+		fenetre1 = new JFrame("Modification "+user.getName());
 		fenetre1.setLayout(new FlowLayout());
-		fenetre1.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		fenetre1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		fenetre1.setResizable(true);
 		JPanel panel1 = new JPanel();
 		
 		
-		if (Utilisateur.getCategory().equals("Adulte")) {
+		if (user.getCategory().equals("Adulte")) {
 			panel1.setLayout(new GridLayout(17,2,7,7));
 			fenetre1.setSize(700,650);
 		}else {
@@ -323,20 +323,20 @@ public class ModifierUtilisateur{
 		
 		JLabel surnames = new JLabel("Nom :");
 		surnam = new JTextField();
-		surnam.setText(Utilisateur.getSurname());
+		surnam.setText(user.getSurname());
 		panel1.add(surnames);
 		panel1.add(surnam);
 		
 		JLabel names = new JLabel("Prenom :");
 		nam = new JTextField();
-		nam.setText(Utilisateur.getName());
+		nam.setText(user.getName());
 		panel1.add(names);
 		panel1.add(nam);
 
 		
 		JLabel sexes = new JLabel("Sexe :");
 		sex = new JComboBox<String>();
-		sex.addItem(Utilisateur.getSexe());
+		sex.addItem(user.getSexe());
 		sex.addItem("Homme");
 		sex.addItem("Femme");
 		sex.addItem("Non binaire");
@@ -344,14 +344,14 @@ public class ModifierUtilisateur{
 		panel1.add(sex);
 		
 		
-		if (Utilisateur.getCategory().equals("Adulte")) {
+		if (user.getCategory().equals("Adulte")) {
 			JLabel number = new JLabel("Numéro de téléphone : ");
 			try {
 		         MaskFormatter formatter = new MaskFormatter("##-##-##-##-##");
 		         formatter.setPlaceholderCharacter('#');
 		         numero = new JFormattedTextField(formatter);
 		         numero.setColumns(20);
-		         numero.setText(Utilisateur.getPhoneNumber());
+		         numero.setText(user.getPhoneNumber());
 		      } catch(Exception e) {
 		         e.printStackTrace();
 		      }
@@ -365,7 +365,7 @@ public class ModifierUtilisateur{
 	         formatter.setPlaceholderCharacter('#');
 	         date = new JFormattedTextField(formatter);
 	         date.setColumns(20);
-	         date.setText(Utilisateur.getBirthdate());
+	         date.setText(user.getBirthdate());
 	      } catch(Exception e) {
 	         e.printStackTrace();
 	      }
@@ -374,14 +374,14 @@ public class ModifierUtilisateur{
 		
 		JLabel birthcities = new JLabel("Ville de naissance :");
 		birthciti = new JTextField();
-		birthciti.setText(Utilisateur.getBirthcity());
+		birthciti.setText(user.getBirthcity());
 		panel1.add(birthcities);
 		panel1.add(birthciti);
 		
-		if (Utilisateur.getCategory().equals("Adulte")) {
+		if (user.getCategory().equals("Adulte")) {
 			JLabel situation = new JLabel("Situation familiale :");
 			familiale = new JComboBox<String>();
-			familiale.addItem(Utilisateur.getSituation());
+			familiale.addItem(user.getFamilySituation());
 			familiale.addItem("Marié.e");
 			familiale.addItem("Pacsé.e");
 			familiale.addItem("Divorcé.e");
@@ -392,23 +392,23 @@ public class ModifierUtilisateur{
 			panel1.add(familiale);
 		}
 		
-		if (Utilisateur.getCategory().equals("Adulte")) {
+		if (user.getCategory().equals("Adulte")) {
 			JLabel i = new JLabel("Adresse email :");
 			mail = new JTextField();
-			mail.setText(Utilisateur.getEmail());
+			mail.setText(user.getEmail());
 			panel1.add(i);
 			panel1.add(mail);
 		}
 		
 		JLabel adresse = new JLabel("Adresse :");
 		adresss = new JTextField();
-		adresss.setText(Utilisateur.getAddress());
+		adresss.setText(user.getAddress());
 		panel1.add(adresse);
 		panel1.add(adresss);
 		
 		JLabel Ville = new JLabel("Ville :");
 		city = new JTextField();
-		city.setText(Utilisateur.getCity());
+		city.setText(user.getCity());
 		panel1.add(Ville);
 		panel1.add(city);
 		
@@ -418,21 +418,21 @@ public class ModifierUtilisateur{
 	         formatter.setPlaceholderCharacter('#');
 	         postal = new JFormattedTextField(formatter);
 	         postal.setColumns(20);
-	         postal.setText(Utilisateur.getZipCode());
+	         postal.setText(user.getZipCode());
 	      } catch(Exception e) {
 	         e.printStackTrace();
 	      }
 		panel1.add(code);
 		panel1.add(postal);
 		
-		if (Utilisateur.getCategory().equals("Adulte")) {
+		if (user.getCategory().equals("Adulte")) {
 			JLabel enfant = new JLabel("Nombre d'enfants : ");
 			try {
 		         MaskFormatter formatter = new MaskFormatter("#");
 		         formatter.setPlaceholderCharacter('#');
 		         nombre = new JFormattedTextField(formatter);
 		         nombre.setColumns(20);
-		         nombre.setText(String.valueOf(Utilisateur.getNumberOfChild()));
+		         nombre.setText(String.valueOf(user.getNumberOfChild()));
 		      } catch(Exception e) {
 		         e.printStackTrace();
 		      }
@@ -440,10 +440,10 @@ public class ModifierUtilisateur{
 			panel1.add(nombre);
 		}
 		
-		if (Utilisateur.getCategory().equals("Adulte")) {		
+		if (user.getCategory().equals("Adulte")) {		
 		JLabel professions = new JLabel("Profession :");
 		professionel = new JComboBox<String>();
-		professionel.addItem(Utilisateur.getProfession());
+		professionel.addItem(user.getProfession());
 		professionel.addItem("Salarié.e");
 		professionel.addItem("Salarié.e cadre");
 		professionel.addItem("Fonction publique d'état");
@@ -468,7 +468,7 @@ public class ModifierUtilisateur{
 		panel1.add(professionel);
 		}
 		
-		if(Utilisateur.getCategory().equals("Enfant")) {
+		if(user.getCategory().equals("Enfant")) {
 			JLabel loginp1txt = new JLabel("Login parent 1 :");
 			loginp1 = new JTextField();
 			panel1.add(loginp1txt);
@@ -481,7 +481,7 @@ public class ModifierUtilisateur{
 		}
 
 		JButton inscription = new JButton("Modifiez");
-		inscription.addActionListener(event -> inscrit(Utilisateur.getCategory()));
+		inscription.addActionListener(event -> inscrit(user.getCategory()));
 		panel1.add(inscription);
 		
 		JButton retour = new JButton("Retour");
@@ -549,7 +549,7 @@ public class ModifierUtilisateur{
 	  * @since 1.0
 	  * */
 	public void inscrit(String cat) {
-	String 	login= Utilisateur.getLogin();
+	String 	login= user.getLogin();
 		name = surnam.getText();
 		 surname = nam.getText();
 		 sexe = sex.getSelectedItem().toString();
@@ -581,14 +581,14 @@ public class ModifierUtilisateur{
 						req = "UPDATE `Person` SET `name`='"+name+"',`surname`='"+surname+"',`sexe`='"+sexe+"',"
 								+"`login`='"+login+"',`category`='"+category+"',`adress`='"+adress+"',`phoneNumber`='"+phoneNumber+"',"
 								+"`birthdate`="+dateFormatSQL(birthdate)+",`birthcity`='"+birthcity+"',`family_situation`='"+familySituation+"',`email`='"+email+"',"
-								+"`ville`='"+ville+"',`zipCode`='"+zipCode+"',`numberOfChild`='"+numberOfChild+"',`profession`='"+profession+"'WHERE login ='"+Utilisateur.getLogin()+"';";
+								+"`ville`='"+ville+"',`zipCode`='"+zipCode+"',`numberOfChild`='"+numberOfChild+"',`profession`='"+profession+"'WHERE login ='"+user.getLogin()+"';";
 						
 						
 					} else {
 						req = "UPDATE `Person` SET `name`='"+name+"',`surname`='"+surname+"',`sexe`='"+sexe+"',"
 								+"`login`='"+login+"',`category`='"+category+"',`adress`='"+adress+"',`phoneNumber`='"+phoneNumber+"',"
 								+"`birthdate`="+dateFormatSQL(birthdate)+",`birthcity`='"+birthcity+"',`family_situation`='"+familySituation+"',`email`='"+email+"',"
-								+"`ville`='"+ville+"',`zipCode`='"+zipCode+"',`numberOfChild`='"+numberOfChild+"',`profession`='"+profession+"'WHERE login	=`"+Utilisateur.getLogin()+"`;";	
+								+"`ville`='"+ville+"',`zipCode`='"+zipCode+"',`numberOfChild`='"+numberOfChild+"',`profession`='"+profession+"'WHERE login	=`"+user.getLogin()+"`;";	
 						req2 = "UPTADE `Child`(`loginChild`, `loginParent1`, `loginParent2`, `name`, `surname`, `birthDate`)  VALUES "
 								+ "('"+login+"','"+loginparent1+"','"+loginparent2+"','"+name+"','"+surname+"',"+dateFormatSQL(birthdate)+")";
 					}

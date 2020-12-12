@@ -13,11 +13,8 @@ import javax.swing.JTree;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.tree.DefaultMutableTreeNode;
 
-import Gestion.Adult;
-import Gestion.Child;
 import Gestion.Person;
 import Interface.PageAccueil;
-import Interface.PagedeConnection;
 
 @SuppressWarnings("serial")
 public class Contact extends JFrame{
@@ -27,16 +24,12 @@ public class Contact extends JFrame{
 	    private JButton Connection;
 	    private DefaultMutableTreeNode root;
 	    private JPanel panel ;
-	    private Person utilisateur;
+	    private String user;
 
 	    
-	    public Contact(String login) {
-	    	utilisateur = new Person(login);
-	    	if (utilisateur.getCategory().equals("Adulte")) {
-	    		utilisateur = new Adult(login);
-			} else if (utilisateur.getCategory().equals("Enfant")){
-				this.utilisateur = new Child(login);
-			}
+	    public Contact(String _user) {
+	    	this.user = _user;
+
 	        root = new DefaultMutableTreeNode("Root");
 	        //create the child nodes
 	        DefaultMutableTreeNode vegetableNode = new DefaultMutableTreeNode("Contact");
@@ -106,7 +99,7 @@ public class Contact extends JFrame{
 	    
 	    public void connection(ActionEvent event) {
 	    	this.dispose();
-	    	new PageAccueil(utilisateur.getLogin());	
+	    	new PageAccueil(user);	
 	    	
 	    	
 	    }

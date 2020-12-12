@@ -9,8 +9,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import Gestion.Adult;
-import Gestion.Child;
+
 import Gestion.Person;
 
 public class Compte extends JFrame {
@@ -25,18 +24,14 @@ public class Compte extends JFrame {
 	
 	public Compte(String user) {
 		utilisateur = new Person(user);
-    	if (utilisateur.getCategory().equals("Adulte")) {
-    		utilisateur = new Adult(user);
-		} else if (utilisateur.getCategory().equals("Enfant")){
-			utilisateur = new Child(user);
-		}
+
     	
     		panel = new JPanel();
     		panel.setLayout(new GridBagLayout());
     		GridBagConstraints c = new GridBagConstraints();
     		
     		
-    		Jl  = new JLabel("Nom Utilisateur : ");
+    		Jl  = new JLabel("Login : ");
     			c.weightx = 0.5;
     			c.gridx=0;
     			c.gridy=0;
@@ -106,7 +101,7 @@ public class Compte extends JFrame {
     			c.gridx=1;
     			c.gridy=6;
     	    panel.add(Jl14,c);
-    		Jl15 = new JLabel("Proffession :");
+    		Jl15 = new JLabel("Profession :");
     			c.weightx = 0.5;
     			c.gridx=0;
     			c.gridy=7;
@@ -117,13 +112,9 @@ public class Compte extends JFrame {
     			c.gridy=7;
     	    panel.add(Jl16,c);
     	    
-    	    
-    	    
-    	    
-    	    
     	   jb=new JButton();
     	   c.weightx = 0.5;
-			c.gridx=1;
+			c.gridx=2;
 			c.gridy=8;
     	   
     	   jb.addActionListener(event-> modif(utilisateur.getLogin()));
@@ -132,7 +123,7 @@ public class Compte extends JFrame {
 	
 	
 	add(panel,BorderLayout.NORTH);
-	this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+	this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     this.setTitle(utilisateur.getName()+" "+utilisateur.getSurname());       
     this.pack();
     this.setSize(500,500);
@@ -141,7 +132,7 @@ public class Compte extends JFrame {
 	}
 
 	private void modif(String login) {
-		new ModifierCompte(utilisateur.getLogin());	
+		new ModifierUtilisateur(utilisateur.getLogin());	
 	}
 	
 	

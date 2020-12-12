@@ -1,29 +1,29 @@
 package Gestion;
 
-import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.List;
 
 import Assurance.carInsurance;
+import Assurance.homeInsurance;
 import BDgestion.BDconnection;
 
 public class Refund{
 	
 	private boolean inscrit = false;
 	private double rate;
-	private float DamageCost;
+	private double DamageCost;
 	private Sinistre sinistre;
-	private Adult user;
+	private Person user;
 	private String bien;
-
+	private boolean sim;
+	
 	private BDconnection bdd = new BDconnection();
 	
-	public Refund(String name,int IDAssu, float _cost,Adult _user,Sinistre sin,String _bien) {
-		System.out.println("coucou");
+	public Refund(String name,int IDAssu, double _cost,String _user,Sinistre sin,String _bien,boolean _sim) {
 		this.sinistre = sin;
 		this.DamageCost = _cost;
-		this.user = _user;
+		this.user = new Person(_user);
 		this.bien = _bien;
+		this.sim = _sim;
+		
 		switch (sinistre.getSector()) {
 			case "Habitation":
 				HabitationRefund(IDAssu);
@@ -31,7 +31,7 @@ public class Refund{
 			case "Santé":
 				SanteRefund(IDAssu);
 				break;
-			case "Vehicule":
+			case "Véhicule":
 				VehiculeRefund(IDAssu);
 				break;
 	
@@ -44,34 +44,47 @@ public class Refund{
 		return rate;
 	}
 
-	public void setRate(double _rate) {
-		this.rate = _rate;
-	}
 
 	private void VehiculeRefund(int IDassu) {
-
-		carInsurance assu = new carInsurance(IDassu);
-		Vehicle car = new Vehicle(user.getLogin(), bien);
+		
+		Auto car = new Auto(user, bien);
+		carInsurance assu = new carInsurance(IDassu, user, car);
 		
 		
 		switch (sinistre.getCriticity()) {
 			case 1:
-				
+				if (assu.isAllRisksCover()) {
+					rate = 20;
+				}else {
+					rate = 15;
+				}
 				break;
 			case 2:
-				
+				if (assu.isAllRisksCover()) {
+					rate = 45;
+				}else {
+					rate = 25;
+				}
 				break;
 			case 3:
-				
+				if (assu.isAllRisksCover()) {
+					rate = 75;
+				}else {
+					rate = 55;
+				}
 				break;
 
 			default:
 				break;
 		}
+		rate = rate *assu.getBonus_malus();
 			
 		if (user.getProfession().equals("Etudiant.e boursier.ère")) {
-			rate = rate*1.5;
+			rate = rate*1.2;
 		}	
+		
+		bdd.executeQuery("INSERT INTO `Refund`(`idAsker`, `Sector`, `rate`, `sinister`, `ValueOfDamages`) VALUES ('"+user.getIdPerson()
+		+"','"+sinistre.getSector()+"','"+rate+"','"+sinistre.getName()+"','"+DamageCost+"')");
 		inscrit = true;
 		
 		
@@ -85,26 +98,81 @@ public class Refund{
 	}
 
 	private void HabitationRefund(int IDassu) {
-		ResultSet assu = bdd.getResult("SELECT * FROM HomeAssurance WHERE idVA="+IDassu);
-		ResultSet maison = bdd.getResult("SELECT * FROM Residency where idResidency = (SELECT idResidency from HomeAssurance where idVA = "+IDassu+")");
-		List<Object> info_maison = new ArrayList<>();
-		List<Object> info_assu = new ArrayList<>();
+		Residency residency = new Residency(Integer.parseInt(bien), user.getLogin());
+		homeInsurance assu = new homeInsurance(IDassu, user.getLogin(), residency);
 		
-		try {
-			for (int i = 1; assu.next(); i++) {
-				info_assu.add(i);
-			}
-			for (int i = 1; maison.next(); i++) {
-				info_maison.add(i);
-			}
 		
-		} catch (Exception e) {
-			System.out.println("Erreur de récupération d'information.");
+		switch (sinistre.getCriticity()) {
+			case 1:
+				if ((DamageCost>= residency.getRent()*10) && residency.getRent()!=0) {
+					if (assu.isAllRisksCover()) {
+						rate = 25;
+					}else {
+						rate = 18;
+					}
+				}else {
+					if (assu.isAllRisksCover()) {
+						rate = 15;
+					}else {
+						rate = 10;
+					}
+				}
+				break;
+			case 2:
+				if (residency.getPersonalEffectsValue()+residency.getPersonalEffectsValue()>= residency.getRent()) {
+					if (assu.isAllRisksCover()) {
+						rate = 45;
+					}else {
+						rate = 32;
+					}
+				}else {
+					if (assu.isAllRisksCover()) {
+						rate = 30;
+					}else {
+						rate = 22;
+					}
+				}
+				break;
+			case 3:
+				if (residency.getPersonalEffectsValue()+residency.getPersonalEffectsValue()>= residency.getRent()) {
+					if (assu.isAllRisksCover()) {
+						rate = 70;
+					}else {
+						rate = 60;
+					}
+				}else {
+					if (assu.isAllRisksCover()) {
+						rate = 50;
+					}else {
+						rate = 48;
+					}
+				}
+				break;
+
+			default:
+				break;
 		}
+			
+		if (user.getProfession().equals("Etudiant.e boursier.ère")) {
+			rate = rate*1.2;
+		}	
+		if (!sim) {
+			bdd.executeQuery("INSERT INTO `Refund`(`idAsker`, `Sector`, `rate`, `sinister`, `ValueOfDamages`) VALUES ('"+user.getIdPerson()
+			+"','"+sinistre.getSector()+"','"+rate+"','"+sinistre.getName()+"','"+DamageCost+"')");
+		}
+		inscrit = true;
 	}
 
 	public boolean isInscrit() {
 		return inscrit;
+	}
+
+	public double getDamageCost() {
+		return DamageCost;
+	}
+	
+	public double getNewCost() {
+		return Math.round((DamageCost*(rate/100)) * 100) / 100;
 	}
 
 

@@ -12,33 +12,41 @@ import java.sql.SQLException;
 import javax.swing.*;
 
 import BDgestion.BDconnection;
-import Gestion.Adult;
 import Gestion.Refund;
 import Gestion.Sinistre;
 import Interface.PageAccueil;
 
 
 
-@SuppressWarnings("serial")
-public class DeclarerSinistre extends JFrame{
+
+public class DeclarerSinistre {
 	
 	private int IDAssu = 0;
 	private BDconnection bdd = new BDconnection();
-	private Adult user;
+	private String user;
+	private JFrame fenetre = new JFrame("Déclarer un sinistre");
 	
-	public DeclarerSinistre(String type,String login) {
-		super("Déclarer un sinistre");
-		this.setLayout(new GridLayout(2,1,10,20));
+	private JLabel sinistres_label = new JLabel("Sinistre : ",JTextField.CENTER);
+	private JComboBox<String> liste_sin = new JComboBox<String>();
+	
+	private JLabel valeur_label;
+	private JTextField valeur_txt = new JTextField();
+	
+	private JLabel assurances_label = new JLabel("Votre/Vos assurance(s) : ",JTextField.CENTER);
+	private JComboBox<String> liste_assu = new JComboBox<String>();
+	
+	private String bien;
+	private boolean simulation = false;
+	
+	public DeclarerSinistre(String type,String _user,boolean _simulation) {
     	
-    	this.user = new Adult(login);
+    	this.user = _user;
 		
-		JPanel pan = new JPanel(new GridLayout(3,3,5,5));
+		JPanel pan = new JPanel(new GridLayout(4,2,5,5));
 		
-		JLabel sinistres_label = new JLabel("Sinistre : ",JTextField.CENTER);
 		sinistres_label.setFont(new Font("Arial",Font.TYPE1_FONT, 15));
 		pan.add(sinistres_label);
 		
-		JComboBox<String> liste_sin = new JComboBox<String>();
 		liste_sin.addItem("");
 		
 		//Récupération des sinistres dans la bases de données
@@ -47,6 +55,7 @@ public class DeclarerSinistre extends JFrame{
 			while (sinistres.next()) {
 				liste_sin.addItem(sinistres.getString(1));
 			}
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -55,24 +64,22 @@ public class DeclarerSinistre extends JFrame{
 		ResultSet assurances = null; // Assurances concernés par le type de sinistre
 		
 		//Récupération de la valeur des dégats/cout d'opération
-		JLabel valeur_label = new JLabel();
 		switch(type) {
 			case "Habitation":
 				valeur_label = new JLabel("Valeur des biens endommagés/volés : ",JTextField.CENTER);
-				assurances = bdd.getResult("SELECT * from HomeAssurance WHERE idAsker in (SELECT idPerson FROM Person WHERE login = '"+login+"')");
+				assurances = bdd.getResult("SELECT * from HomeAssurance WHERE idAsker in (SELECT idPerson FROM Person WHERE login = '"+user+"')");
 				break;
 			case "Santé":
 				valeur_label = new JLabel("Coût des soins : ",JTextField.CENTER);
-				assurances = bdd.getResult("SELECT * from HealthAssurance WHERE idAsker in (SELECT idPerson FROM Person WHERE login = '"+login+"')");
+				assurances = bdd.getResult("SELECT * from HealthAssurance WHERE idAsker in (SELECT idPerson FROM Person WHERE login = '"+user+"')");
 				break;
 			case "Véhicule":
 				valeur_label = new JLabel("Coût des réparations : ",JTextField.CENTER);
-				assurances = bdd.getResult("SELECT * from VehicleAssurance WHERE idAsker in (SELECT idPerson FROM Person WHERE login = '"+login+"')");
+				assurances = bdd.getResult("SELECT * from VehicleAssurance WHERE idAsker in (SELECT idPerson FROM Person WHERE login = '"+user+"')");
 				break;
 			default:
 				break;
 		}
-		JTextField valeur_txt = new JTextField();
 		valeur_txt.addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent ke) {
 				if (ke.getKeyChar() >= '0' && ke.getKeyChar() <= '9' || ke.getKeyChar() == '\u0008') {
@@ -88,12 +95,10 @@ public class DeclarerSinistre extends JFrame{
 		pan.add(valeur_txt);
 		
 		
-		JLabel assurances_label = new JLabel("Votre/Vos assurance(s) : ",JTextField.CENTER);
 		assurances_label.setFont(new Font("Arial",Font.TYPE1_FONT, 15));
 		pan.add(assurances_label);
 		
 		//Récupération de/des assurance(s) (Habitation,Santé ou Véhicule) dans la bases de données
-		JComboBox<String> liste_assu = new JComboBox<String>();
 		
 		liste_assu.addItem("");
 		try {
@@ -107,109 +112,127 @@ public class DeclarerSinistre extends JFrame{
 		
 		
 		
-		JPanel button = new JPanel(new GridLayout(1,3));
 		JButton declarer = new JButton("Déclarer le sinistre");
 			declarer.addActionListener(new ActionListener() {
 
 				public void actionPerformed(ActionEvent e) {
-					if (liste_sin.getSelectedItem().toString().equals("")) {
-					JOptionPane.showMessageDialog(null, "Désolez, vous ne disposez d'aucune assurance. "
-							+ "Veuillez soucrire à une assurance avant la déclaration d'un sinistre.");
-					}else {
-						declarer.addActionListener(event -> LancerDeclaration(liste_sin.getSelectedItem().toString(),Float.parseFloat(valeur_txt.getText())));
-					}
+					if (!(liste_sin.getSelectedItem().toString().equals("") || valeur_txt.getText().equals(""))) {
+						
 					
+						if (liste_assu.getSelectedItem().toString().equals("")) {
+						JOptionPane.showMessageDialog(null, "Veuillez choisir une assurance.");
+						}else {
+							declarer.addActionListener(event -> LancerDeclaration(liste_sin.getSelectedItem().toString(),Float.parseFloat(valeur_txt.getText())));
+							
+						}
+						
+					}else {
+						JOptionPane.showMessageDialog(null, "Veuillez remplir tout les champs.");
+					}
 				}
 			});
-<<<<<<< HEAD
+
+
 		JButton retour = new JButton("Retour");
-		retour.addActionListener(event ->fenetre.dispose());
-=======
-		button.add(new JLabel(""));
-		button.add(declarer);
-		button.add(new JLabel(""));
->>>>>>> 45e1dd309534fcc6b386536e5688a1e4eab3ed1b
+		retour.addActionListener(event -> fenetre.dispose());
 		
-		this.add(pan);
-		this.add(button);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setTitle("Déclaration d'un sinnistre");   
-        this.pack();
-        this.setSize(500,200);
-        this.setLocationRelativeTo(null);
-        this.setVisible(true);
+		pan.add(declarer);
+		pan.add(retour);
+		fenetre.add(pan);
+		fenetre.setResizable(false);
+		fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        fenetre.pack();
+        fenetre.setSize(580,200);
+        fenetre.setLocationRelativeTo(null);
+        fenetre.setVisible(true);
 	}
 	
 	
 	public void LancerDeclaration(String name, float cost) {
 		Sinistre sin = new Sinistre(name);
-		String bien = null;
 		
 		JFrame fen = new JFrame("Bien à assurer");
 		fen.setLayout(new GridLayout(2,1));
 		
-		JPanel pan = new JPanel(new GridLayout(1,2));
+		JPanel pan = new JPanel(new GridLayout(2,1));
 		
 		JLabel bien_label = new JLabel("Choisissez le bien à assurer :");
 		bien_label.setFont(new Font("Arial",Font.TYPE1_FONT, 15));
 		pan.add(bien_label);
 		
 		JComboBox<String> liste_bien = new JComboBox<String>();
-		
+		liste_bien.addItem("");
 		if (sin.getSector().equals("Habitation")) {
 			
-			ResultSet biens = bdd.getResult("SELECT * FROM Residency WHERE idResident = '"+user.getIdPerson()+"'");
+			ResultSet biens = bdd.getResult("SELECT * FROM Residency WHERE idResident = (SELECT idPerson FROM Person WHERE login = '"+user+"')");
 			try {
 				while(biens.next()) {
-					
+					liste_bien.addItem(biens.getString(3)+" ("+biens.getString(5)+") "+biens.getString(10)+" m² "+biens.getString(17)+" pièces "+biens.getString(8)+" "+biens.getString(7)+"| Utilisation : "+biens.getString(9)+" |n."+biens.getString(1));
 				}
 			} catch (SQLException e) {
 				System.out.println("Erreur de récupération des biens.");
 			}
 			
 		}else if (sin.getSector().equals("Véhicule")){
-			ResultSet biens = bdd.getResult("SELECT * FROM Driving WHERE DriverID = '"+user.getIdPerson()+"'");
+			ResultSet biens = bdd.getResult("SELECT * FROM Driving WHERE DriverID = (SELECT idPerson FROM Person WHERE login = '"+user+"')");
 			try {
 				while(biens.next()) {
-					
+					liste_bien.addItem(biens.getString(4)+" "+biens.getString(5)+" "+biens.getString(6)+" | Immatriculé:"+biens.getString(2)+" | Véhicule "+biens.getString(7)+" | "+biens.getString(9));
 				}
 			} catch (SQLException e) {
 				System.out.println("Erreur de récupération des biens.");
+				e.printStackTrace();
 			}
 			
 		}
 		pan.add(liste_bien);
 		
+		JPanel button = new JPanel(new GridLayout(1,2));
 		JButton declarer = new JButton("Calculer le taux");
+		
+		
 		declarer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Refund ref = new Refund(name,IDAssu,cost,user,sin,bien);
-				if (ref.isInscrit()) {
-					JOptionPane.showMessageDialog(null, "Votre sinitre est enregistré. Votre assurance payera "+ref.getRate()+"% de ce que vous devrez payer.");
-					fen.dispose();
-					new PageAccueil(user.getLogin());
+				if (sin.getSector().equals("Véhicule")) {
+					bien = liste_bien.getSelectedItem().toString().split(" ")[6].split(":")[1];
+				}else if(sin.getSector().equals("Habitation")) {
+					bien = liste_bien.getSelectedItem().toString().split(" ")[11].split("\\.")[1];
+				}
+				
+				if (!bien.equals("")) {
+					Refund ref = new Refund(sin.getName(),IDAssu,cost,user,sin,bien,simulation);
+					if (ref.isInscrit()) {
+						JOptionPane.showMessageDialog(null, "Votre sinistre est enregistré. Votre assurance payera "+ref.getRate()+"% de ce que vous devrez payer. Soit "+ref.getNewCost()+'\u20ac');
+						fen.dispose();
+						fenetre.dispose();
+						new PageAccueil(user);
+					}
+				}else {
+					JOptionPane.showMessageDialog(null, "Veuillez choisir un bien.");
 				}
 				
 			}
 		});
+		
+		button.add(new JLabel(""));
+		button.add(declarer);
+		button.add(new JLabel(""));
+		
 		fen.add(pan);
-		fen.add(declarer);
-		fen.setSize(500,100);
+		fen.add(button);
+		fen.setSize(500,170);
         fen.setLocationRelativeTo(null);
         fen.setVisible(true);
 		
 	}
 	
+
 	public String DateJJMMYYY(String date) {
 		String[] tab = date.split("-");
 		return tab[2]+"-"+tab[1]+"-"+tab[0];
 	}
 
 
-
-	public static void main(String[] args) {
-		new DeclarerSinistre("Véhicule","35004835");
-	}
 }
 
 

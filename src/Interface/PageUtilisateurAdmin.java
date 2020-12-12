@@ -9,8 +9,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import Gestion.Adult;
-import Gestion.Child;
 import Gestion.Person;
 
 public class PageUtilisateurAdmin extends JFrame{
@@ -23,11 +21,7 @@ public class PageUtilisateurAdmin extends JFrame{
 	
 	PageUtilisateurAdmin(String user) {
 		utilisateur = new Person(user);
-    	if (utilisateur.getCategory().equals("Adulte")) {
-    		utilisateur = new Adult(user);
-		} else if (utilisateur.getCategory().equals("Enfant")){
-			utilisateur = new Child(user);
-		}	
+
 		panel = new JPanel();
 		panel.setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
