@@ -5,11 +5,13 @@ import java.awt.GridLayout;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTree;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.tree.DefaultMutableTreeNode;
+
 
 
 
@@ -77,8 +79,13 @@ public class PageAdmin extends JFrame {
     	String choix =  selectedNode.getUserObject().toString();
     	//renvoie sur la classe Nouveaux Formualaire
         if (choix == "Assurances") {
-     	   NouveauxContrat NC = new NouveauxContrat("");
-     	   NC.setVisible(true);}
+        	String[] options = {"Véhicule","Habitation"};
+            int x = JOptionPane.showOptionDialog(null, "Quel genre d'assurance voulez vous consulter ?",
+                    "Assurances", 
+                    JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+            if (x!=-1) {
+            	//TODO Consulter les assurances.
+			}
         else if (choix =="Contact") {
         	
             }
@@ -86,4 +93,5 @@ public class PageAdmin extends JFrame {
 //        	ici la page contrats
         }
         }
+    }
 }

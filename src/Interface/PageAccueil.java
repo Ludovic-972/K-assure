@@ -36,7 +36,7 @@ public class PageAccueil extends JFrame{
         root = new DefaultMutableTreeNode("Root");
         //creation des elements de l'arbre de fichier 
         DefaultMutableTreeNode vegetableNode = new DefaultMutableTreeNode("Accueil");
-        DefaultMutableTreeNode vegetableNode2 = new DefaultMutableTreeNode("Nouveaux Contrat");
+        DefaultMutableTreeNode vegetableNode2 = new DefaultMutableTreeNode("S'assurer");
         DefaultMutableTreeNode vegetableNode3 = new DefaultMutableTreeNode("Contact");
         DefaultMutableTreeNode vegetableNode4 = new DefaultMutableTreeNode("FAQ");
         DefaultMutableTreeNode vegetableNode5 = new DefaultMutableTreeNode("Compte");
@@ -108,8 +108,14 @@ public class PageAccueil extends JFrame{
         	JL3.setText("Adresse Mail agence : KAssure@monmail.com");      	
         }
       //Ouverture de la classe Contrat si le fichier contrat a ete selectionner dans l'arbre
-        else if (choix =="Nouveaux Contrat") {
-        	new NouveauxContrat(user.getLogin());
+        else if (choix =="S'assurer") {
+        	String[] options = {"Véhicule","Habitation"};
+            int x = JOptionPane.showOptionDialog(null, "Quel genre d'assurance voulez vous? ?",
+                    "S'assurer", // Titre du JOptionPane
+                    JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+            if (x!=-1) {
+            	new DeclarerSinistre(options[x],user.getLogin(),false);
+			}
         }
         else if (choix =="FAQ") {
         	new FAQ();

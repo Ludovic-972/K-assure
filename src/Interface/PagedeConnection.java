@@ -86,9 +86,9 @@ public class PagedeConnection {
 	public PagedeConnection() {
 		
 		//creation des elements de zone de texte et de champ de texte
-	    JLabel User= new JLabel("Username", JLabel.CENTER);
+	    JLabel User= new JLabel("Login", JLabel.CENTER);
 	    JTextField JUser = new JTextField();
-	    JLabel Mdp = new JLabel("Password", JLabel.CENTER);
+	    JLabel Mdp = new JLabel("Mot de passe", JLabel.CENTER);
 	    JPasswordField JMdp = new JPasswordField (); 
  	    
 	    JMdp.setEchoChar ('*');
