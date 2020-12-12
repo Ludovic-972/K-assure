@@ -123,7 +123,7 @@ public class Compte extends JFrame {
 	
 	
 	add(panel,BorderLayout.NORTH);
-	this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     this.setTitle(utilisateur.getName()+" "+utilisateur.getSurname());       
     this.pack();
     this.setSize(500,500);

@@ -1,182 +1,207 @@
 package Assurance;
 
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
+import java.awt.Font;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import Interface.*;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
+import javax.swing.text.MaskFormatter;
 
-import Gestion.*;
+import BDgestion.BDconnection;
+import Interface.PageAccueil;
 
 
-@SuppressWarnings("serial")
-public class Vehicule extends JFrame implements ItemListener, ActionListener{
+
+public class Vehicule implements ActionListener{
+	
+	private JFrame fenetre = new JFrame("Assurer son véhicule");
 	private JPanel panel;
-	private JLabel home,Jl,Jl1,Jl2,Jl3,Jl4,Jl5,Jl6;
-	private JButton jb;
-	private JTextField JTF,JTF1,JTF2,JTF3,JTF4;
-	private JComboBox<String> JCB,JCB2;
-	private Person user;
+	private JLabel marque_label,modele_label,moteur_label,age_label,permis_label,plaque_label,usage_label,energie_label,garage_label,obtention_label;
+	private JTextField age_txt,plaque_txt,garage_txt;
+	private JFormattedTextField permis_txt,obtention_txt;
+	private JComboBox<String> marque,modele,moteur,usage,energie;
+	private JButton enregistrer;
+	
+	private String user;
+	private BDconnection bdd = new BDconnection();
 	
 	public Vehicule(String _user) {
-		user = new Person(_user);
-		if (user.getCategory().equals("Adulte")) 
-    		user = new Adult(_user);
+		this.user = _user;
 		
-		this.setLayout(new BorderLayout());
-		this.setSize(500,500);
-		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		this.setTitle("formulaire");
-		this.setLocationRelativeTo(null);
-		this.setResizable(true);
 				 
 		panel = new JPanel();
-		panel.setLayout(new GridBagLayout());
-		GridBagConstraints c = new GridBagConstraints();
-		c.fill = GridBagConstraints.HORIZONTAL;
-		this.add(panel, BorderLayout.NORTH);
-		this.setVisible(true);
+		panel.setLayout(new GridLayout(11, 2, 5, 5));
 		
 		
-		home = new JLabel("Marque du véhicule");
-		c.weightx = 0.25;
-		c.gridx = 0;
-		c.gridy = 0;
-		panel.add(home,c);
+		marque_label = new JLabel("Marque du véhicule : ");
+		marque_label.setFont(new Font("Arial",Font.TYPE1_FONT, 15));
+		panel.add(marque_label);
+		marque = new JComboBox<String>();
+		marque.addItem("");
+
+		ResultSet marques = bdd.getResult("SELECT DISTINCT Brand FROM Vehicle");
+		try {
+			while (marques.next()) {
+				marque.addItem(marques.getString(1));
+			}		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		panel.add(marque);
 		
+		modele_label = new JLabel("Modèle du véhicule :");
+		modele_label.setFont(new Font("Arial",Font.TYPE1_FONT, 15));
+		panel.add(modele_label);	
+		modele = new JComboBox<String>();
+		modele.addItem("");
 		
-		JComboBox<String> Marque = new JComboBox<String>();
-		c.weightx = 0.25;
-		c.gridx = 3;
-		c.gridy = 0;
-		Marque.addItem("");
-		Marque.addItem("Renault");
-		Marque.addItem("Peugeot");
-		Marque.addItem("Tesla");
-		Marque.addItem("Ford");
-		Marque.addItem("Autre");
+		marque.addItemListener(new ItemListener() {
+
+			public void itemStateChanged(ItemEvent e) {
+				SwingUtilities.invokeLater(new Runnable() {
+					public void run() {
+						modele = new JComboBox<String>();
+						modele.addItem("");
+						ResultSet modeles = bdd.getResult("SELECT DISTINCT Vehicle FROM Vehicle WHERE Brand ='"+e.getItem()+"'");
+						try {
+							while (modeles.next()) {
+								moteur.addItem(modeles.getString(1));
+							}
+								
+						} catch (SQLException e) {
+							e.printStackTrace();
+						}
+						
+					}
+				});
+				
+			}
+		});
 		
+		panel.add(modele);
+		 
+		moteur_label = new JLabel("Moteur : ");
+		moteur_label.setFont(new Font("Arial",Font.TYPE1_FONT, 15));
+		panel.add(moteur_label);
+			
+		moteur = new JComboBox<String>();
+		ResultSet moteurs = bdd.getResult("SELECT DISTINCT `Engine`,`Engine code` FROM Vehicle");
+		try {
+			while (moteurs.next()) {
+				moteur.addItem(moteurs.getString(1)+" "+moteurs.getString(2));
+			}
+				
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		panel.add(moteur);
+		 
+	
+		age_label = new JLabel("Age du véhicule");	
+		age_label.setFont(new Font("Arial",Font.TYPE1_FONT, 15));
+		panel.add(age_label);		
 		
-		panel.add(Marque,c);
-		Jl = new JLabel("Année de fabrication du véhicule");
-		 c.weightx = 0.25;
-			c.gridx = 0;
-			c.gridy = 1;
-			panel.add(Jl,c);
-			
-			
-			JTF=new JTextField();	 
-		 c.weightx = 0.25;
-			c.gridx = 3;
-			c.gridy = 1;
+		age_txt = new JTextField();	 
+		panel.add(age_txt);
 		
-		 panel.add(JTF,c);
 		 
-		 Jl1 = new JLabel("Modele du véhicule ");
-		 c.weightx = 0.25;
-			c.gridx = 0;
-			c.gridy = 2;
-			panel.add(Jl1,c);
-			
-		 JTF1=new JTextField();
-		 c.weightx = 0.25;
-			c.gridx = 3;
-			c.gridy = 2;
-		 
-		 panel.add(JTF1,c);
-		 
-		 Jl2 = new JLabel("Type  de Moteur :  ");
-		 c.weightx = 0.25;
-			c.gridx = 0;
-			c.gridy = 3;
-			panel.add(Jl2,c);
-			
-			JTF2=new JTextField();
-			 c.weightx = 0.25;
-				c.gridx = 3;
-				c.gridy = 3; 
-			 panel.add(JTF2,c);
-			
-		 
-		 
-		 Jl3 = new JLabel("Année d'ancienneté du Conducteur");
-		 c.weightx = 0.25;
-			c.gridx = 0;
-			c.gridy = 4;
-			panel.add(Jl3,c);
-			
-			
-			JTF3=new JTextField();
-		 c.weightx = 0.25;
-			c.gridx = 3;
-			c.gridy = 4; 
-		 panel.add(JTF3,c);
-		 
-		 Jl4 = new JLabel("Plaque d'immatriculation du véhicule");
-		 c.weightx = 0.25;
-			c.gridx = 0;
-			c.gridy = 5;
-			panel.add(Jl4,c);
-			
-			
-			JTF4=new JTextField();
-		 c.weightx = 0.25;
-			c.gridx = 3;
-			c.gridy = 5; 
-		 panel.add(JTF4,c);
-		 
-		 Jl5 = new JLabel("Utilisation du véhicule :  ");
-		 c.weightx = 0.25;
-			c.gridx = 0;
-			c.gridy = 6;
-			panel.add(Jl5,c);
-			
-			
-			JCB=new JComboBox<String>();
-			JCB.addItem(" ");
-			JCB.addItem("Professionnel");
-			JCB.addItem("Privé");
-		 c.weightx = 0.25;
-			c.gridx = 3;
-			c.gridy = 6; 
-		 panel.add(JCB,c);
-		 
-		 Jl6 = new JLabel("  type d'energie :  ");
-		 c.weightx = 0.25;
-			c.gridx = 0;
-			c.gridy = 7;
-			panel.add(Jl6,c);
-			
-			
-			JCB2=new JComboBox<String>();
-			JCB2.addItem(" ");
-			JCB2.addItem("Essence");
-			JCB2.addItem("Diesel");
-		 c.weightx = 0.25;
-			c.gridx = 3;
-			c.gridy = 7; 
-		 panel.add(JCB2,c);
-		 
-		 jb = new JButton("Validez");
-		 c.weightx = 0.25;
-			c.gridx = 2;
-			c.gridy = 8;
-		 panel.add(jb,c);
-		 
-		 
-		 
-		 jb.addActionListener(event -> annee(JTF.getText(),JTF1.getText(),JTF2.getText(),JTF4.getText(),JCB.getSelectedIndex(),JCB2.getSelectedIndex()));
+		permis_label = new JLabel("Date d'obtention du permis de conduire");	
+		permis_label.setFont(new Font("Arial",Font.TYPE1_FONT, 15));
+		panel.add(permis_label);
 		
+		try {
+	         MaskFormatter formatter = new MaskFormatter("##-##-####");
+	         formatter.setPlaceholderCharacter('#');
+	         permis_txt = new JFormattedTextField(formatter);
+	     }catch(Exception e) {
+	         e.printStackTrace();
+	     }
+		panel.add(permis_txt);
+		
+		obtention_label = new JLabel("Date d'obtention du véhicule");	
+		obtention_label.setFont(new Font("Arial",Font.TYPE1_FONT, 15));
+		panel.add(obtention_label);
+		
+		try {
+	         MaskFormatter formatter = new MaskFormatter("####");
+	         formatter.setPlaceholderCharacter('#');
+	         obtention_txt = new JFormattedTextField(formatter);
+	     }catch(Exception e) {
+	         e.printStackTrace();
+	     }
+		panel.add(obtention_txt);
+
+
+		 
+		plaque_label = new JLabel("Plaque d'immatriculation du véhicule");	
+		plaque_label.setFont(new Font("Arial",Font.TYPE1_FONT, 15));
+		panel.add(plaque_label);
+		
+		plaque_txt = new JTextField();
+		panel.add(plaque_txt);
+
+		 
+		usage_label = new JLabel("Usage du véhicule :  ");	
+		usage_label.setFont(new Font("Arial",Font.TYPE1_FONT, 15));
+		panel.add(usage_label);
+		
+		usage = new JComboBox<String>();
+		usage.addItem(" ");
+		usage.addItem("Professionnel");
+		usage.addItem("Privé");
+		panel.add(usage);
+		 
+		energie_label = new JLabel("Energie : ");
+		energie_label.setFont(new Font("Arial",Font.TYPE1_FONT, 15));
+		panel.add(energie_label);
+		
+		energie = new JComboBox<String>();
+		energie.addItem(" ");
+		energie.addItem("Essence");
+		energie.addItem("Diesel");
+		panel.add(energie);
+		
+		garage_label = new JLabel("Usage du véhicule :  ");	
+		garage_label.setFont(new Font("Arial",Font.TYPE1_FONT, 15));
+		panel.add(garage_label);
+		 
+		garage_txt = new JTextField();
+		panel.add(garage_txt);
+		
+		JButton retour = new JButton("Retour");
+		retour.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				fenetre.dispose();
+				new PageAccueil(user);
+				
+			}
+		});
+		
+		enregistrer = new JButton("Enregistrer");
+		//enregistrer.addActionListener(event -> assurer());
+		
+		panel.add(retour);
+		panel.add(enregistrer);
+
+		fenetre.add(panel);
+		fenetre.setSize(600,400);
+		fenetre.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		fenetre.setLocationRelativeTo(null);
+		fenetre.setResizable(true);
+		fenetre.setVisible(true);
+		 
 	}
 
 		
@@ -184,49 +209,24 @@ public class Vehicule extends JFrame implements ItemListener, ActionListener{
 	 {
 
 }
-	 public void annee(String string, String string2, String string3,String string4,int choix,int choix2) {
-		 System.out.println("oui");
-		 if (choix == 1) {
-			 if (choix2 == 1) {
-			 String _choix= "Essence";
-			 String _choix2 = "Professionnel";
-			 System.out.println(string+string2+string3+string4+_choix+_choix2);
-		 }else {
-			 String _choix = "Essence" ;
-			 String _choix2 = "Privé";
-			 System.out.println(string+string2+string3+string4+_choix+_choix2);
-			 }
-			 }
-		 if (choix == 2) {
-			 if(choix2 == 2) {
-				 
-			 String _choix = "Diesel";
-			 String _choix2 = "Professionnel";
-			 System.out.println(string+string2+string3+string4+_choix+_choix2);
-			 
-			 }else {
-				 String _choix = "Diesel";
-				 String _choix2 = "Privé";
-				 System.out.println(string+string2+string3+string4+_choix+_choix2);
-				 
-			 }
-			 }
+	 public void assurer(String marque,String modele,String moteur,String age) {
 		 
-		
-		
- }
+	 }
 			
-	 
-	@Override
-	public void itemStateChanged(ItemEvent arg0) {
-		// TODO Auto-generated method stub
-		
+
+	
+	
+	public static void main(String[] args) {
+		new Vehicule("");
 	}
 
 
+
+
 	@Override
-	public void actionPerformed(ActionEvent arg0) {
+	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		
 	}
-	}
+}
+
