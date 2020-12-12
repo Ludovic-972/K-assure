@@ -56,7 +56,14 @@ public class Person {
     	}catch(SQLException e) {
     		e.printStackTrace();
 		
-    	}
+    	}finally {
+			try {
+				rs.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
     	
     public int getIdPerson() {

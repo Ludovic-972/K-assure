@@ -41,7 +41,7 @@ public class Sante extends JFrame {
 	private JLabel Jl;
 	private int n,x;
 	
-	@SuppressWarnings({ "unchecked", "rawtypes" })
+
 	public Sante(Object sante) {
 		
 		
@@ -77,8 +77,6 @@ public class Sante extends JFrame {
 		this.setVisible(true);	
 	}
 	
-	
-	@SuppressWarnings({ "unchecked", "rawtypes" })
 	
 	//methode d'action suite à la selection du nombre de personnes choisi
 	public void NumberOfFamilyNumber(String _nombre) {

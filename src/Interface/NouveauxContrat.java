@@ -19,8 +19,8 @@ public class NouveauxContrat extends JFrame implements ItemListener {
 	private String user;
 	
 	
-	public NouveauxContrat(String login) {
-		user = login;
+	public NouveauxContrat(String _user) {
+		this.user = _user;
 		fenetre1 = new JFrame();
 		fenetre1.setLayout(new BorderLayout());
 		fenetre1.setSize(500,500);

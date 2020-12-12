@@ -17,7 +17,8 @@ import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 
-import Assurance.Contact;
+
+@SuppressWarnings("serial")
 public class PageAccueilFront extends JFrame 
 {
     private JTree tree;//initialisation d'un arbre de fichier

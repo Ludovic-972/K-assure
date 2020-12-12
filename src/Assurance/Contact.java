@@ -24,10 +24,10 @@ public class Contact extends JFrame{
 	    private JButton Connection;
 	    private DefaultMutableTreeNode root;
 	    private JPanel panel ;
-	    private Person user;
+	    private String user;
 
 	    
-	    public Contact(Person _user) {
+	    public Contact(String _user) {
 	    	this.user = _user;
 
 	        root = new DefaultMutableTreeNode("Root");

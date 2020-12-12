@@ -17,10 +17,10 @@ public class Refund{
 	
 	private BDconnection bdd = new BDconnection();
 	
-	public Refund(String name,int IDAssu, double _cost,Person _user,Sinistre sin,String _bien,boolean _sim) {
+	public Refund(String name,int IDAssu, double _cost,String _user,Sinistre sin,String _bien,boolean _sim) {
 		this.sinistre = sin;
 		this.DamageCost = _cost;
-		this.user = _user;
+		this.user = new Person(_user);
 		this.bien = _bien;
 		this.sim = _sim;
 		
@@ -47,7 +47,7 @@ public class Refund{
 
 	private void VehiculeRefund(int IDassu) {
 		
-		Auto car = new Auto(user.getLogin(), bien);
+		Auto car = new Auto(user, bien);
 		carInsurance assu = new carInsurance(IDassu, user, car);
 		
 		
@@ -98,7 +98,7 @@ public class Refund{
 	}
 
 	private void HabitationRefund(int IDassu) {
-		Residency residency = new Residency(Integer.parseInt(bien), user.getLogin());
+		Residency residency = new Residency(Integer.parseInt(bien), user);
 		homeInsurance assu = new homeInsurance(IDassu, user.getLogin(), residency);
 		
 		

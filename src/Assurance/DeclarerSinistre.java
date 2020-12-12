@@ -12,7 +12,6 @@ import java.sql.SQLException;
 import javax.swing.*;
 
 import BDgestion.BDconnection;
-import Gestion.Person;
 import Gestion.Refund;
 import Gestion.Sinistre;
 import Interface.PageAccueil;
@@ -24,7 +23,7 @@ public class DeclarerSinistre {
 	
 	private int IDAssu = 0;
 	private BDconnection bdd = new BDconnection();
-	private Person user;
+	private String user;
 	private JFrame fenetre = new JFrame("Déclarer un sinistre");
 	
 	private JLabel sinistres_label = new JLabel("Sinistre : ",JTextField.CENTER);
@@ -36,10 +35,10 @@ public class DeclarerSinistre {
 	private JLabel assurances_label = new JLabel("Votre/Vos assurance(s) : ",JTextField.CENTER);
 	private JComboBox<String> liste_assu = new JComboBox<String>();
 	
-	String bien;
+	private String bien;
 	private boolean simulation = false;
 	
-	public DeclarerSinistre(String type,Person _user,boolean _simulation) {
+	public DeclarerSinistre(String type,String _user,boolean _simulation) {
     	
     	this.user = _user;
 		
@@ -56,6 +55,7 @@ public class DeclarerSinistre {
 			while (sinistres.next()) {
 				liste_sin.addItem(sinistres.getString(1));
 			}
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -67,15 +67,15 @@ public class DeclarerSinistre {
 		switch(type) {
 			case "Habitation":
 				valeur_label = new JLabel("Valeur des biens endommagés/volés : ",JTextField.CENTER);
-				assurances = bdd.getResult("SELECT * from HomeAssurance WHERE idAsker in (SELECT idPerson FROM Person WHERE user.getLogin() = '"+user.getLogin()+"')");
+				assurances = bdd.getResult("SELECT * from HomeAssurance WHERE idAsker in (SELECT idString FROM String WHERE user = '"+user+"')");
 				break;
 			case "Santé":
 				valeur_label = new JLabel("Coût des soins : ",JTextField.CENTER);
-				assurances = bdd.getResult("SELECT * from HealthAssurance WHERE idAsker in (SELECT idPerson FROM Person WHERE user.getLogin() = '"+user.getLogin()+"')");
+				assurances = bdd.getResult("SELECT * from HealthAssurance WHERE idAsker in (SELECT idString FROM String WHERE user = '"+user+"')");
 				break;
 			case "Véhicule":
 				valeur_label = new JLabel("Coût des réparations : ",JTextField.CENTER);
-				assurances = bdd.getResult("SELECT * from VehicleAssurance WHERE idAsker in (SELECT idPerson FROM Person WHERE user.getLogin() = '"+user.getLogin()+"')");
+				assurances = bdd.getResult("SELECT * from VehicleAssurance WHERE idAsker in (SELECT idString FROM String WHERE user = '"+user+"')");
 				break;
 			default:
 				break;
@@ -168,7 +168,7 @@ public class DeclarerSinistre {
 		liste_bien.addItem("");
 		if (sin.getSector().equals("Habitation")) {
 			
-			ResultSet biens = bdd.getResult("SELECT * FROM Residency WHERE idResident = '"+user.getIdPerson()+"'");
+			ResultSet biens = bdd.getResult("SELECT * FROM Residency WHERE idResident = (SELECT idPerson FROM Person WHERE login = '"+user+"')");
 			try {
 				while(biens.next()) {
 					liste_bien.addItem(biens.getString(3)+" ("+biens.getString(5)+") "+biens.getString(10)+" m² "+biens.getString(17)+" pièces "+biens.getString(8)+" "+biens.getString(7)+"| Utilisation : "+biens.getString(9)+" |n."+biens.getString(1));
@@ -178,7 +178,7 @@ public class DeclarerSinistre {
 			}
 			
 		}else if (sin.getSector().equals("Véhicule")){
-			ResultSet biens = bdd.getResult("SELECT * FROM Driving WHERE DriverID = '"+user.getIdPerson()+"'");
+			ResultSet biens = bdd.getResult("SELECT * FROM Driving WHERE DriverID = (SELECT idPerson FROM Person WHERE login = '"+user+"')");
 			try {
 				while(biens.next()) {
 					liste_bien.addItem(biens.getString(4)+" "+biens.getString(5)+" "+biens.getString(6)+" | Immatriculé:"+biens.getString(2)+" | Véhicule "+biens.getString(7)+" | "+biens.getString(9));

@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTree;
@@ -27,8 +28,8 @@ public class PageAccueil extends JFrame{
 
     
     
-    public PageAccueil(Person _user){	
-    	this.user = _user;
+    public PageAccueil(String _user){	
+    	this.user = new Person(_user);
 
     	
         panel = new JPanel();//creation d'un conteneur
@@ -40,7 +41,7 @@ public class PageAccueil extends JFrame{
         DefaultMutableTreeNode vegetableNode4 = new DefaultMutableTreeNode("FAQ");
         DefaultMutableTreeNode vegetableNode5 = new DefaultMutableTreeNode("Compte");
         DefaultMutableTreeNode vegetableNode6 = new DefaultMutableTreeNode("Declarez sinistre");
-        
+        DefaultMutableTreeNode vegetableNode7 = new DefaultMutableTreeNode("Faire une simulation");
         
     	//creation de zone de text, avec le text ainsi que sa position
     	JL1 = new JLabel("Bonjour "+user.getSurname()+",", JLabel.CENTER);
@@ -60,6 +61,7 @@ public class PageAccueil extends JFrame{
         root.add(vegetableNode3);
         root.add(vegetableNode4);
         root.add(vegetableNode6);
+        root.add(vegetableNode7);
          
         //creation de l'arbre en ajoutant la racine
         tree = new JTree(root);
@@ -121,7 +123,20 @@ public class PageAccueil extends JFrame{
         	JL3.setText("Ou bien vous renseignez sur les contrats existant");   	
         }
         else if (choix=="Declarez sinistre") {
-        	new DeclarerSinistre("Véhicule",utilisateur.getLogin());
+        	String[] options = {"Véhicule","Habitation"};
+            int x = JOptionPane.showOptionDialog(null, "Quel type de sinistre voulez-vous déclarez ?",
+                    "Déclarer un sinistre", // Titre du JOptionPane
+                    JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+        	new DeclarerSinistre(options[x],user.getLogin(),true);
+        	new DeclarerSinistre("Véhicule",user.getLogin(),false);
+        	
+        }else if(choix=="Faire une simulation") {
+        	String[] options = {"Véhicule","Habitation"};
+            int x = JOptionPane.showOptionDialog(null, "Quel type de sinistre voulez-vous simulez ?",
+                    "Simulation", // Titre du JOptionPane
+                    JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+        	new DeclarerSinistre(options[x],user.getLogin(),true);
+        	
         	
         }
         	
