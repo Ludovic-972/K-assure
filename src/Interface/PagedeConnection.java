@@ -86,14 +86,14 @@ public class PagedeConnection {
 	public PagedeConnection() {
 		
 		//creation des elements de zone de texte et de champ de texte
-	    JLabel User= new JLabel("Login", JLabel.CENTER);
+	    JLabel User= new JLabel("Username", JLabel.CENTER);
 	    JTextField JUser = new JTextField();
-	    JLabel Mdp = new JLabel("Mot de passe", JLabel.CENTER);
+	    JLabel Mdp = new JLabel("Password", JLabel.CENTER);
 	    JPasswordField JMdp = new JPasswordField (); 
  	    
 	    JMdp.setEchoChar ('*');
 	    JPanel p = new JPanel( );
-	    Connex = new JButton("Connexion");
+	    Connex = new JButton("Connection");
 	    inscription = new JButton("Inscription");
 	    
 	    Connex.addActionListener(event -> actionPerformed(JUser.getText() ,JMdp.getPassword()));
@@ -108,7 +108,7 @@ public class PagedeConnection {
 	    p.add(inscription);
  
 	     
-	    f = new JFrame("Connexion");
+	    f = new JFrame("Connection");
 	    f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	    f.setPreferredSize(new Dimension(400,200));
 	    f.setContentPane(p);

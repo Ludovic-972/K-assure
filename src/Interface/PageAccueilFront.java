@@ -2,6 +2,7 @@ package Interface;
 
 // Liste des imports d'outils depuis la bibliotheque Java
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 
@@ -13,21 +14,23 @@ import javax.swing.JScrollPane;
 import javax.swing.JTree;
 import javax.swing.SwingUtilities;
 import javax.swing.event.TreeSelectionEvent;
+import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 
-
-@SuppressWarnings("serial")
+import Assurance.Contact;
 public class PageAccueilFront extends JFrame 
 {
     private JTree tree;//initialisation d'un arbre de fichier
     private JButton Connection;//initialisation  d'un bouton
     private DefaultMutableTreeNode root;//initialisation de la racine de l'arbre de fichier
     private JPanel panel ;//initialisation  d'un conteneur panel 
+    private JPanel panel2;
     private JLabel JL1,JL2,JL3;
     private DefaultMutableTreeNode vegetableNode,vegetableNode2,vegetableNode3;
     public PageAccueilFront()
     {
         panel = new JPanel();//creation d'un conteneur
+        panel2=new JPanel();
         root = new DefaultMutableTreeNode("Root");
         //creation des elements de l'arbre de fichier 
          vegetableNode3 = new DefaultMutableTreeNode("Contact");
@@ -40,10 +43,10 @@ public class PageAccueilFront extends JFrame
     	 JL3 = new JLabel("Ou bien vous renseignez Sur les questions frequentes", JLabel.CENTER);
     	
     	//Ajout des zones de text dans le conteneur
-    	panel.add(JL1);
-    	panel.add(JL2);
-    	panel.add(JL3);
-		panel.setLayout(new GridLayout(5, 4, 7, 7));
+    	panel2.add(JL1);
+    	panel2.add(JL2);
+    	panel2.add(JL3);
+		panel2.setLayout(new GridLayout(5, 4, 7, 7));
        
         //Ajouts des elements de l'arbre a la racine
        
@@ -59,9 +62,9 @@ public class PageAccueilFront extends JFrame
         
         //ajout du Bouton, contneur et arbre a la fenetre
         add(Connection, BorderLayout.SOUTH);
-        add(panel, BorderLayout.CENTER);
+        add(panel2, BorderLayout.CENTER);
         add(tree,BorderLayout.WEST);
-        add(new JScrollPane(panel)); // ajout d'une barre de scroll au cas ou la page serait reduite en taille
+        add(new JScrollPane(panel2)); // ajout d'une barre de scroll au cas ou la page serait reduite en taille
         
         
         //Ajout d'evenement "d'ecoute" pour le bouton et les fichier de l'arbre
@@ -108,8 +111,9 @@ public class PageAccueilFront extends JFrame
     
     // methode d'ecoute du bouton de connection qui permet d'ouvrir la classe PagedeConnection apres cliquement sur le bouton
     public void connection(ActionEvent event) {
+    	PagedeConnection PDC = new PagedeConnection();
     	this.dispose();
-    	new PagedeConnection();  	
+    	
     	
     }
      
