@@ -127,15 +127,18 @@ public class PageAccueil extends JFrame{
             int x = JOptionPane.showOptionDialog(null, "Quel type de sinistre voulez-vous déclarez ?",
                     "Déclarer un sinistre", // Titre du JOptionPane
                     JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
-        	new DeclarerSinistre(options[x],user.getLogin(),true);
-        	new DeclarerSinistre("Véhicule",user.getLogin(),false);
+            if (x!=-1) {
+            	new DeclarerSinistre(options[x],user.getLogin(),false);
+			}
         	
         }else if(choix=="Faire une simulation") {
         	String[] options = {"Véhicule","Habitation"};
             int x = JOptionPane.showOptionDialog(null, "Quel type de sinistre voulez-vous simulez ?",
                     "Simulation", // Titre du JOptionPane
                     JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
-        	new DeclarerSinistre(options[x],user.getLogin(),true);
+            if (x!=-1) {
+            	new DeclarerSinistre(options[x],user.getLogin(),true);
+			}
         	
         	
         }

@@ -54,23 +54,23 @@ public class Refund{
 		switch (sinistre.getCriticity()) {
 			case 1:
 				if (assu.isAllRisksCover()) {
-					rate = 15;
+					rate = 20;
 				}else {
-					rate = 10;
+					rate = 15;
 				}
 				break;
 			case 2:
 				if (assu.isAllRisksCover()) {
-					rate = 40;
+					rate = 45;
 				}else {
-					rate = 20;
+					rate = 25;
 				}
 				break;
 			case 3:
 				if (assu.isAllRisksCover()) {
-					rate = 70;
+					rate = 75;
 				}else {
-					rate = 50;
+					rate = 55;
 				}
 				break;
 

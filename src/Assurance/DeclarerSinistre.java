@@ -67,15 +67,15 @@ public class DeclarerSinistre {
 		switch(type) {
 			case "Habitation":
 				valeur_label = new JLabel("Valeur des biens endommagés/volés : ",JTextField.CENTER);
-				assurances = bdd.getResult("SELECT * from HomeAssurance WHERE idAsker in (SELECT idString FROM String WHERE user = '"+user+"')");
+				assurances = bdd.getResult("SELECT * from HomeAssurance WHERE idAsker in (SELECT idPerson FROM Person WHERE login = '"+user+"')");
 				break;
 			case "Santé":
 				valeur_label = new JLabel("Coût des soins : ",JTextField.CENTER);
-				assurances = bdd.getResult("SELECT * from HealthAssurance WHERE idAsker in (SELECT idString FROM String WHERE user = '"+user+"')");
+				assurances = bdd.getResult("SELECT * from HealthAssurance WHERE idAsker in (SELECT idPerson FROM Person WHERE login = '"+user+"')");
 				break;
 			case "Véhicule":
 				valeur_label = new JLabel("Coût des réparations : ",JTextField.CENTER);
-				assurances = bdd.getResult("SELECT * from VehicleAssurance WHERE idAsker in (SELECT idString FROM String WHERE user = '"+user+"')");
+				assurances = bdd.getResult("SELECT * from VehicleAssurance WHERE idAsker in (SELECT idPerson FROM Person WHERE login = '"+user+"')");
 				break;
 			default:
 				break;
@@ -203,12 +203,16 @@ public class DeclarerSinistre {
 					bien = liste_bien.getSelectedItem().toString().split(" ")[11].split("\\.")[1];
 				}
 				
-				Refund ref = new Refund(sin.getName(),IDAssu,cost,user,sin,bien,simulation);
-				if (ref.isInscrit()) {
-					JOptionPane.showMessageDialog(null, "Votre sinistre est enregistré. Votre assurance payera "+ref.getRate()+"% de ce que vous devrez payer. Soit "+ref.getNewCost()+'\u20ac');
-					fen.dispose();
-					fenetre.dispose();
-					new PageAccueil(user);
+				if (!bien.equals("")) {
+					Refund ref = new Refund(sin.getName(),IDAssu,cost,user,sin,bien,simulation);
+					if (ref.isInscrit()) {
+						JOptionPane.showMessageDialog(null, "Votre sinistre est enregistré. Votre assurance payera "+ref.getRate()+"% de ce que vous devrez payer. Soit "+ref.getNewCost()+'\u20ac');
+						fen.dispose();
+						fenetre.dispose();
+						new PageAccueil(user);
+					}
+				}else {
+					JOptionPane.showMessageDialog(null, "Veuillez choisir un bien.");
 				}
 				
 			}

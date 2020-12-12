@@ -93,7 +93,7 @@ public class PagedeConnection {
  	    
 	    JMdp.setEchoChar ('*');
 	    JPanel p = new JPanel( );
-	    Connex = new JButton("Connection");
+	    Connex = new JButton("Connexion");
 	    inscription = new JButton("Inscription");
 	    
 	    Connex.addActionListener(event -> actionPerformed(JUser.getText() ,JMdp.getPassword()));
