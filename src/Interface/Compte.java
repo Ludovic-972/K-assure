@@ -8,8 +8,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import Gestion.Adult;
-import Gestion.Child;
 import Gestion.Person;
 
 public class Compte extends JFrame {
@@ -23,18 +21,13 @@ public class Compte extends JFrame {
 	
 	public Compte(String user) {
 		utilisateur = new Person(user);
-    	if (utilisateur.getCategory().equals("Adulte")) {
-    		utilisateur = new Adult(user);
-		} else if (utilisateur.getCategory().equals("Enfant")){
-			utilisateur = new Child(user);
-		}
     	
     		panel = new JPanel();
     		panel.setLayout(new GridBagLayout());
     		GridBagConstraints c = new GridBagConstraints();
     		
     		
-    		Jl  = new JLabel("Nom Utilisateur : ");
+    		Jl  = new JLabel("Login : ");
     			c.weightx = 0.5;
     			c.gridx=0;
     			c.gridy=0;
@@ -104,7 +97,7 @@ public class Compte extends JFrame {
     			c.gridx=1;
     			c.gridy=6;
     	    panel.add(Jl14,c);
-    		Jl15 = new JLabel("Proffession :");
+    		Jl15 = new JLabel("Profession :");
     			c.weightx = 0.5;
     			c.gridx=0;
     			c.gridy=7;

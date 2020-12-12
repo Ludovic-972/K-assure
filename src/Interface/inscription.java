@@ -619,24 +619,22 @@ public class Inscription{
 		}
 		
 		 if (!ChampsVide()) {
-			 if (DateValid(birthdate)) {
+			 if (DateValid(birthdate,category)) {
 			
 				 if (EmailValidator(email)) {
 
 					String login = LoginGenerator();
 					String req,req2 = null;
 					if (category.equals("Adulte")) {
-						req = "INSERT INTO `Person`(`name`, `surname`,`sexe`, `login`, `pwd`, `category`, `adress`,"
-								+ " `phoneNumber`, `birthdate`,`birthcity`, `family_situation`, `email`, `ville`, `zipCode`,"
-								+ " `numberOfChild`, `driverLicenceDate`, `netIncome`, `profession`) VALUES ('"+name
-								+"','"+surname+"','"+sexe+"','"+login+"','"+pwd+"','"+category+"','"+adress+"','"
+						req = "INSERT INTO `Person`(`name`, `surname`, `sexe`, `login`, `pwd`, `category`, `adress`, `phoneNumber`, `birthdate`, "
+								+ "`birthcity`, `family_situation`, `email`, `ville`, `zipCode`, `numberOfChild`, `netIncome`, "
+								+ "`profession`) VALUES ('"+name+"','"+surname+"','"+sexe+"','"+login+"','"+pwd+"','"+category+"','"+adress+"','"
 								+phoneNumber+"',"+dateFormatSQL(birthdate)+",'"+birthcity+"','"+familySituation
 								+"','"+email+"','"+ville+"','"+zipCode+"','"+numberOfChild+"','"+netIncome+"','"+profession+"')";			
 					} else {
-						req = "INSERT INTO `Person`(`name`, `surname`,`sexe`, `login`, `pwd`, `category`, `adress`,"
-								+ " `phoneNumber`, `birthdate`,`birthcity`, `family_situation`, `email`, `ville`, `zipCode`,"
-								+ " `numberOfChild`, `driverLicenceDate`, `netIncome`, `profession`) VALUES ('"+name
-								+"','"+surname+"','"+sexe+"','"+login+"','"+pwd+"','"+category+"','"+adress+"',NULL"
+						req = "INSERT INTO `Person`(`name`, `surname`, `sexe`, `login`, `pwd`, `category`, `adress`, `phoneNumber`,"
+								+ " `birthdate`, `birthcity`, `family_situation`, `email`, `ville`, `zipCode`, `numberOfChild`, `netIncome`, "
+								+ "`profession`) VALUES ('"+name+"','"+surname+"','"+sexe+"','"+login+"','"+pwd+"','"+category+"','"+adress+"',NULL"
 								+","+dateFormatSQL(birthdate)+",'"+birthcity+"',NULL,NULL,'"+ville+"','"+zipCode+"',NULL,NULL,NULL);";
 						req2 = "INSERT INTO `Child`(`loginChild`, `loginParent1`, `loginParent2`, `name`, `surname`, `birthDate`)  VALUES "
 								+ "('"+login+"','"+loginparent1+"','"+loginparent2+"','"+name+"','"+surname+"',"+dateFormatSQL(birthdate)+")";
@@ -710,7 +708,7 @@ public class Inscription{
 	  *@since 3.0
 	  * 
 	  */
-	 public static boolean DateValid(String date){
+	 public static boolean DateValid(String date,String cat){
 		 try {
 			 System.out.println(date.length());
 			 if(date == "NULL"){
@@ -722,20 +720,22 @@ public class Inscription{
 			 int annee = Integer.parseInt(tab[2]);
 			 
 			 int annee_actuel = Integer.parseInt(new SimpleDateFormat("yyyy").format(new Date()));
+			 int age = annee_actuel-annee;
 			 
-			 
-			 if (mois <= 12 && annee <= annee_actuel) {
-				 if (mois == 02) {
-					 if (bissextile(annee) && jour <= 29)  
+			 if((cat.equals("Adulte") && age >=18) ^ (cat.equals("Enfant") && age <18)) {
+				 if (mois <= 12 && annee <= annee_actuel) {
+					 if (mois == 02) {
+						 if (bissextile(annee) && jour <= 29)  
+							return true;
+						 else if(jour <= 28)
+							return true;
+					}else if (jours30(mois) && jour <= 30) {
 						return true;
-					 else if(jour <= 28)
+					}else if(jour <=31){
 						return true;
-				}else if (jours30(mois) && jour <= 30) {
-					return true;
-				}else if(jour <=31){
-					return true;
+					}
 				}
-			}
+			 }
 		} catch (NumberFormatException e) {
 			return false;
 		}

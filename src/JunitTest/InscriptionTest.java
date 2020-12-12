@@ -26,16 +26,18 @@ class InscriptionTest {
 
 	@Test
 	void testDateValid() {
-		assertTrue(Inscription.DateValid("29-02-2020"));
-		assertTrue(Inscription.DateValid("05-03-2018"));
-		assertTrue(Inscription.DateValid("11-06-2001"));
-		assertTrue(Inscription.DateValid("NULL"));
+		assertTrue(Inscription.DateValid("29-02-2020","Enfant"));
+		assertTrue(Inscription.DateValid("05-03-2001","Adulte"));
+		assertTrue(Inscription.DateValid("11-06-2001","Adulte"));
+		assertTrue(Inscription.DateValid("NULL","Enfant"));
 
-		assertFalse(Inscription.DateValid("29-02-2018"));
-		assertFalse(Inscription.DateValid("12-13-2014"));
-		assertFalse(Inscription.DateValid("12-13-2024"));
-		assertFalse(Inscription.DateValid("45-01-2019"));
-		assertFalse(Inscription.DateValid("-02-05-2016"));
+		assertFalse(Inscription.DateValid("29-02-2018","Adulte"));
+		assertFalse(Inscription.DateValid("12-13-2014","Enfant"));
+		assertFalse(Inscription.DateValid("12-13-2024","Adulte"));
+		assertFalse(Inscription.DateValid("45-01-2019","Adulte"));
+		assertFalse(Inscription.DateValid("-02-05-2016","Adulte"));
+		assertFalse(Inscription.DateValid("11-06-2001","Enfant"));
+		assertFalse(Inscription.DateValid("11-06-2008","Adulte"));
 	}		
 
 	@Test
