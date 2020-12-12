@@ -5,13 +5,13 @@ import java.awt.GridLayout;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTree;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.tree.DefaultMutableTreeNode;
 
+import Gestion.Person;
 
 
 
@@ -26,6 +26,7 @@ public class PageAdmin extends JFrame {
 	private JTree tree;
     private DefaultMutableTreeNode root;
     private JPanel panel ;
+    private Person utilisateur;
     public PageAdmin()
     {
     	
@@ -33,13 +34,13 @@ public class PageAdmin extends JFrame {
         root = new DefaultMutableTreeNode("Root");
         DefaultMutableTreeNode vegetableNode = new DefaultMutableTreeNode("Contact");
         DefaultMutableTreeNode vegetableNode2 = new DefaultMutableTreeNode("Contrats");
-        DefaultMutableTreeNode Assurance = new DefaultMutableTreeNode("Assurances");
+        DefaultMutableTreeNode vegetableNode3 = new DefaultMutableTreeNode("Gerer utilisateur");
 		 
        
        
         root.add(vegetableNode);
         root.add(vegetableNode2);
-        root.add(Assurance);
+        root.add(vegetableNode3);
          
         
         
@@ -78,14 +79,9 @@ public class PageAdmin extends JFrame {
     	DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
     	String choix =  selectedNode.getUserObject().toString();
     	//renvoie sur la classe Nouveaux Formualaire
-        if (choix == "Assurances") {
-        	String[] options = {"Véhicule","Habitation"};
-            int x = JOptionPane.showOptionDialog(null, "Quel genre d'assurance voulez vous consulter ?",
-                    "Assurances", 
-                    JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
-            if (x!=-1) {
-            	//TODO Consulter les assurances.
-			}
+        if (choix == "Gerer utilisateur") {
+     	   new GererUtilisateur();
+     	  }
         else if (choix =="Contact") {
         	
             }
@@ -93,5 +89,4 @@ public class PageAdmin extends JFrame {
 //        	ici la page contrats
         }
         }
-    }
 }
