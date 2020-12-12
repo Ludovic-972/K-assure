@@ -4,10 +4,13 @@ import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import Gestion.Adult;
+import Gestion.Child;
 import Gestion.Person;
 
 public class Compte extends JFrame {
@@ -18,16 +21,22 @@ public class Compte extends JFrame {
 	private Person utilisateur;
 	private JPanel panel;
 	private JLabel Jl,Jl2,Jl3,Jl4,Jl5,Jl6,Jl7,Jl8,Jl9,Jl10,Jl11,Jl12,Jl13,Jl14,Jl15,Jl16;
+	private JButton jb;
 	
 	public Compte(String user) {
 		utilisateur = new Person(user);
+    	if (utilisateur.getCategory().equals("Adulte")) {
+    		utilisateur = new Adult(user);
+		} else if (utilisateur.getCategory().equals("Enfant")){
+			utilisateur = new Child(user);
+		}
     	
     		panel = new JPanel();
     		panel.setLayout(new GridBagLayout());
     		GridBagConstraints c = new GridBagConstraints();
     		
     		
-    		Jl  = new JLabel("Login : ");
+    		Jl  = new JLabel("Nom Utilisateur : ");
     			c.weightx = 0.5;
     			c.gridx=0;
     			c.gridy=0;
@@ -97,7 +106,7 @@ public class Compte extends JFrame {
     			c.gridx=1;
     			c.gridy=6;
     	    panel.add(Jl14,c);
-    		Jl15 = new JLabel("Profession :");
+    		Jl15 = new JLabel("Proffession :");
     			c.weightx = 0.5;
     			c.gridx=0;
     			c.gridy=7;
@@ -107,6 +116,14 @@ public class Compte extends JFrame {
     			c.gridx=1;
     			c.gridy=7;
     	    panel.add(Jl16,c);
+    	    
+    	   jb=new JButton();
+    	   c.weightx = 0.5;
+			c.gridx=2;
+			c.gridy=8;
+    	   
+    	   jb.addActionListener(event-> modif(utilisateur.getLogin()));
+    	   panel.add(jb,c);
     		
 	
 	
@@ -117,6 +134,10 @@ public class Compte extends JFrame {
     this.setSize(500,500);
     this.setLocationRelativeTo(null);
     this.setVisible(true);  
+	}
+
+	private void modif(String login) {
+		new ModifierUtilisateur(utilisateur.getLogin());	
 	}
 	
 	
