@@ -479,6 +479,7 @@ public class ModifierUtilisateur{
 			panel1.add(loginp2txt);
 			panel1.add(loginp2);
 		}
+		
 
 		JButton inscription = new JButton("Modifiez");
 		inscription.addActionListener(event -> inscrit(user.getCategory()));
