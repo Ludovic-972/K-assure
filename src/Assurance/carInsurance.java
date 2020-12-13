@@ -21,11 +21,13 @@ public class carInsurance{
     
     BDconnection bdd = new BDconnection();
     
-    public carInsurance(int IDassu,Person _asker,Auto _car) {
+    public carInsurance(int IDassu,String _asker,Auto _car) {
     	ResultSet assu = bdd.getResult("SELECT * FROM VehicleAssurance WHERE idVA = '"+IDassu+"' and vehicle = '"+_car.getNumberplate()+"'");
     	try {
 			while (assu.next()) {
 				this.ID  = assu.getInt(1);
+				this.asker = new Person(_asker);
+				this.car = _car;
 			    this.startDate = FormatDDMMYY(assu.getString(2));
 			    this.bonus_malus = assu.getFloat(5);
 			    this.allRisksCover = assu.getBoolean(6);
@@ -35,8 +37,6 @@ public class carInsurance{
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-    	this.asker = _asker;
-		this.car = _car;
 		
 	}
     

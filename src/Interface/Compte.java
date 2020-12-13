@@ -1,210 +1,250 @@
 package Interface;
 
 import java.awt.BorderLayout;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import Assurance.carInsurance;
+import Assurance.homeInsurance;
 import BDgestion.BDconnection;
-import Gestion.Person;
+import Gestion.*;
 
 public class Compte extends JFrame {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private Person utilisateur;
+	private Person user;
 	private JPanel panel;
-	private JLabel Jl,Jl2,Jl3,Jl4,Jl5,Jl6,Jl7,Jl8,Jl9,Jl10,Jl11,Jl12,Jl13,Jl14,Jl15,Jl16,Jl17;
-	private JComboBox<String> Jcb;
-	private JButton jb,jb2;
+	private JLabel login_label,login,nom_label,nom,prenom_label,prenom,email_label,email,categorie_label,categorie,adress_label,adress,ddn_label,ddn,profession_label,profession;
+	private List<homeInsurance> HoAssu_list;
+	private List<carInsurance> VAssu_list;
+	private JButton contrat_button,modif,retour;
 	private BDconnection bdd = new BDconnection();
-	private String plate;
 	
-	public Compte(String user) {
-		utilisateur = new Person(user);
-
-    	
+	public Compte(String _user) {
+		user = new Person(_user);
     		panel = new JPanel();
-    		panel.setLayout(new GridBagLayout());
-    		GridBagConstraints c = new GridBagConstraints();
-    		
-    		
-    		Jl  = new JLabel("Login : ");
-    			c.weightx = 0.5;
-    			c.gridx=0;
-    			c.gridy=0;
-    	    panel.add(Jl ,c);
-    		Jl2 = new JLabel(utilisateur.getLogin());
-    			c.weightx = 0.5;
-    			c.gridx=1;
-    			c.gridy=0;
-    	    panel.add(Jl2,c);
-    		Jl3 = new JLabel("Nom :");
-    			c.weightx = 0.5;
-    			c.gridx=0;
-    			c.gridy=1;
-    	    panel.add(Jl3,c);
-    		Jl4 = new JLabel(utilisateur.getName());
-    			c.weightx = 0.5;
-    			c.gridx=1;
-    			c.gridy=1;
-    	    panel.add(Jl4,c);
-    		Jl5 = new JLabel("Prenom :");
-    			c.weightx = 0.5;
-    			c.gridx=0;
-    			c.gridy=2;
-    	    panel.add(Jl5,c);
-    		Jl6 = new JLabel(utilisateur.getSurname());
-    			c.weightx = 0.5;
-    			c.gridx=1;
-    			c.gridy=2;
-    	    panel.add(Jl6,c);
-    		Jl7 = new JLabel("eMail :");
-    			c.weightx = 0.5;
-    			c.gridx=0;
-    			c.gridy=3;
-    	    panel.add(Jl7,c);
-    		Jl8 = new JLabel(utilisateur.getEmail());
-    			c.weightx = 0.5;
-    			c.gridx=1;
-    			c.gridy=3;
-    	    panel.add(Jl8,c);
-    		Jl9 = new JLabel("Catégorie : ");
-    			c.weightx = 0.5;
-    			c.gridx=0;
-    			c.gridy=4;
-    	    panel.add(Jl9,c);
-    		Jl10 = new JLabel(utilisateur.getCategory());
-    			c.weightx = 0.5;
-    			c.gridx=1;
-    			c.gridy=4;
-    	    panel.add(Jl10,c);
-    		Jl11 = new JLabel("Adresse:");
-    			c.weightx = 0.5;
-    			c.gridx=0;
-    			c.gridy=5;
-    	    panel.add(Jl11,c);
-    		Jl12= new JLabel(utilisateur.getAddress());
-    			c.weightx = 0.5;
-    			c.gridx=1;
-    			c.gridy=5;
-    	    panel.add(Jl12,c);
-    		Jl13 = new JLabel("Date de Naissance:");
-    			c.weightx = 0.5;
-    			c.gridx=0;
-    			c.gridy=6;
-    	    panel.add(Jl13,c);
-    		Jl14 = new JLabel(utilisateur.getBirthdate());
-    			c.weightx = 0.5;
-    			c.gridx=1;
-    			c.gridy=6;
-    	    panel.add(Jl14,c);
-    		Jl15 = new JLabel("Profession :");
-    			c.weightx = 0.5;
-    			c.gridx=0;
-    			c.gridy=7;
-    	    panel.add(Jl15,c);
-    		Jl16 = new JLabel(utilisateur.getProfession());
-    			c.weightx = 0.5;
-    			c.gridx=1;
-    			c.gridy=7;
-    	    panel.add(Jl16,c);
+    		panel.setLayout(new GridLayout(10,2));
+
+    		login_label  = new JLabel("Login : ",JLabel.CENTER);	
+    	    panel.add(login_label);
+    		login = new JLabel(user.getLogin());
+    	    panel.add(login);
     	    
-    	    Jl17=new JLabel("Contrat en Cours : ");
-    	    c.weightx = 0.5;
-			c.gridx=0;
-			c.gridy=8;
-			panel.add(Jl17,c);
-			
-			
-			ResultSet biens = bdd.getResult("SELECT * FROM Driving WHERE DriverID = (SELECT idPerson FROM Person WHERE login = '"+user+"')");
-			ResultSet Assu2 = bdd.getResult("SELECT * FROM HomeAssurance Where idAsker = (SELECT idPerson FROM Person WHERE login = '"+user+"')");
-    	    ResultSet Assu = bdd.getResult("SELECT * FROM VehicleAssurance WHERE idAsker = (SELECT idPerson FROM Person WHERE login = '"+user+"')");	
-    	   
-    	    try {
-				while(biens.next()) {
-					
-					plate = biens.getString(2);
-					System.out.println(plate);
-					}
-			} catch (SQLException e) {
-				System.out.println("Erreur de récupération des biens.");
-				e.printStackTrace();
-			}
+    		nom_label = new JLabel("Nom :",JLabel.CENTER);	
+    	    panel.add(nom_label);
+    		nom = new JLabel(user.getName());
+    	    panel.add(nom);
     	    
-			Jcb = new JComboBox<String>();
-					c.weightx = 0.5;
-	    	    	c.gridx=1;
-	    	    	c.gridy=8;
-	    	    	Jcb.addItem("");
-			
-			try {
-				while(Assu.next()) {			
-					Jcb.addItem("Contrat Vehicule "+Assu.getInt(1)+" Pour le véhicule : "+Assu.getString(4)+" Date de début : "+Assu.getString(2));
-					
-				}
-			} catch (SQLException e) {
-				Jcb.addItem("Pas De Contrat Véhicule");
-			}
-			try {
-				while(Assu2.next()) {
-					Jcb.addItem("Contrat Habitation "+Assu2.getInt(1)+ "Pour la residence "+Assu2.getInt(3)+"Date de début : "+Assu.getString(2)	 );
-				}
-			} catch (SQLException e) {
-				Jcb.addItem("Pas De Contrat Habitation");
-			}
-			
-			
-    	    panel.add(Jcb,c);
+    		prenom_label = new JLabel("Prenom :",JLabel.CENTER);
+    	    panel.add(prenom_label);
+    		prenom = new JLabel(user.getSurname());
+    	    panel.add(prenom);
     	    
-    	   jb=new JButton("modifier");
-    	    c.weightx = 0.5;
-			c.gridx=2;
-			c.gridy=9;
+    		email_label = new JLabel("Email :",JLabel.CENTER);
+    	    panel.add(email_label);
+    		email = new JLabel(user.getEmail());
+    	    panel.add(email);
+    	    
+    		categorie_label = new JLabel("Catégorie : ",JLabel.CENTER);
+    	    panel.add(categorie_label);
+    		categorie = new JLabel(user.getCategory());
+    	    panel.add(categorie);
+    	    
+    		adress_label = new JLabel("Adresse:",JLabel.CENTER);
+    	    panel.add(adress_label);
+    		adress= new JLabel(user.getAddress());
+    	    panel.add(adress);
+    	    
+    		ddn_label = new JLabel("Né le :",JLabel.CENTER);
+    	    panel.add(ddn_label);
+    		ddn = new JLabel(user.getBirthdate());
+    	    panel.add(ddn);
+    	    
+    		profession_label = new JLabel("Profession :",JLabel.CENTER);	
+    	    panel.add(profession_label);
+    		profession = new JLabel(user.getProfession());
+    	    panel.add(profession);
+    	    
     	   
-    	   jb.addActionListener(event-> modif(utilisateur.getLogin()));
-    	   panel.add(jb,c);
+    	   contrat_button = new JButton("Voir mes contrats/biens");
+    	   contrat_button.addActionListener(event-> voirContrat());
+    	   panel.add(contrat_button);
     	   
-    	   jb2 = new JButton("resilier contrat selectionner");
-    	   c.weightx = 0.5;
-			c.gridx=1;
-			c.gridy=9;
-			jb2.addActionListener(event-> resi(Jcb.getSelectedIndex(),user));
-	    	   panel.add(jb2,c);
-    		
+    	   modif = new JButton("Modifier mes infos");
+    	   modif.addActionListener(event -> modif(_user));
+    	   panel.add(modif);
+    	   
+    	   retour = new JButton("Retour à l'accueil");
+    	   retour.addActionListener(event -> retour());
+    	   panel.add(retour);    		
 	
+    	 this.add(panel);
+    	 this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+    	 this.setTitle(user.getName()+" "+user.getSurname());     
+    	 this.setSize(500,550);
+    	this.setLocationRelativeTo(null);
+    	this.setVisible(true);  
+	}
 	
-	add(panel,BorderLayout.NORTH);
-	this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-    this.setTitle(utilisateur.getName()+" "+utilisateur.getSurname());       
-    this.pack();
-    this.setSize(500,500);
-    this.setLocationRelativeTo(null);
-    this.setVisible(true);  
+	private void retour() {
+		this.dispose();
+		new PageAccueil(user.getLogin());
 	}
 
-	private void resi(int selectedItem,String user) {
-		String req=null;
-		if (selectedItem==1) {
-		req="DELETE FROM `VehicleAssurance` WHERE idAsker = (SELECT idPerson FROM Person WHERE login = '"+user+"')" ;
-		bdd.executeQuery(req);
-		this.dispose();
-		new Compte(user);
+	public void voirContrat() {
+		ResultSet HoAssu = bdd.getResult("SELECT idHoa,Residency.idResidency FROM HomeAssurance,Residency "
+				+ "WHERE idAsker = (SELECT idPerson FROM Person WHERE login = '"+user.getLogin()+"')");
+	    ResultSet VAssu = bdd.getResult("SELECT Distinct idVa,vehicle FROM VehicleAssurance,Driving "
+	    		+ "WHERE idAsker = (SELECT idPerson FROM Person WHERE login = '"+user.getLogin()+"')");	
+	    HoAssu_list = new ArrayList<homeInsurance>();
+	    VAssu_list = new ArrayList<carInsurance>();
+	    try {
+			while (HoAssu.next()) {
+				HoAssu_list.add(new homeInsurance(HoAssu.getInt(1), user.getLogin(),new Residency(HoAssu.getInt(2), user.getLogin())));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	    try {
+			while (VAssu.next()) {
+				VAssu_list.add(new carInsurance(VAssu.getInt(1), user.getLogin(), new Auto(user.getLogin(), VAssu.getString(2))));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	    
+	    
+	    JFrame fenetre_assu = new JFrame("Vos contrats");
+	    fenetre_assu.setLayout(new BorderLayout());
+	    JPanel pan = new JPanel(new GridLayout(1,2)); //Panel principale avec les types d'assurances
+	    
+	    JPanel HoAssu_pan = new JPanel(new BorderLayout()); //Panel des assurances habitation
+	    HoAssu_pan.add(new JLabel("Vos assurances Habitation",JLabel.CENTER),"North");
+	    if (HoAssu_list.size() == 0) {
+			HoAssu_pan.add(new JLabel("Pas d'assurance Habitation",JLabel.CENTER),"Center");
+		}else {
+			JPanel[] pan_tab = new JPanel[HoAssu_list.size()]; // Tableau de panel de x éléments avec x le nombre d'assurances
+			JPanel infos_pan = new JPanel(new GridLayout(HoAssu_list.size(),1));
+			int i = 0;
+			for (homeInsurance assu : HoAssu_list) {
+				pan_tab[i] = new JPanel(new GridLayout(3,1,0,0));
+				Residency res = assu.getResidency();
+				if (assu.isAllRisksCover()) {
+					pan_tab[i].add(new JLabel("Assurance tout risques n."+assu.getID(),JLabel.CENTER));
+				}else {
+					pan_tab[i].add(new JLabel("Assurance n."+assu.getID(),JLabel.CENTER));
+				}
+				pan_tab[i].add(new JLabel("Qui a débuté le "+assu.getStartDate(),JLabel.CENTER));
+				pan_tab[i].add(new JLabel("Assure : "+res.getType()+"("+res.getMSR()+")"+" de "+res.getTotalArea()+" m²,"+res.getNumberOfRooms()+ " pièces."),JLabel.CENTER);
+				pan_tab[i].setBorder(BorderFactory.createLineBorder(Color.black));
+				infos_pan.add(pan_tab[i]);
+				i++;
+			}
+			HoAssu_pan.add(infos_pan,"Center");
+		}
+	    pan.add(HoAssu_pan);
+	    
+	    JPanel VAssu_pan = new JPanel(new BorderLayout()); // Panel des assurances auto
+	    VAssu_pan.add(new JLabel("Vos assurances Véhicule",JLabel.CENTER),"North");
+	    if (VAssu_list.size() == 0) {
+			VAssu_pan.add(new JLabel("Pas d'assurance Véhicule",JLabel.CENTER),"Center");
+		}else {
+			JPanel[] pan_tab = new JPanel[VAssu_list.size()]; // Tableau de panel de x éléments avec x le nombre d'assurances
+			JPanel infos_pan = new JPanel(new GridLayout(VAssu_list.size(),1));
+			int i = 0;
+			for (carInsurance assu : VAssu_list ) {
+				pan_tab[i] = new JPanel(new GridLayout(6,1));
+				Auto auto = assu.getCar();
+				if (assu.isAllRisksCover()) {
+					pan_tab[i].add(new JLabel("Assurance tout risques n."+assu.getID(),JLabel.CENTER));
+				}else {
+					pan_tab[i].add(new JLabel("Assurance n."+assu.getID(),JLabel.CENTER));
+				}
+				pan_tab[i].add(new JLabel("Qui a débuté le "+assu.getStartDate(),JLabel.CENTER));
+				pan_tab[i].add(new JLabel("Assure : "+auto.getMake()+" "+auto.getModel()+" "+auto.getEngine(),JLabel.CENTER));
+				pan_tab[i].add(new JLabel("Immatriculé "+auto.getNumberplate(),JLabel.CENTER));
+				pan_tab[i].add(new JLabel("Fonction du véhicule assuré: "+auto.getFunction(),JLabel.CENTER));
+				pan_tab[i].add(new JLabel("Alimentation :"+auto.getEnergy(),JLabel.CENTER));
+				pan_tab[i].setBorder(BorderFactory.createLineBorder(Color.black));
+				infos_pan.add(pan_tab[i]);
+				i++;
+			}
+			VAssu_pan.add(infos_pan,"Center");
+		}
+	    pan.add(VAssu_pan);
+	    
+	    JButton supprimer = new JButton("Résilier un contrat");
+	    supprimer.addActionListener(event -> resi());
+	    
+	    
+	    fenetre_assu.add(pan,"Center");
+	    fenetre_assu.add(supprimer,"South");
+	    fenetre_assu.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+	    fenetre_assu.setTitle("Mes contrats et biens");   
+	    fenetre_assu.setSize(600,500);
+	    fenetre_assu.setLocationRelativeTo(null);
+	    fenetre_assu.setVisible(true);  
+	    
+	    
+	}
+	
+
+	private void resi() {
+		String[] options = { "Habitation", "Véhicule" };
+    	int x =JOptionPane.showOptionDialog(null, "Quel d'assurance voulez-vouz résiliez ?", "Résilier une assurance",
+    			JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE,
+    			null, options, options[0]);
+    	String req = "";
+    	int assu;
+    	try {
+    		assu = Integer.parseInt(JOptionPane.showInputDialog("Entrez l'id du contrat à résilier"));
+		} catch (Exception e) {
+			assu = -1;
+		}
+    	
+    	
+    	switch (x) {
+		case 0:
+			req="DELETE FROM `HomeAssurance` WHERE idHoA = '"+assu+"' "
+					+ "AND idAsker = (SELECT idPerson FROM Person WHERE login = '"+user.getLogin()+"')" ;
+			break;
+		case 1:
+			req="DELETE FROM `VehicleAssurance` WHERE idVA = '"+assu+"' "
+					+ "AND idAsker = (SELECT idPerson FROM Person WHERE login = '"+user.getLogin()+"')" ;
+			break;
+		default:
+			break;
+		}
+    	if (assu!=1) {
+    		bdd.executeQuery(req);
+        	JOptionPane.showMessageDialog(null,"Votre contrat est bien résilié.");
+        	this.dispose();
+        	new Compte(user.getLogin());
 		}
 		
 	}
 
 	private void modif(String login) {
-		new ModifierUtilisateur(utilisateur.getLogin());	
+		this.dispose();
+		new ModifierUtilisateur(user.getLogin());	
+	}
+	
+	public static void main(String[] args) {
+		new Compte("35004835");
 	}
 	
 	

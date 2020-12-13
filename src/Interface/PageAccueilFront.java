@@ -28,7 +28,7 @@ public class PageAccueilFront extends JFrame
     public PageAccueilFront()
     {
         panel = new JPanel();//creation d'un conteneur
-        root = new DefaultMutableTreeNode("Root");
+        root = new DefaultMutableTreeNode("K-assure");
         //creation des elements de l'arbre de fichier 
          vegetableNode3 = new DefaultMutableTreeNode("Contact");
          vegetableNode2 = new DefaultMutableTreeNode("FAQ");

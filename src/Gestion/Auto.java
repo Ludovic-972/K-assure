@@ -20,12 +20,12 @@ public class Auto {
     private String garage;
     private BDconnection bdd = new BDconnection();
     
-    public Auto(Person _user,String numberplate) {
+    public Auto(String _user,String numberplate) {
     	ResultSet rs = bdd.getResult("SELECT * FROM Driving WHERE plateNumber = '"+numberplate+"'"
-    					+ " AND driverID = (SELECT idPerson FROM Person WHERE login =  '"+_user.getLogin()+"')");
+    					+ " AND driverID = (SELECT idPerson FROM Person WHERE login =  '"+_user+"')");
     	try {
 			while(rs.next()) {
-				this.owner = _user;
+				this.owner = new Person(_user);
 				this.numberplate = rs.getString(2);
 				this.driverLicenceDate = rs.getString(3);
 			    this.make = rs.getString(4);

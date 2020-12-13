@@ -167,7 +167,7 @@ public class DeclarerSinistre {
 			ResultSet biens = bdd.getResult("SELECT * FROM Residency WHERE idResident = (SELECT idPerson FROM Person WHERE login = '"+user+"')");
 			try {
 				while(biens.next()) {
-					liste_bien.addItem(biens.getString(3)+" ("+biens.getString(5)+") "+biens.getString(10)+" m² "+biens.getString(17)+" pièces "+biens.getString(8)+" "+biens.getString(7)+"| Utilisation : "+biens.getString(9)+" |n."+biens.getString(1));
+					liste_bien.addItem(biens.getString(3)+" ("+biens.getString(5)+") "+biens.getString(10)+" m² "+biens.getString(17)+" pièces "+biens.getInt(14)+" étages à"+biens.getString(8)+" "+biens.getString(7)+"| Utilisation : "+biens.getString(9)+" |n."+biens.getString(1));
 				}
 			} catch (SQLException e) {
 				System.out.println("Erreur de récupération des biens.");

@@ -3,8 +3,6 @@ package Interface;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -590,8 +588,6 @@ public class ModifierUtilisateur{
 								+"`login`='"+login+"',`category`='"+category+"',`adress`='"+adress+"',`phoneNumber`='"+phoneNumber+"',"
 								+"`birthdate`="+dateFormatSQL(birthdate)+",`birthcity`='"+birthcity+"',`family_situation`='"+familySituation+"',`email`='"+email+"',"
 								+"`ville`='"+ville+"',`zipCode`='"+zipCode+"',`numberOfChild`='"+numberOfChild+"',`profession`='"+profession+"'WHERE login	=`"+user.getLogin()+"`;";	
-						req2 = "UPTADE `Child`(`loginChild`, `loginParent1`, `loginParent2`, `name`, `surname`, `birthDate`)  VALUES "
-								+ "('"+login+"','"+loginparent1+"','"+loginparent2+"','"+name+"','"+surname+"',"+dateFormatSQL(birthdate)+")";
 					}
 					if ( (category.equals("Enfant") && exist(loginparent1)) ) {
 						if (loginparent2.equals("NULL") ^ exist(loginparent2)) { 
@@ -630,7 +626,7 @@ public class ModifierUtilisateur{
 	  * */
 	public void retour() {
 		fenetre1.dispose();
-		new PagedeConnection();
+		new Compte(user.getLogin());
 	}
 	
 	/**

@@ -29,6 +29,7 @@ public class PageAccueil extends JFrame{
     
     
     public PageAccueil(String _user){	
+    	super("Accueil");
     	user = new Person(_user);
 
     	
@@ -89,8 +90,7 @@ public class PageAccueil extends JFrame{
        
          
         //Configuration de la fenetre 
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setTitle(user.getName()+" "+user.getSurname());       
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);       
         this.pack();
         this.setSize(500,500);
         this.setLocationRelativeTo(null);

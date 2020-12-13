@@ -47,8 +47,8 @@ public class Refund{
 
 	private void VehiculeRefund(int IDassu) {
 		
-		Auto car = new Auto(user, bien);
-		carInsurance assu = new carInsurance(IDassu, user, car);
+		Auto car = new Auto(user.getLogin(), bien);
+		carInsurance assu = new carInsurance(IDassu, user.getLogin(), car);
 		
 		
 		switch (sinistre.getCriticity()) {
