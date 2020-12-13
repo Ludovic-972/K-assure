@@ -8,23 +8,18 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 import javax.swing.text.MaskFormatter;
 
-
 import BDgestion.BDconnection;
-import Gestion.Person;
-import Interface.Inscription;
 import Interface.PageAccueil;
 
 
@@ -39,11 +34,11 @@ public class Vehicule implements ActionListener{
 	private JComboBox<String> marque,modele,moteur,usage,energie;
 	private JButton enregistrer;
 	
-	private Person user;
+	private String user;
 	private BDconnection bdd = new BDconnection();
 	
 	public Vehicule(String _user) {
-		this.user = new Person(_user);
+		this.user = _user;
 		
 				 
 		panel = new JPanel();
@@ -56,7 +51,7 @@ public class Vehicule implements ActionListener{
 		marque = new JComboBox<String>();
 		marque.addItem("");
 
-		ResultSet marques = bdd.getResult("SELECT DISTINCT Brand FROM Vehicle ORDER BY Brand");
+		ResultSet marques = bdd.getResult("SELECT DISTINCT Brand FROM Vehicle");
 		try {
 			while (marques.next()) {
 				marque.addItem(marques.getString(1));
@@ -73,18 +68,24 @@ public class Vehicule implements ActionListener{
 		modele.addItem("");
 		
 		marque.addItemListener(new ItemListener() {
-			
+
 			public void itemStateChanged(ItemEvent e) {
-				modele.removeAllItems();
-				modele.addItem("");
-				ResultSet modeles = bdd.getResult("SELECT DISTINCT Vehicle FROM Vehicle WHERE Brand ='"+e.getItem()+"' ORDER BY Vehicle");
-				try {
-					while (modeles.next()) {
-						modele.addItem(modeles.getString(1));
-					}						
-				} catch (SQLException sqle) {					
-					sqle.printStackTrace();
-				}
+				SwingUtilities.invokeLater(new Runnable() {
+					public void run() {
+						modele = new JComboBox<String>();
+						modele.addItem("");
+						ResultSet modeles = bdd.getResult("SELECT DISTINCT Vehicle FROM Vehicle WHERE Brand ='"+e.getItem()+"'");
+						try {
+							while (modeles.next()) {
+								moteur.addItem(modeles.getString(1));
+							}
+								
+						} catch (SQLException e) {
+							e.printStackTrace();
+						}
+						
+					}
+				});
 				
 			}
 		});
@@ -96,30 +97,16 @@ public class Vehicule implements ActionListener{
 		panel.add(moteur_label);
 			
 		moteur = new JComboBox<String>();
-		moteur.addItem("");
-		panel.add(moteur);
-		
-		modele.addItemListener(new ItemListener() {
-
-			public void itemStateChanged(ItemEvent e) {
-				if ((marque.getSelectedItem() instanceof String) && (modele.getSelectedItem() instanceof String)) {
-					String ma = marque.getSelectedItem().toString();
-					String mo = modele.getSelectedItem().toString();
-
-					ResultSet moteurs = bdd.getResult("SELECT DISTINCT `Engine`,`Engine code` FROM "
-							+ "Vehicle WHERE Vehicle = '"+mo+"' AND Brand ='"+ma+"' ORDER BY Engine");
-					try {
-						while (moteurs.next()) {
-							moteur.addItem(moteurs.getString(1)+" "+moteurs.getString(2));
-						}
-							
-					} catch (SQLException sqle) {
-						sqle.printStackTrace();
-					}
-				}
-				
+		ResultSet moteurs = bdd.getResult("SELECT DISTINCT `Engine`,`Engine code` FROM Vehicle");
+		try {
+			while (moteurs.next()) {
+				moteur.addItem(moteurs.getString(1)+" "+moteurs.getString(2));
 			}
-		});
+				
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		panel.add(moteur);
 		 
 	
 		age_label = new JLabel("Age du véhicule");	
@@ -143,7 +130,7 @@ public class Vehicule implements ActionListener{
 	     }
 		panel.add(permis_txt);
 		
-		obtention_label = new JLabel("Année d'obtention du véhicule");	
+		obtention_label = new JLabel("Date d'obtention du véhicule");	
 		obtention_label.setFont(new Font("Arial",Font.TYPE1_FONT, 15));
 		panel.add(obtention_label);
 		
@@ -186,7 +173,7 @@ public class Vehicule implements ActionListener{
 		energie.addItem("Diesel");
 		panel.add(energie);
 		
-		garage_label = new JLabel("Adresse du garage : ");	
+		garage_label = new JLabel("Usage du véhicule :  ");	
 		garage_label.setFont(new Font("Arial",Font.TYPE1_FONT, 15));
 		panel.add(garage_label);
 		 
@@ -197,13 +184,13 @@ public class Vehicule implements ActionListener{
 		retour.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				fenetre.dispose();
-				new PageAccueil(user.getLogin());
+				new PageAccueil(user);
 				
 			}
 		});
 		
 		enregistrer = new JButton("Enregistrer");
-		enregistrer.addActionListener(event -> assurer(marque.getSelectedItem().toString(),modele.getSelectedItem().toString(),moteur.getSelectedItem().toString(),age_txt.getText(),permis_txt.getText(),obtention_txt.getText(),plaque_txt.getText(),usage.getSelectedItem().toString(),energie.getSelectedItem().toString(),garage_txt.getText()));
+		//enregistrer.addActionListener(event -> assurer());
 		
 		panel.add(retour);
 		panel.add(enregistrer);
@@ -218,131 +205,27 @@ public class Vehicule implements ActionListener{
 	}
 
 		
-	 public void assurer(String _marque,String _modele,String _moteur,String _age,String _permis,String _obtention,String _plaque,String _usage,String _energie,String _garage) {
-		 int annee_actuel = Integer.parseInt(new SimpleDateFormat("yyyy").format(new Date()));
-		 if (annee_actuel >= Integer.parseInt(_obtention)) {
-			 if (DateValid(_permis)) {
-				 double bm = 1;
-				 String ddj = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-				 int bm_ask = JOptionPane.showConfirmDialog(null, "Avez vous déjà été assurez avant ?", "Question ?", JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
-				 if (bm_ask == JOptionPane.YES_OPTION) {
-					 while(true) {
-						 try {
-							 bm = Integer.parseInt(JOptionPane.showInputDialog("Entrez votre bonus/malus",1));
-							 assert bm >=0.5 || bm <=3.5;
-							 bm = Math.round((bm) * 10) / 10;
-							 break;
-						 }catch(NumberFormatException e){
-							 JOptionPane.showMessageDialog(null, "Veuillez entrez une valeur entre 0.5 et 3.5");;
-						 }
-					 }
-				 }
-				int atr = 0;
-				int atr_ask = JOptionPane.showConfirmDialog(null, "Voulez-vous l'assurance tout risques ?", "Question ?", JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
-				if (atr_ask == JOptionPane.YES_OPTION) {
-						atr = 1;
-				} 
-				 String req = "INSERT INTO `Driving`(`driverID`, `plateNumber`, `DriverLicenceDate`, `make`,"
-				 		+ " `model`, `engine`, `function`, `buyingYear`, `energy`, `AgeOfCar`, `garage`) VALUES"
-				 		+ "('"+user.getIdPerson()+"','"+_plaque+"','"+dateFormatSQL(_permis)+"','"+_marque+"','"+_modele+"','"+_moteur+"','"+_usage+"','"+_obtention+"','"
-				 		+_energie+"','"+_age+"','"+_garage+"')";
-				 String req2 ="INSERT INTO `VehicleAssurance`(`startDate`, `idAsker`, `vehicle`, `bonus_malus`,"
-				 		+ " `AllRiskCover`, `price`) VALUES ('"+ddj+"','"+user.getIdPerson()+"','"+_plaque+"','"+bm+"','"+atr+"','0')";
-				 bdd.executeQuery(req);
-				 bdd.executeQuery(req2);
-				 
-				 fenetre.dispose();
-				 JOptionPane.showMessageDialog(null, "Vous êtes assurez.");
-				 new PageAccueil(user.getLogin());
-			}else {
-				JOptionPane.showMessageDialog(null, "Veuillez entrer une date valide.");
-			}
-		 }else {
-			 JOptionPane.showMessageDialog(null, "Veuillez entrer une année valide.");
-		 }
+		
+	 {
+
+}
+	 public void assurer(String marque,String modele,String moteur,String age) {
+		 
 	 }
-
-	public static String dateFormatSQL(String date) {
-		String[] tab = date.split("-");
-		date = String.join("-", tab[2],tab[1],tab[0]);
-		return date;
-	}
-	
-	/**
-	 *@see Inscription#bissextile(int)
-	  * @since 1.0
-	  * */
-	public boolean bissextile(int year) {
-
-	    if ((year % 400 == 0) || ((year % 4 == 0) && (year % 100 != 0))) {
-	        return true;
-	    } else {
-	        return false;
-	    }
-	    }
-	 
-	
-	/**
-	 * 
-	  *@see Inscription#jours30
-	  *@since 1.0
-	  * 
-	  */
-	 public boolean DateValid(String date){
-		 try {
-			 System.out.println(date.length());
-			 if(date == "NULL"){
-				 return true;
-			 }
-			 String[] tab = date.split("-");
-			 int jour = Integer.parseInt(tab[0]);
-			 int mois = Integer.parseInt(tab[1]);
-			 int annee = Integer.parseInt(tab[2]);
-			 
-			 
-			 int annee_actuel = Integer.parseInt(new SimpleDateFormat("yyyy").format(new Date()));
 			
-				 if (mois <= 12 && annee <= annee_actuel) {
-					 if (mois == 02) {
-						 if (bissextile(annee) && jour <= 29)  
-							return true;
-						 else if(jour <= 28)
-							return true;
-					}else if (jours30(mois) && jour <= 30) {
-						return true;
-					}else if(jour <=31){
-						return true;
-					}
-				}
-			 
-		} catch (NumberFormatException e) {
-			return false;
-		}
-		 
-		 
-		 return false;
-		 
-	        
-	    }
-	 
-	 
-	 /**
-	  * @see Inscription#jours30(int)
-	  *@since 1.0
-	  * 
-	  */
-	 public boolean jours30(int mois) {
-		 int[] tab = {4,6,9,11};
-		 for (int a : tab) {
-			if (a == mois) {
-				return true;
-			}
-		}
-		 return false;
-	 }
+
+	
+	
+	public static void main(String[] args) {
+		new Vehicule("");
+	}
+
+
+
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
 		
 	}
 }

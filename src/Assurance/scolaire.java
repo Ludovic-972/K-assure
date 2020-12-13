@@ -36,11 +36,11 @@ public class Scolaire extends JFrame implements ItemListener{
 		nbenfant.addItemListener(event ->nbEnfant(event));	
 		panel.add(nbenfant);		
 	}
-
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public void nbEnfant(ItemEvent nb) {
 		String Nombre =(String)nb.getItem();
 		int n = Integer.parseInt(Nombre);
-		JComboBox<String>[] JCB;
+		JComboBox[] JCB;
 		panel.setLayout(new GridLayout(n, 3, 7, 7));
 		JCB = new JComboBox[n];
 		if (  nb.getItem() == "0") {
@@ -48,7 +48,7 @@ public class Scolaire extends JFrame implements ItemListener{
 	else {	 
 			panel.removeAll();	
 			for(int i=0;i<n;i++) {				
-					 JCB[i]=new JComboBox<String>();
+					 JCB[i]=new JComboBox();
 					 JCB[i].addItem(" ");
 					 JCB[i].addItem("1-10");
 					 JCB[i].addItem("11-18");

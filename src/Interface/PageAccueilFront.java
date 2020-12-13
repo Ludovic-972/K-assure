@@ -96,7 +96,7 @@ public class PageAccueilFront extends JFrame
         }
       //Ouverture de la classe Contrat si le fichier contrat a ete selectionner dans l'arbre
         else if (choix =="FAQ") {
-// Page FAQ de paulo 	
+        	new FAQ();
         }
         else if (choix =="Accueil" ) {
          JL1.setText("Bienvenue chez K-Assure");
