@@ -15,16 +15,65 @@ import javax.swing.SwingUtilities;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.tree.DefaultMutableTreeNode;
 
-
+/**
+ * PageAccueilFront est la premiere d'acces lors de l'executio du programme
+ * <p>
+ * Elle permet de naviguer entre les diffrentes onglet pour une personne non connecter
+ *  </p>
+ * <p>
+ * De plus cette classe permet l'acces à la page de connection
+ * </p>
+ * @author Gaëtan Lory
+ * @version 1.0
+ * */
 @SuppressWarnings("serial")
 public class PageAccueilFront extends JFrame 
 {
+	/**
+	 * Menu de Navigation entre les diffrentes page de la page acceuil
+	 * @see PageAcceuiFront
+	 * @since 1.0
+	 */
     private JTree tree;//initialisation d'un arbre de fichier
+    /**
+     * Boutton qui renvoie vers la PageDeConnection
+     * @see PageDeConnection
+     * @since 1.0
+     */
     private JButton Connection;//initialisation  d'un bouton
+    /**
+     * Dossier pour faciliter la Navigation dans le menu.
+     * @see tree
+     * @since 1.0
+     */
     private DefaultMutableTreeNode root;//initialisation de la racine de l'arbre de fichier
+    /**
+     * Creation du conteneur de la page JFrame
+     * @see JFrame
+     * @since 1.0
+     */
     private JPanel panel ;//initialisation  d'un conteneur panel 
+    /**
+     * Affiche d'element de texte sur la page 
+     * @see JPanel
+     * @since 1.0 
+     */
     private JLabel JL1,JL2,JL3;
+    /**
+     * Onglet de Navigation dans le menu
+     * @see root
+     * @since 1.0 
+     */
     private DefaultMutableTreeNode vegetableNode,vegetableNode2,vegetableNode3;
+    /**
+     * <p>
+     * Constrcuteur de la Page PageAccueilFront permet d'initialiser la fenetre JFrame
+     * il permet aussi l'ajout du menu de navigation au panel.
+     * </p>
+     * @see PageAcceuilFront
+     * @since 1.0  
+     * 
+     */
     public PageAccueilFront()
     {
         panel = new JPanel();//creation d'un conteneur
@@ -82,7 +131,11 @@ public class PageAccueilFront extends JFrame
     }
     
     
-    // methode d'ecoute de l'arbre
+/**
+ * Cette méthode permet de renvoyer l'utilisateur vers la page qu'il désire via le menu de navigation
+ * @param e
+ * @since 1.0
+ */
     public void valueChanged(TreeSelectionEvent e) {
     	// transormation de l'evenement de selection d'un fichier de l'arbre en String afin d'utiliser l'evenement
     	DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
@@ -106,14 +159,22 @@ public class PageAccueilFront extends JFrame
         	
         }
     
-    // methode d'ecoute du bouton de connection qui permet d'ouvrir la classe PagedeConnection apres cliquement sur le bouton
+    /**
+     *  methode d'ecoute du bouton de connection qui permet d'ouvrir la classe PagedeConnection apres cliquement sur le bouton
+     * @param event
+     * @since 1.0
+     */
     public void connection(ActionEvent event) {
     	this.dispose();
     	new PagedeConnection();  	
     	
     }
      
-    //methode d'affiche et d'execution du programme
+    /**
+     * methode d'affichage et d'execution du programme
+     * @param args
+     * @since 1.0
+     */
     public static void main(String[] args)
     {
         SwingUtilities.invokeLater(new Runnable() {

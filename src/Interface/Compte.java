@@ -21,19 +21,64 @@ import Assurance.homeInsurance;
 import BDgestion.BDconnection;
 import Gestion.*;
 
+/**
+ * Compte est la page qui permet à l'utilisateur connecter d'avoir acces au information de son compte
+ * <p>
+ * Elle permet aussià l'utilisateur de modifier les informations enregistrer via un bouton qui renvoie vers la page de Modification
+ *  </p>
+ * @author Gaëtan Lory, Ludovic Mathurin-Cayol
+ * @version 1.0
+ * */
 public class Compte extends JFrame {
 	/**
-	 * 
+	 * initialisation d'un user ceci permet de garder en mémoire l'utilisater connecter et de récuperer ses informations
+	 * @see Person
+	 * @since 2.0
 	 */
-	private static final long serialVersionUID = 1L;
 	private Person user;
+	/**
+     * Creation du conteneur de la page JFrame
+     * @see JFrame
+     * @since 1.0
+     */
 	private JPanel panel;
+	 /**
+     * Affiche d'element de texte sur la page 
+     * @see JPanel
+     * @since 1.0 
+     */
 	private JLabel login_label,login,nom_label,nom,prenom_label,prenom,email_label,email,categorie_label,categorie,adress_label,adress,ddn_label,ddn,profession_label,profession;
+	/**
+	 * Liste d'assurance habitation
+	 * @since 2.0
+	 */
 	private List<homeInsurance> HoAssu_list;
+	/**
+	 * Liste d'assurance vehicule
+	 * @since 2.0
+	 */
 	private List<carInsurance> VAssu_list;
+	/**
+	 * Boutton de résiliationn contrat de modification et de retour
+	 * @since 2.0
+	 */
 	private JButton contrat_button,modif,retour;
+	/**
+	 * Connection a la BD
+	 * @since2.0
+	 */
 	private BDconnection bdd = new BDconnection();
 	
+	/**<p>
+	 * Consctructeur de la Page Compte 
+	 * </p>
+	 * <p>
+	 * créer la liste des information de l'utilisateur
+	 * </p>
+	 * @param _user
+	 * 				Login de l'utilisateur
+	 * @since 2.0
+	 */
 	public Compte(String _user) {
 		user = new Person(_user);
     		panel = new JPanel();
@@ -99,13 +144,22 @@ public class Compte extends JFrame {
     	this.setLocationRelativeTo(null);
     	this.setVisible(true);  
 	}
-	
+	/**
+	 * Renvoie sur la page d'accueil en sauvegardant le login enregistrer
+	 * @see PageAccueil
+	 * @since 2.0
+	 */
 	private void retour() {
 		this.dispose();
 		new PageAccueil(user.getLogin());
 	}
 
+	/**
+	 * Methode qui permet d'afficher la totaliter des Contrats en cours pour l'utilisateur connecter
+	 * @since 2.0
+	 */
 	public void voirContrat() {
+
 		ResultSet HoAssu = bdd.getResult("SELECT idHoa,Residency.idResidency FROM HomeAssurance,Residency "
 				+ "WHERE idAsker = (SELECT idPerson FROM Person WHERE login = '"+user.getLogin()+"')");
 	    ResultSet VAssu = bdd.getResult("SELECT Distinct idVa,vehicle FROM VehicleAssurance,Driving "
@@ -202,7 +256,11 @@ public class Compte extends JFrame {
 	    
 	}
 	
-
+	
+	/**
+	 * Methode qui permet de resilier le contrat selection dans le menu deroulant
+	 * @since 2.0
+	 */
 	private void resi() {
 		String[] options = { "Habitation", "Véhicule" };
     	int x =JOptionPane.showOptionDialog(null, "Quel d'assurance voulez-vouz résiliez ?", "Résilier une assurance",
@@ -238,14 +296,15 @@ public class Compte extends JFrame {
 		
 	}
 
+	
+	/**
+	 * methode qui renvoie vers la page de modification des informations de l'utilisateur
+	 * @param login
+	 * @since 2.0
+	 */
 	private void modif(String login) {
 		this.dispose();
 		new ModifierUtilisateur(user.getLogin());	
 	}
-	
-	public static void main(String[] args) {
-		new Compte("35004835");
-	}
-	
 	
 }
