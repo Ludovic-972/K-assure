@@ -102,7 +102,7 @@ public class PageAccueilFront extends JFrame
        
         //creation du boutton de connection
      
-        Connection = new JButton("Connexion");
+        Connection = new JButton("Connexion/Inscription");
         
         //ajout du Bouton, contneur et arbre a la fenetre
         add(Connection, BorderLayout.SOUTH);
@@ -121,7 +121,7 @@ public class PageAccueilFront extends JFrame
          
         //Configuration de la fenetre 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setTitle("JTree Example");   
+        this.setTitle("Accueil");   
         this.pack();
         this.setSize(500,500);
         this.setLocationRelativeTo(null);

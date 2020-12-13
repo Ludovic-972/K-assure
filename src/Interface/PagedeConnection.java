@@ -209,16 +209,4 @@ public class PagedeConnection {
 		 }
 		 return false;	 
 	 }
-	
-	
-	
-	
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-
 }

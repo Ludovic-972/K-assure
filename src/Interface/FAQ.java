@@ -3,7 +3,6 @@ package Interface;
 
 import java.awt.Font;
 import java.awt.GridLayout;
-
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -40,7 +39,8 @@ public class FAQ  extends JFrame{
 	
 		JLabel r1 = new JLabel("R : Pour déclarer un sinistre, il suffit d'aller dans la section \"Déclarer un sinistre\".");
 		JLabel r2 = new JLabel("R : Pour pouvoir contacter votre assurance, vous devez aller dans la rubrique \"Contact\".");
-		JLabel r3 = new JLabel("R : En cas de sinistre dans votre habitation, votre animal de compagnie sera assuré. Cependant, si il lui arrive quoi que ce soit en dehors de votre habitation, votre assurance ne pourra plus le couvrir.");
+		JLabel r3 = new JLabel("R : En cas de sinistre dans votre habitation, votre animal de compagnie sera assuré."
+				+ " Cependant, si il lui arrive quoi que ce soit en dehors de votre habitation, votre assurance ne pourra plus le couvrir.");
 		JLabel r4 = new JLabel("R : Il est possible d'assurer tout type d'habitation, y compris les appartements.");
 		JLabel r5 = new JLabel("R : Oui, les deux roues sont assurés au même titre que les autres véhicules.");
 		JLabel r6 = new JLabel("R : Non, l'assurance véhicule ne couvre que les véhicules motorisés.");
