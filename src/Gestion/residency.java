@@ -29,10 +29,12 @@ public class Residency {
     
     
     public Residency(int ID,String _user) {
-    	ResultSet rs = bdd.getResult("SELECT * FROM Residency");
+    	ResultSet rs = bdd.getResult("SELECT * FROM Residency WHERE idResidency ='"+ID+"'"
+    			+ "AND idResident = (SELECT idPerson FROM Person WHERE login ='"+_user+"')");
     	try {
 			while(rs.next()) {
 				idResidency = rs.getInt(1);
+				Resident = new Person(_user);
 			    type = rs.getString(3);
 			    askerType = rs.getString(4);
 			    MSR = rs.getString(5);
