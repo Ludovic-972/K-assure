@@ -116,6 +116,16 @@ public class PageAccueil extends JFrame{
         	int x =JOptionPane.showOptionDialog(null, "Quel d'assurance voulez-vouz ?", "S'assurer",
         			JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE,
         			null, options, options[0]);
+        	switch (x) {
+			case 0:
+				new Habitation();
+				break;
+			case 1:
+				new Vehicule(user.getLogin());
+				break;
+			default:
+				break;
+			}
         }
         else if (choix =="FAQ") {
         	new FAQ();

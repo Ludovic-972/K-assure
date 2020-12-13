@@ -699,6 +699,8 @@ public class Inscription{
 	 * 
 	  *@param date
 	  *		Date à vérifier. 
+	  *@param cat
+	  *		Catégorie de l'utilisateur.
 	  *@return true si la date est valide,false sinon.
 	  *@see Inscription#jours30
 	  *@since 3.0
