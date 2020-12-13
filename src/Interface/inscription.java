@@ -482,7 +482,7 @@ public class Inscription{
 		professionel.addItem("Ouvrier.ère");
 		professionel.addItem("Commerçant.e");
 		professionel.addItem("Profession libérale");
-		professionel.addItem("Chef.ffe d'entreprise");
+		professionel.addItem("Chef.ffe d entreprise");
 		professionel.addItem("Enseignant.e");
 		professionel.addItem("Agriculteur.se");
 		professionel.addItem("Exploitant.e agricole");
@@ -492,7 +492,7 @@ public class Inscription{
 		professionel.addItem("Etudiant.e boursier.ère");
 		professionel.addItem("Retraité.e");
 		professionel.addItem("Sans profession");
-		professionel.addItem("En recherche d'emploi");
+		professionel.addItem("En recherche d emploi");
 		panel1.add(professions);
 		panel1.add(professionel);
 		}
