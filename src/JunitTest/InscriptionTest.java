@@ -4,8 +4,6 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
 import Interface.Inscription;
-import jdk.javadoc.internal.tool.resources.javadoc;
-
 /**
  * Classe Test des méthodes de la classe Inscription
  * 

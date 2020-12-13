@@ -619,7 +619,7 @@ public class Inscription{
 		}
 		
 		 if (!ChampsVide()) {
-			 if (DateValid(birthdate)) {
+			 if (DateValid(birthdate,category)) {
 			
 				 if (EmailValidator(email)) {
 
@@ -710,7 +710,7 @@ public class Inscription{
 	  *@since 3.0
 	  * 
 	  */
-	 public static boolean DateValid(String date){
+	 public static boolean DateValid(String date,String cat){
 		 try {
 			 System.out.println(date.length());
 			 if(date == "NULL"){
@@ -722,20 +722,22 @@ public class Inscription{
 			 int annee = Integer.parseInt(tab[2]);
 			 
 			 int annee_actuel = Integer.parseInt(new SimpleDateFormat("yyyy").format(new Date()));
+			 int age = annee_actuel - annee;
 			 
-			 
-			 if (mois <= 12 && annee <= annee_actuel) {
-				 if (mois == 02) {
-					 if (bissextile(annee) && jour <= 29)  
+			 if ((cat.equals("Adulte") && age >=18) || (cat.equals("Enfant") && age <18)) {
+				 if (mois <= 12 && annee <= annee_actuel) {
+					 if (mois == 02) {
+						 if (bissextile(annee) && jour <= 29)  
+							return true;
+						 else if(jour <= 28)
+							return true;
+					}else if (jours30(mois) && jour <= 30) {
 						return true;
-					 else if(jour <= 28)
+					}else if(jour <=31){
 						return true;
-				}else if (jours30(mois) && jour <= 30) {
-					return true;
-				}else if(jour <=31){
-					return true;
+					}
 				}
-			}
+			 }
 		} catch (NumberFormatException e) {
 			return false;
 		}

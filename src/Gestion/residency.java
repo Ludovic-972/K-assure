@@ -7,9 +7,11 @@ import java.sql.SQLException;
 public class Residency {
     
     private int idResidency;
+    private Person Resident;
     private String type;
     private String askerType;
     private String MSR;
+    private int rent;
     private String city;
     private String zipCode;
     private String RenderUse;
@@ -26,26 +28,27 @@ public class Residency {
     private BDconnection bdd = new BDconnection();
     
     
-    public Residency() {
+    public Residency(int ID,String _user) {
     	ResultSet rs = bdd.getResult("SELECT * FROM Residency");
     	try {
 			while(rs.next()) {
 				idResidency = rs.getInt(1);
-			    type = rs.getString(2);
-			    askerType = rs.getString(3);
-			    MSR = rs.getString(4);
-			    city = rs.getString(5);
-			    zipCode = rs.getString(6);
-			    RenderUse = rs.getString(7);
-			    area = rs.getInt(8);
-			    TotalArea = rs.getInt(9);
-			    constructionYear = rs.getInt(10);
-			    habitable = rs.getBoolean(11);
-			    roof = rs.getInt(12);
-			    PersonalEffectsValue = rs.getInt(13);
-			    jewelryValue = rs.getInt(14);
-			    numberOfRooms = rs.getInt(15);
-			    numberOfRoomates = rs.getInt(16);
+			    type = rs.getString(3);
+			    askerType = rs.getString(4);
+			    MSR = rs.getString(5);
+			    rent = rs.getInt(6);
+			    city = rs.getString(7);
+			    zipCode = rs.getString(8);
+			    RenderUse = rs.getString(9);
+			    area = rs.getInt(10);
+			    TotalArea = rs.getInt(11);
+			    constructionYear = rs.getInt(12);
+			    habitable = rs.getBoolean(13);
+			    roof = rs.getInt(14);
+			    PersonalEffectsValue = rs.getInt(15);
+			    jewelryValue = rs.getInt(16);
+			    numberOfRooms = rs.getInt(17);
+			    numberOfRoomates = rs.getInt(18);
 			}
 		} catch (SQLException e) {
 			// TODO: handle exception
@@ -210,6 +213,26 @@ public class Residency {
 
 	public void setNumberOfRoomates(int numberOfRoomates) {
 		this.numberOfRoomates = numberOfRoomates;
+	}
+
+
+	public Person getResident() {
+		return Resident;
+	}
+
+
+	public void setResident(Person resident) {
+		Resident = resident;
+	}
+
+
+	public int getRent() {
+		return rent;
+	}
+
+
+	public void setRent(int rent) {
+		this.rent = rent;
 	}
     
     
