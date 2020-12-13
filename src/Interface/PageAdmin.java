@@ -28,7 +28,7 @@ import Gestion.Person;
 public class PageAdmin extends JFrame {
 	/**
 	 * Menu de Navigation entre les diffrentes page de la page acceuil
-	 * @see PageAcceuiFront
+	 * @see PageAccueilFront
 	 * @since 1.0
 	 */
 	private JTree tree;

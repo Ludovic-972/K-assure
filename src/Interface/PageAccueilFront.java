@@ -31,13 +31,12 @@ public class PageAccueilFront extends JFrame
 {
 	/**
 	 * Menu de Navigation entre les diffrentes page de la page acceuil
-	 * @see PageAcceuiFront
 	 * @since 1.0
 	 */
     private JTree tree;//initialisation d'un arbre de fichier
     /**
      * Boutton qui renvoie vers la PageDeConnection
-     * @see PageDeConnection
+     * @see PagedeConnection
      * @since 1.0
      */
     private JButton Connection;//initialisation  d'un bouton
@@ -70,7 +69,6 @@ public class PageAccueilFront extends JFrame
      * Constrcuteur de la Page PageAccueilFront permet d'initialiser la fenetre JFrame
      * il permet aussi l'ajout du menu de navigation au panel.
      * </p>
-     * @see PageAcceuilFront
      * @since 1.0  
      * 
      */
@@ -133,7 +131,8 @@ public class PageAccueilFront extends JFrame
     
 /**
  * Cette méthode permet de renvoyer l'utilisateur vers la page qu'il désire via le menu de navigation
- * @param e
+ * @param e 
+ * 		Branche du JTree selectionné
  * @since 1.0
  */
     public void valueChanged(TreeSelectionEvent e) {
@@ -162,6 +161,7 @@ public class PageAccueilFront extends JFrame
     /**
      *  methode d'ecoute du bouton de connection qui permet d'ouvrir la classe PagedeConnection apres cliquement sur le bouton
      * @param event
+     * 		Evenement du JButton implementé
      * @since 1.0
      */
     public void connection(ActionEvent event) {
@@ -173,6 +173,7 @@ public class PageAccueilFront extends JFrame
     /**
      * methode d'affichage et d'execution du programme
      * @param args
+     * 		Argument de la méthode main
      * @since 1.0
      */
     public static void main(String[] args)

@@ -27,8 +27,12 @@ import Gestion.Person;
 import Interface.Inscription;
 import Interface.PageAccueil;
 
-
-
+/**
+ * Vehicule est la classe permettant d'inscrire un véhicule et de l'assurer.
+ * 
+ * @author Gaëtan Lory,Mathurin-Cayol Ludovic
+ * @version 1.0
+ * */
 public class Vehicule implements ActionListener{
 	
 	private JFrame fenetre = new JFrame("Assurer son véhicule");
@@ -42,6 +46,12 @@ public class Vehicule implements ActionListener{
 	private Person user;
 	private BDconnection bdd = new BDconnection();
 	
+	/**
+	 *Constructeur qui crée une interface permettant l'inscription des informations du client pour 
+	 *la création de l'assurance.
+	 *
+	 *@since 1.0
+	 */
 	public Vehicule(String _user) {
 		this.user = new Person(_user);
 		
@@ -217,7 +227,30 @@ public class Vehicule implements ActionListener{
 		 
 	}
 
-		
+	/**
+	 * Crée une assurance Véhicule et l'insert dans la base de données
+	 * @param _marque
+	 * 		Marque du véhicule.
+	 * @param _modele
+	 * 		Modèle du véhicule.
+	 * @param _moteur
+	 * 		Moteur du véhicule.
+	 * @param _age
+	 * 		Age du véhicule.
+	 * @param _permis
+	 * 		Date d'obtention du permis de conduire
+	 * @param _obtention
+	 * 		Date d'obtention du véhicule
+	 * @param _plaque
+	 * 		Plaque d'immatriculation du véhicule.
+	 * @param _usage
+	 * 		Usage du véhicule.
+	 * @param _energie
+	 * 		Energie du véhicule.
+	 * @param _garage
+	 * 		Adresse du garage du véhicule.
+	 * @since 1.0
+	 * **/
 	 public void assurer(String _marque,String _modele,String _moteur,String _age,String _permis,String _obtention,String _plaque,String _usage,String _energie,String _garage) {
 		 int annee_actuel = Integer.parseInt(new SimpleDateFormat("yyyy").format(new Date()));
 		 if (annee_actuel >= Integer.parseInt(_obtention)) {
@@ -261,7 +294,18 @@ public class Vehicule implements ActionListener{
 			 JOptionPane.showMessageDialog(null, "Veuillez entrer une année valide.");
 		 }
 	 }
-
+	 
+	 
+	 /**
+		 * Mets la date en paramètre en format YYYY/MM/JJ
+		  * 
+		  * @param date
+		  * 		Date en format JJ/MM/YYYY
+		  * 
+		  * @return Date en format YYYY/MM/JJ
+		  * 
+		  * @since 1.0
+		  * */
 	public static String dateFormatSQL(String date) {
 		String[] tab = date.split("-");
 		date = String.join("-", tab[2],tab[1],tab[0]);

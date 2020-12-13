@@ -4,48 +4,42 @@ package Assurance;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
-import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.GridLayout;
-import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
-import java.awt.event.KeyListener;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.util.Date;
-
-import javax.swing.AbstractButton;
-import javax.swing.Action;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-@SuppressWarnings({ "unused", "serial" })
+/**
+ * Sante est la classe permettant l'inscription de l'assurance Santé et des concernés
+ * 
+ * @author Gaëtan Lory
+ * @version 1.0
+ * */
+@SuppressWarnings("serial")
 public class Sante extends JFrame {
 	
 	//Implementation des différentes variable
 	public JPanel panel,JP2;
-	private String get,StringArray[],Age,Nom,Prenom,NbSecu,Nombre,type,type1,type2,type3,Couverture[];
+	private String Age,Nom,Prenom,NbSecu,Nombre,Couverture[];
 	private JTextField JTF[],nbPersonne,JTF1[],JTF2[],JTF3[];
-	private JCheckBox[] TJCB,TJCB1,TJCB2,TJCB3,TJCB4;
+	private JCheckBox[] TJCB,TJCB1,TJCB2,TJCB3;
 	private JButton JBNumber,JBFormu;
 	private JLabel[] JL,JL1,JL2,JL3;
 	private JLabel Jl;
 	private int n,x;
 	
-
-	public Sante(Object sante) {
-		
-		
-				 
+	
+	/**
+	 * Constructeur créant une interface demandant le nombre de personnes à assurer.
+	 * 
+	 * @since 1.0
+	 */
+	public Sante() {
 		panel = new JPanel();
 
 		//creation d'une Zone de Texte pour le choixdu nombre de personne
@@ -78,7 +72,12 @@ public class Sante extends JFrame {
 	}
 	
 	
-	//methode d'action suite à la selection du nombre de personnes choisi
+	/**
+	 * Crée une interface récupérant les informations d'un nombre x de personnes
+	 * @param _nombre
+	 * 		Nombre de personnes de la famille
+	 *@since 1.0
+	 * */
 	public void NumberOfFamilyNumber(String _nombre) {
 		
 		//transforme l'objet de la zone de text en nombre
@@ -351,7 +350,19 @@ public class Sante extends JFrame {
 		
 	}
 	
-	//ici on permet la recuperation des type de couverture souhaiter
+	
+	
+	/**
+	 * Récupere le type de couverture sélectionné
+	 * 
+	 * @param event
+	 * 		Evenement de la checkbox sélectionnée
+	 *@param type
+	 *		Type de couverture selectionné
+	 *
+	 @since 1.0
+	 * */
+	@SuppressWarnings("unused")
 	private void recuptype(ItemEvent event, String _type) {
 		//on transforme l'event soit la box est check soit elle ne l'ai pas (0 ou 1)
 		int checked = event.getStateChange();
@@ -361,7 +372,12 @@ public class Sante extends JFrame {
 		System.out.println(_type);
 	}
 	
-	//Permet de recuperer les information des individues
+	/**
+	 * Récupére les informations des personnes inscrites
+	 * @param nb
+	 * 		Nombre de personnes à inscrire.
+	 * 
+	 * */
 	private void Recup(int nb) {
 		
 			

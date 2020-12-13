@@ -65,7 +65,7 @@ public class Compte extends JFrame {
 	private JButton contrat_button,modif,retour;
 	/**
 	 * Connection a la BD
-	 * @since2.0
+	 * @since 2.0
 	 */
 	private BDconnection bdd = new BDconnection();
 	

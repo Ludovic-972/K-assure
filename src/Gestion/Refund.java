@@ -7,7 +7,7 @@ import BDgestion.BDconnection;
 
 /**
  * 
- * @author Ludovic
+ * @author Ludovic Mathurin-Cayol
  * @version 1.0
  */
 public class Refund{
@@ -98,10 +98,7 @@ public class Refund{
 			case "Habitation":
 				HabitationRefund(IDAssu);
 				break;
-			case "Santï¿½":
-				SanteRefund(IDAssu);
-				break;
-			case "Vï¿½hicule":
+			case "Véhicule":
 				VehiculeRefund(IDAssu);
 				break;
 	
@@ -285,7 +282,7 @@ public class Refund{
 
 	/**
 	 * 
-	 * @return Le coÃ»t pour rÃ©parer le sinistre
+	 * @return Le coût pour réparer le sinistre
 	 */
 	public double getDamageCost() {
 		return DamageCost;

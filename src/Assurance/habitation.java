@@ -7,9 +7,19 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-@SuppressWarnings({ "unchecked", "rawtypes", "serial" })
+/**
+ * Habitation est la classe permettant d'inscrire une résidence et de l'assurer.
+ * 
+ * @author Charpentier Ewan
+ * @version 1.0
+ * */
 public class Habitation extends JFrame  {
-	private JPanel panel;
+	
+	/**
+	 * Contructeur demandant les informations de la résidence à l'utilisateur.
+	 * 
+	 * @since 1.0
+	 * */
 	public Habitation() {
 		// creation de la jframe Habitation
 		this.setLayout(new BorderLayout());//definition de la methode de disposition des elements dans la fenetre
@@ -20,7 +30,7 @@ public class Habitation extends JFrame  {
 		this.setResizable(true);// permet de redefinir la taille de la fenetre
 		
 		
-		panel = new JPanel();// creation d'un conteneur
+		JPanel panel = new JPanel();// creation d'un conteneur
 		panel.setLayout(new FlowLayout());//definition de la methode de disposition des elements dans le conteneur
 		this.add(panel, BorderLayout.NORTH);// Ajout du conteneur dans la fenetre
 		this.setVisible(true);// Permet d'afficher la fenetre

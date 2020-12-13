@@ -16,9 +16,12 @@ import Gestion.Refund;
 import Gestion.Sinistre;
 import Interface.PageAccueil;
 
-
-
-
+/**
+ * DeclarerSinistre permet de déclarer des sinistres afin de proposer une aide à l'utilisateur.
+ * 
+ * @author Mathurin-Cayol Ludovic
+ * @version 1.0
+ * */
 public class DeclarerSinistre {
 	
 	private int IDAssu = 0;
@@ -38,6 +41,16 @@ public class DeclarerSinistre {
 	private String bien;
 	private boolean simulation = false;
 	
+	/**
+	 * Constructeur de la page de déclaration/simulation de sinistre.
+	 * 
+	 * @param type
+	 * 		Type de sinistre (Habitation ou Véhicule)
+	 * @param _user
+	 * 		Login de l'utilisateur
+	 * @param _simulation
+	 * @since 1.0
+	 * */
 	public DeclarerSinistre(String type,String _user,boolean _simulation) {
     	
     	this.user = _user;
@@ -103,7 +116,7 @@ public class DeclarerSinistre {
 		liste_assu.addItem("");
 		try {
 			while (assurances.next()) {
-					liste_assu.addItem("Assurance "+type+" n."+IDAssu+" du "+DateJJMMYYY(assurances.getDate(2).toString()));
+					liste_assu.addItem("Assurance "+type+" n."+IDAssu+" du "+DateJJMMYYYY(assurances.getDate(2).toString()));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -147,7 +160,16 @@ public class DeclarerSinistre {
         fenetre.setVisible(true);
 	}
 	
-	
+	/**
+	 * Crée une instance de Refund qui ajoute le sinistre déclaré à la base de données
+	 * sauf si c'est une simulation
+	 * 
+	 * @param name
+	 * 		Nom du sinistre.
+	 * @param cost
+	 * 		Coût des dégats.
+	 * 
+	 * */
 	public void LancerDeclaration(String name, float cost) {
 		Sinistre sin = new Sinistre(name);
 		
@@ -226,8 +248,16 @@ public class DeclarerSinistre {
 		
 	}
 	
-
-	public String DateJJMMYYY(String date) {
+	/**
+	 * Renvoie une date au format YYYY-MM-JJ au format JJ-MM-YYYY 
+	 * 
+	 * @param date
+	 * 		Date au format YYYY-MM-JJ
+	 * @return Date au format YYYY-MM-JJ
+	 * @since 1.0
+	 * 		
+	 * */
+	public String DateJJMMYYYY(String date) {
 		String[] tab = date.split("-");
 		return tab[2]+"-"+tab[1]+"-"+tab[0];
 	}

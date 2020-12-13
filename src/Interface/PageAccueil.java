@@ -31,13 +31,13 @@ public class PageAccueil extends JFrame{
 	
 	/**
 	 * Menu de Navigation entre les diffrentes page de la page acceuil
-	 * @see PageAcceuiFront
+	 * @see PageAccueilFront
 	 * @since 1.0
 	 */
     private JTree tree;//initialisation d'un arbre de fichier
     /**
     * Boutton qui renvoie vers la PageDeConnection
-    * @see PageDeConnection
+    * @see PagedeConnection
     * @since 1.0
     */
     private JButton Connection;//initialisation  d'un bouton
