@@ -5,29 +5,156 @@ import java.sql.SQLException;
 
 import BDgestion.BDconnection;
 
+/**
+ * 
+ * @author Ludovic
+ * @version 1.0
+ */
 public class Person {
 	
+	/**
+	 * @see Person#Person(String)
+	 * @see Person#getIdPerson()
+	 * @see Person#setIdPerson(int)
+	 */
 	private int idPerson;
+	/**
+	 * @see Person#Person(String)
+	 * @see Person#getName()
+	 * @see Person#setName(String)
+	 */
     private String name;
+    /**
+     * @see Person#Person(String)
+     * @see Person#getSurname()
+     * @see Person#setSurname(String)
+     */
     private String surname;
+    /**
+     * @see Person#Person(String)
+     * @see Person#getSexe()
+     * @see Person#setSexe(String)
+     */
     private String sexe;
+    /**
+     * @see Person#Person(String)
+     * @see Person#getLogin()
+     * @see Person#setLogin(String)
+     */
     private String login;
+    /**
+     * @see Person#Person(String)
+     * @see Person#getPwd()
+     * @see Person#setPwd(String)
+     */
     private String pwd;
+    /**
+     * @see Person#Person(String)
+     * @see Person#getCategory()
+     * @see Person#setCategory(String)
+     */
     private String category;
+    /**
+     * @see Person#Person(String)
+     * @see Person#getAddress()
+     * @see Person#setAddress(String)
+     */
     private String address;
+    /**
+     * @see Person#Person(String)
+     * @see Person#getPhoneNumber()
+     * @see Person#setPhoneNumber(String)
+     */
     private String phoneNumber;
+    /**
+     * @see Person#Person(String)
+     * @see Person#getBirthdate()
+     * @see Person#setBirthdate(String)
+     */
     private String birthdate;
+    /**
+     * @see Person#Person(String)
+     * @see Person#getBirthcity()
+     * @see Person#setBirthcity(String)
+     */
     private String birthcity;
+    /**
+     * @see Person#Person(String)
+     * @see Person#getCity()
+     * @see Person#setCity(String)
+     */
     private String city;
+    /**
+     * @see Person#Person(String)
+     * @see Person#getZipCode()
+     * @see Person#setZipCode(String)
+     */
     private String zipCode;
+    /**
+     * @see Person#Person(String)
+     * @see Person#getFamilySituation()
+     * @see Person#setFamilySituation(String)
+     */
     private String familySituation;
+    /**
+     * @see Person#Person(String)
+     * @see Person#getEmail()
+     * @see Person#setEmail(String)
+     */
     private String email; 
+    /**
+     * @see Person#Person(String)
+     * @see Person#getNumberOfChild()
+     * @see Person#setNumberOfChild(int)
+     */
     private int numberOfChild;
+    /**
+     * @see Person#Person(String)
+     * @see Person#getDriverLicenceDate()
+     * @see Person#setDriverLicenceDate(String)
+     */
     private String driverLicenceDate;
+    /**
+     * @see Person#Person(String)
+     * @see Person#getNetIncome()
+     * @see Person#setNetIncome(int)
+     */
     private int netIncome;
+    /**
+     * @see Person#Person(String)
+     * @see Person#getProfession()
+     * @see Person#setProfession(String)
+     */
     private String profession; 
+    /**
+     * @see Person#Person(String)
+     */
     BDconnection bdd = new BDconnection();
 	
+    /**
+     * 
+     * @param _login
+     * 		Identifiant de l'utilisateur
+     * 
+     * @see Person#idPerson
+     * @see Person#name
+     * @see Person#surname
+     * @see Person#sexe
+     * @see Person#pwd
+     * @see Person#category
+     * @see Person#address
+     * @see Person#phoneNumber
+     * @see Person#birthdate
+     * @see Person#birthcity
+     * @see Person#city
+     * @see Person#zipCode
+     * @see Person#familySituation
+     * @see Person#email
+     * @see Person#numberOfChild
+     * @see Person#netIncome
+     * @see Person#profession
+     * @see Person#bdd
+     */
 	public Person(String _login) {
 		
 		
@@ -66,170 +193,164 @@ public class Person {
 		}
 	}
     	
+	/**
+	 * 
+	 * @return Un identifiant généré correspondant à un utilisateur
+	 */
     public int getIdPerson() {
 		return idPerson;
 	}
 
-	public void setIdPerson(int idPerson) {
-		this.idPerson = idPerson;
-	}
-
+	/**
+	 * 
+	 * @return Le prénom de l'utilisateur
+	 */
 	public String getName() {
 		return name;
 	}
 
-	public void setName(String name) {
-		this.name = name;
-	}
-
+	/**
+	 * 
+	 * @return Le nom de famille de l'utilisateur
+	 */
 	public String getSurname() {
 		return surname;
 	}
 
-	public void setSurname(String surname) {
-		this.surname = surname;
-	}
-
+	/**
+	 * 
+	 * @return Le sexe de l'utilisateur
+	 */
 	public String getSexe() {
 		return sexe;
 	}
 
-	public void setSexe(String sexe) {
-		this.sexe = sexe;
-	}
-
+	/**
+	 * 
+	 * @return L'identifiant de connexion
+	 */
 	public String getLogin() {
 		return login;
 	}
 
-	public void setLogin(String login) {
-		this.login = login;
-	}
-
+	/**
+	 * 
+	 * @return Le mot de passe de l'utilisateur
+	 */
 	public String getPwd() {
 		return pwd;
 	}
 
-	public void setPwd(String pwd) {
-		this.pwd = pwd;
-	}
-
+	/**
+	 * 
+	 * @return Si l'utilisateur est un enfant ou un adulte
+	 */
 	public String getCategory() {
 		return category;
 	}
 
-	public void setCategory(String category) {
-		this.category = category;
-	}
-
+	/**
+	 * 
+	 * @return L'adresse de l'utilisateur
+	 */
 	public String getAddress() {
 		return address;
 	}
 
-	public void setAddress(String address) {
-		this.address = address;
-	}
-
+	/**
+	 * 
+	 * @return Le numéro de téléphone de l'utilisateur
+	 */
 	public String getPhoneNumber() {
 		return phoneNumber;
 	}
 
-	public void setPhoneNumber(String phoneNumber) {
-		this.phoneNumber = phoneNumber;
-	}
-
+	/**
+	 * 
+	 * @return La date de naissance de l'utilisateur
+	 */
 	public String getBirthdate() {
 		return birthdate;
 	}
 
-	public void setBirthdate(String birthdate) {
-		this.birthdate = birthdate;
-	}
-
+	/**
+	 * 
+	 * @return Le ville de naissance de l'utilisateur
+	 */
 	public String getBirthcity() {
 		return birthcity;
 	}
 
-	public void setBirthcity(String birthcity) {
-		this.birthcity = birthcity;
-	}
-
+	/**
+	 * 
+	 * @return La ville de résidence de l'utilisateur
+	 */
 	public String getCity() {
 		return city;
 	}
 
-	public void setCity(String city) {
-		this.city = city;
-	}
-
+	/**
+	 * 
+	 * @return Le code postal de l'utilisateur
+	 */
 	public String getZipCode() {
 		return zipCode;
 	}
 
-	public void setZipCode(String zipCode) {
-		this.zipCode = zipCode;
-	}
-
+	/**
+	 * 
+	 * @return La situation familiale de l'utilisateur (Marié, célibataire, ...)
+	 */
 	public String getFamilySituation() {
 		return familySituation;
 	}
 	
-
-	public void setFamilySituation(String familySituation) {
-		this.familySituation = familySituation;
-	}
-	
-
+	/**
+	 * 
+	 * @return L'adresse mail de l'utilisateur
+	 */
 	public String getEmail() {
 		return email;
 	}
 	
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-	
-
-
+	/**
+	 * 
+	 * @return Le nombre d'enfant de l'utilisateur
+	 */
 	public int getNumberOfChild() {
 		return numberOfChild;
 	}
-	
 
-	public void setNumberOfChild(int numberOfChild) {
-		this.numberOfChild = numberOfChild;
-	}
-	
-
+	/**
+	 * 
+	 * @return La date d'obtention du permis
+	 */
 	public String getDriverLicenceDate() {
 		return driverLicenceDate;
 	}
 	
-
-	public void setDriverLicenceDate(String driverLicenceDate) {
-		this.driverLicenceDate = driverLicenceDate;
-	}
-	
-
+	/**
+	 * 
+	 * @return Le revenu de l'utilisateur
+	 */
 	public int getNetIncome() {
 		return netIncome;
 	}
 	
-
-	public void setNetIncome(int netIncome) {
-		this.netIncome = netIncome;
-	}
-	
-
+	/**
+	 * 
+	 * @return La profession de l'utilisateur
+	 */
 	public String getProfession() {
 		return profession;
 	}
 	
-
-	public void setProfession(String profession) {
-		this.profession = profession;
-	}
-
+	/**
+	 * 
+	 * @param date
+	 * 		Entrée d'une date
+	 * @return La date au bon format
+	 */
 	public String FormatDDMMYY(String date) {
     	String[] tab = date.split("-");
     	return String.join("-", tab[2],tab[1],tab[0]);

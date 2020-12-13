@@ -4,30 +4,136 @@ import BDgestion.BDconnection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * 
+ * @author Ludovic
+ * @version 1.0
+ */
 public class Residency {
     
+	/**
+	 * @see Residency#Residency(int, String)
+	 * @see Residency#getIdResidency()
+	 */
     private int idResidency;
+    /**
+     * @see Residency#Residency(int, String)
+     * @see Residency#getResident()
+     */
     private Person Resident;
+    /**
+     * @see Residency#Residency(int, String)
+     * @see Residency#getType()
+     */
     private String type;
+    /**
+     * @see Residency#Residency(int, String)
+     * @see Residency#getAskerType()
+     */
     private String askerType;
+    /**
+     * @see Residency#Residency(int, String)
+     * @see Residency#getMSR()
+     */
     private String MSR;
+    /**
+     * @see Residency#Residency(int, String)
+     * @see Residency#getRent()
+     */
     private int rent;
+    /**
+     * @see Residency#Residency(int, String)
+     * @see Residency#getCity()
+     */
     private String city;
+    /**
+     * @see Residency#Residency(int, String)
+     * @see Residency#getZipCode()
+     */
     private String zipCode;
+    /**
+     * @see Residency#Residency(int, String)
+     * @see Residency#getRenderUse()
+     */
     private String RenderUse;
+    /**
+     * @see Residency#Residency(int, String)
+     * @see Residency#getArea()
+     */
     private int area;
+    /**
+     * @see Residency#Residency(int, String)
+     * @see Residency#getTotalArea()
+     */
     private int TotalArea;
+    /**
+     * @see Residency#Residency(int, String)
+     * @see Residency#getConstructionYear()
+     */
     private int constructionYear;
+    /**
+     * @see Residency#Residency(int, String)
+     * @see Residency#isHabitable()
+     */
     private boolean habitable;
+    /**
+     * @see Residency#Residency(int, String)
+     * @see Residency#getRoof()
+     */
     private int roof;
+    /**
+     * @see Residency#Residency(int, String)
+     * @see Residency#getPersonalEffectsValue()
+     */
     private int PersonalEffectsValue;
+    /**
+     * @see Residency#Residency(int, String)
+     * @see Residency#getJewelryValue()
+     */
     private int jewelryValue;
+    /**
+     * @see Residency#Residency(int, String)
+     * @see Residency#getNumberOfRooms()
+     */
     private int numberOfRooms;
+    /**
+     * @see Residency#Residency(int, String)
+     * @see Residency#getNumberOfRoomates()
+     */
     private int numberOfRoomates;
     
+    /**
+     * @see Residency#Residency(int, String)
+     */
     private BDconnection bdd = new BDconnection();
     
     
+    /**
+     * 
+     * @param ID
+     * 		Identifiant de la résidence
+     * @param _user
+     * 		Nom de l'utilisateur
+     * 
+     * @see Residency#idResidency
+     * @see Residency#Resident
+     * @see Residency#type
+     * @see Residency#askerType
+     * @see Residency#MSR
+     * @see Residency#rent
+     * @see Residency#city
+     * @see Residency#zipCode
+     * @see Residency#RenderUse
+     * @see Residency#area
+     * @see Residency#TotalArea
+     * @see Residency#constructionYear
+     * @see Residency#habitable
+     * @see Residency#roof
+     * @see Residency#PersonalEffectsValue
+     * @see Residency#jewelryValue
+     * @see Residency#numberOfRooms
+     * @see Residency#numberOfRoomates
+     */
     public Residency(int ID,String _user) {
     	ResultSet rs = bdd.getResult("SELECT * FROM Residency WHERE idResidency ='"+ID+"'"
     			+ "AND idResident = (SELECT idPerson FROM Person WHERE login ='"+_user+"')");
@@ -58,186 +164,150 @@ public class Residency {
     }
 
 
+    /**
+     * 
+     * @return L'identifiant de la résidence
+     */
 	public int getIdResidency() {
 		return idResidency;
 	}
 
-
-	public void setIdResidency(int idResidency) {
-		this.idResidency = idResidency;
-	}
-
-
+	/**
+	 * 
+	 * @return Le type de résidence
+	 */
 	public String getType() {
 		return type;
 	}
 
-
-	public void setType(String type) {
-		this.type = type;
-	}
-
-
+	/**
+	 * 
+	 * @return Le type de résident (Propriétaire, Locataire, Collocataire)
+	 */
 	public String getAskerType() {
 		return askerType;
 	}
 
-
-	public void setAskerType(String askerType) {
-		this.askerType = askerType;
-	}
-
-
+	/**
+	 * 
+	 * @return Si la résidence est la principale, secondaire ou une location
+	 */
 	public String getMSR() {
 		return MSR;
 	}
 
-
-	public void setMSR(String mSR) {
-		MSR = mSR;
-	}
-
-
+	/**
+	 * 
+	 * @return La ville où se trouve la résidence
+	 */
 	public String getCity() {
 		return city;
 	}
 
-
-	public void setCity(String city) {
-		this.city = city;
-	}
-
-
+	/**
+	 * 
+	 * @return Le code postal de la résidence
+	 */
 	public String getZipCode() {
 		return zipCode;
 	}
 
-
-	public void setZipCode(String zipCode) {
-		this.zipCode = zipCode;
-	}
-
-
+	/**
+	 * 
+	 * @return L'utilité de la résidence (Gîte, habitation personnelle, ...)
+	 */
 	public String getRenderUse() {
 		return RenderUse;
 	}
 
-
-	public void setRenderUse(String renderUse) {
-		RenderUse = renderUse;
-	}
-
-
+	/**
+	 * 
+	 * @return La surface habitable de la résidence
+	 */
 	public int getArea() {
 		return area;
 	}
 
-
-	public void setArea(int area) {
-		this.area = area;
-	}
-
-
+	/**
+	 * 
+	 * @return La surface totale de la résidence
+	 */
 	public int getTotalArea() {
 		return TotalArea;
 	}
 
-
-	public void setTotalArea(int totalArea) {
-		TotalArea = totalArea;
-	}
-
-
+	/**
+	 * 
+	 * @return L'année de construction de la résidence
+	 */
 	public int getConstructionYear() {
 		return constructionYear;
 	}
 
-
-	public void setConstructionYear(int constructionYear) {
-		this.constructionYear = constructionYear;
-	}
-
-
+	/**
+	 * 
+	 * @return Si la résidence est habitable ou non
+	 */
 	public boolean isHabitable() {
 		return habitable;
 	}
 
-
-	public void setHabitable(boolean habitable) {
-		this.habitable = habitable;
-	}
-
-
+	/**
+	 * 
+	 * @return L'étage où se situe la résidence
+	 */
 	public int getRoof() {
 		return roof;
 	}
 
-
-	public void setRoof(int roof) {
-		this.roof = roof;
-	}
-
-
+	/**
+	 * 
+	 * @return La valeur des effets personnels dans la résidence
+	 */
 	public int getPersonalEffectsValue() {
 		return PersonalEffectsValue;
 	}
 
-
-	public void setPersonalEffectsValue(int personalEffectsValue) {
-		PersonalEffectsValue = personalEffectsValue;
-	}
-
-
+	/**
+	 * 
+	 * @return La valeur des bijoux dans la résidence
+	 */
 	public int getJewelryValue() {
 		return jewelryValue;
 	}
 
-
-	public void setJewelryValue(int jewelryValue) {
-		this.jewelryValue = jewelryValue;
-	}
-
-
+	/**
+	 * 
+	 * @return Le nombre de chambre dans la résidence
+	 */
 	public int getNumberOfRooms() {
 		return numberOfRooms;
 	}
 
-
-	public void setNumberOfRooms(int numberOfRooms) {
-		this.numberOfRooms = numberOfRooms;
-	}
-
-
+	/**
+	 * 
+	 * @return Le nombre de personnes habitant dans la résidence
+	 */
 	public int getNumberOfRoomates() {
 		return numberOfRoomates;
 	}
 
-
-	public void setNumberOfRoomates(int numberOfRoomates) {
-		this.numberOfRoomates = numberOfRoomates;
-	}
-
-
+	/**
+	 * 
+	 * @return La ou les personne qui habite dans la résidence
+	 */
 	public Person getResident() {
 		return Resident;
 	}
 
-
-	public void setResident(Person resident) {
-		Resident = resident;
-	}
-
-
+	/**
+	 * 
+	 * @return Le prix de la location de la résidence
+	 */
 	public int getRent() {
 		return rent;
 	}
 
-
-	public void setRent(int rent) {
-		this.rent = rent;
-	}
-    
-    
     
 }
 

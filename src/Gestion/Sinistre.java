@@ -5,14 +5,44 @@ import java.sql.SQLException;
 
 import BDgestion.BDconnection;
 
+/**
+ * 
+ * @author Ludovic
+ * @version 1.0
+ */
 public class Sinistre {
 	
+	/**
+	 * @see Sinistre#Sinistre(String)
+	 * @see Sinistre#getName()
+	 */
 	private String name;
+	/**
+	 * @see Sinistre#Sinistre(String)
+	 * @see Sinistre#getCriticity()
+	 */
 	private int criticity;
+	/**
+	 * @see Sinistre#Sinistre(String)
+	 * @see Sinistre#getSector()
+	 */
 	private String sector;
 	
+	/**
+	 * @see Sinistre#Sinistre(String)
+	 */
 	private BDconnection bdd = new BDconnection();
 	
+	/**
+	 * 
+	 * @param _name
+	 * 		Nom du sinistre
+	 * 
+	 * @see Sinistre#name
+	 * @see Sinistre#criticity
+	 * @see Sinistre#sector
+	 * @see Sinistre#bdd
+	 */
 	public Sinistre(String _name){
 		this.name = _name;
 		ResultSet sinistre = bdd.getResult("SELECT * FROM Sinister WHERE name = '"+_name+"'");
@@ -23,32 +53,32 @@ public class Sinistre {
 				
 			}
 		} catch (SQLException e) {
-			System.out.println("Erreur de récupération d'information.");
+			System.out.println("Erreur de rï¿½cupï¿½ration d'information.");
 		}
 	}
 
+	/**
+	 * 
+	 * @return Le nom du sinistre
+	 */
 	public String getName() {
 		return name;
 	}
 
-	public void setName(String name) {
-		this.name = name;
-	}
-
+	/**
+	 * 
+	 * @return La criticitÃ© du sinistre
+	 */
 	public int getCriticity() {
 		return criticity;
 	}
 
-	public void setCriticity(int criticity) {
-		this.criticity = criticity;
-	}
-
+	/**
+	 * 
+	 * @return Le secteur auquel le sinistre appartient
+	 */
 	public String getSector() {
 		return sector;
-	}
-
-	public void setSector(String sector) {
-		this.sector = sector;
 	}
 
 }

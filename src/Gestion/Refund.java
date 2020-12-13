@@ -5,19 +5,89 @@ import Assurance.carInsurance;
 import Assurance.homeInsurance;
 import BDgestion.BDconnection;
 
+/**
+ * 
+ * @author Ludovic
+ * @version 1.0
+ */
 public class Refund{
 	
+	/**
+	 * @see Refund#VehiculeRefund(int)
+	 * @see Refund#HabitationRefund(int)
+	 * @see Refund#isInscrit()
+	 */
 	private boolean inscrit = false;
+	/**
+	 * @see Refund#getRate()
+	 * @see Refund#VehiculeRefund(int)
+	 * @see Refund#HabitationRefund(int)
+	 * @see Refund#getNewCost()
+	 */
 	private double rate;
+	/**
+	 * @see Refund#Refund(String, int, double, String, Sinistre, String, boolean)
+	 * @see Refund#VehiculeRefund(int)
+	 * @see Refund#HabitationRefund(int)
+	 * @see Refund#getDamageCost()
+	 */
 	private double DamageCost;
+	/**
+	 * @see Refund#Refund(String, int, double, String, Sinistre, String, boolean)
+	 * @see Refund#VehiculeRefund(int)
+	 * @see Refund#HabitationRefund(int)
+	 */
 	private Sinistre sinistre;
+	/**
+	 * @see Refund#Refund(String, int, double, String, Sinistre, String, boolean)
+	 * @see Refund#VehiculeRefund(int)
+	 * @see Refund#HabitationRefund(int)
+	 */
 	private Person user;
+	/**
+	 * @see Refund#Refund(String, int, double, String, Sinistre, String, boolean)
+	 * @see Refund#VehiculeRefund(int)
+	 * @see Refund#HabitationRefund(int)
+	 */
 	private String bien;
+	/**
+	 * @see Refund#Refund(String, int, double, String, Sinistre, String, boolean)
+	 */
 	private boolean sim;
 	
+	/**
+	 * @see Refund#VehiculeRefund(int)
+	 * @see Refund#HabitationRefund(int)
+	 */
 	private BDconnection bdd = new BDconnection();
 	
-	public Refund(String name,int IDAssu, double _cost,String _user,Sinistre sin,String _bien,boolean _sim) {
+	/**
+	 * 
+	 * @param name
+	 * 		Nom de l'assurance choisie
+	 * @param IDAssu
+	 * 		Identifiant de l'assurance choisie
+	 * @param _cost
+	 * 		Coût de l'assurance choisie
+	 * @param _user
+	 * 		Nom de l'utilisateur
+	 * @param sin
+	 * 		Sinistre entré par l'utilisateur
+	 * @param _bien
+	 * 		Bien concerné par le sinistre
+	 * @param _sim
+	 * 		Simulation générée pour l'utilisateur
+	 * 
+	 * @see Refund#sinistre
+	 * @see Refund#DamageCost
+	 * @see Refund#user
+	 * @see Refund#bien
+	 * @see Refund#sim
+	 * @see Refund#HabitationRefund(int)
+	 * @see Refund#SanteRefund(int)
+	 * @see Refund#VehiculeRefund(int)
+	 */
+	public Refund(String name, int IDAssu, double _cost, String _user, Sinistre sin, String _bien, boolean _sim) {
 		this.sinistre = sin;
 		this.DamageCost = _cost;
 		this.user = new Person(_user);
@@ -28,10 +98,10 @@ public class Refund{
 			case "Habitation":
 				HabitationRefund(IDAssu);
 				break;
-			case "Sant�":
+			case "Sant�":
 				SanteRefund(IDAssu);
 				break;
-			case "V�hicule":
+			case "V�hicule":
 				VehiculeRefund(IDAssu);
 				break;
 	
@@ -40,11 +110,37 @@ public class Refund{
 		}
 	}
 	
+	/**
+	 * 
+	 * @return Le taux de l'assurance choisie
+	 */
 	public double getRate() {
 		return rate;
 	}
 
 
+	/**
+	 * 
+	 * @param IDassu
+	 * 		Identifiant de l'assurance choisie
+	 * 
+	 * @see Auto#Auto(String, String)
+	 * 
+	 * @see carInsurance#carInsurance(int, String, Auto)
+	 * @see carInsurance#isAllRisksCover()
+	 * @see carInsurance#getBonus_malus()
+	 * 
+	 * @see Sinistre#getCriticity()
+	 * @see Sinistre#getName()
+	 * @see Sinistre#getSector()
+	 * 
+	 * @see Refund#sinistre
+	 * @see Refund#rate
+	 * @see Refund#user
+	 * @see Refund#bdd
+	 * @see Refund#DamageCost
+	 * @see Refund#inscrit
+	 */
 	private void VehiculeRefund(int IDassu) {
 		
 		Auto car = new Auto(user.getLogin(), bien);
@@ -79,7 +175,7 @@ public class Refund{
 		}
 		rate = rate *assu.getBonus_malus();
 			
-		if (user.getProfession().equals("Etudiant.e boursier.�re")) {
+		if (user.getProfession().equals("Etudiant.e boursier.�re")) {
 			rate = rate*1.2;
 		}	
 		
@@ -90,13 +186,29 @@ public class Refund{
 		
 	}
 
+	
 
-
-	private void SanteRefund(int IDassu) {
-		// TODO Auto-generated method stub
-		
-	}
-
+	/**
+	 * 
+	 * @param IDassu
+	 * 		Identifiant de l'assurance choisie
+	 * 
+	 * @see Residency#Residency(int, String)
+	 * @see Residency#getRent()
+	 * @see Residency#getPersonalEffectsValue()
+	 * 
+	 * @see homeInsurance#homeInsurance(int, String, Residency)
+	 * @see homeInsurance#isAllRisksCover()
+	 * 
+	 * @see Sinistre#getSector()
+	 * @see Sinistre#getName()
+	 * 
+	 * @see Refund#sinistre
+	 * @see Refund#DamageCost
+	 * @see Refund#rate
+	 * @see Refund#user
+	 * @see Refund#inscrit
+	 */
 	private void HabitationRefund(int IDassu) {
 		Residency residency = new Residency(Integer.parseInt(bien), user.getLogin());
 		homeInsurance assu = new homeInsurance(IDassu, user.getLogin(), residency);
@@ -153,7 +265,7 @@ public class Refund{
 				break;
 		}
 			
-		if (user.getProfession().equals("Etudiant.e boursier.�re")) {
+		if (user.getProfession().equals("Etudiant.e boursier.�re")) {
 			rate = rate*1.2;
 		}	
 		if (!sim) {
@@ -163,14 +275,26 @@ public class Refund{
 		inscrit = true;
 	}
 
+	/**
+	 * 
+	 * @return Si l'utilisateur est inscrit ou non
+	 */
 	public boolean isInscrit() {
 		return inscrit;
 	}
 
+	/**
+	 * 
+	 * @return Le coût pour réparer le sinistre
+	 */
 	public double getDamageCost() {
 		return DamageCost;
 	}
 	
+	/**
+	 * 
+	 * @return Le coût pour réparer le sinistre après le taux remboursé par l'assurance
+	 */
 	public double getNewCost() {
 		return Math.round((DamageCost*(rate/100)) * 100) / 100;
 	}
