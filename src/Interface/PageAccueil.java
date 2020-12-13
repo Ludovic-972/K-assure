@@ -18,16 +18,66 @@ import Assurance.*;
 import Gestion.*;
 
 @SuppressWarnings("serial")
+
+/**
+ * PageAccueil est la premiere d'acces lors de l'execution du programme
+ * <p>
+ * Elle permet de naviguer entre les diffrentes onglet pour une personne connecter
+ *  </p>
+ * @author Gaëtan Lory,Ludovic Mathurin-Cayol
+ * @version 1.0
+ * */
 public class PageAccueil extends JFrame{
+	
+	/**
+	 * Menu de Navigation entre les diffrentes page de la page acceuil
+	 * @see PageAcceuiFront
+	 * @since 1.0
+	 */
     private JTree tree;//initialisation d'un arbre de fichier
+    /**
+    * Boutton qui renvoie vers la PageDeConnection
+    * @see PageDeConnection
+    * @since 1.0
+    */
     private JButton Connection;//initialisation  d'un bouton
+    /**
+     * Dossier pour faciliter la Navigation dans le menu.
+     * @see tree
+     * @since 1.0
+     */
     private DefaultMutableTreeNode root;//initialisation de la racine de l'arbre de fichier
+    /**
+     * Creation du conteneur de la page JFrame
+     * @see JFrame
+     * @since 1.0
+     */
     private JPanel panel ;//initialisation  d'un conteneur panel 
+    /**
+	 * initialisation d'un user ceci permet de garder en mémoire l'utilisater connecter et de récuperer ses informations
+	 * @see Person
+	 * @since 2.0
+	 */
     private Person user;
+    /**
+     * Affiche d'element de texte sur la page 
+     * @see JPanel
+     * @since 1.0 
+     */
     private JLabel JL1,JL2,JL3;
 
     
-    
+    /**
+     * <p>
+     * Constrcuteur de la Page PageAccueil permet d'initialiser la fenetre JFrame
+     * il permet aussi l'ajout du menu de navigation au panel.
+     * </p>
+     * @see PageAcceuilFront
+     * @param _user
+     * 				Login de l'utilisateur connecter
+     * @since 1.0  
+     * 
+     */
     public PageAccueil(String _user){	
     	super("Accueil");
     	user = new Person(_user);
@@ -98,7 +148,11 @@ public class PageAccueil extends JFrame{
     }
     
     
-    // methode d'ecoute de l'arbre
+    /**
+     * Cette méthode permet de renvoyer l'utilisateur vers la page qu'il désire via le menu de navigation
+     * @param e
+     * @since 1.0
+     */
     public void valueChanged(TreeSelectionEvent e) {
     	// transormation de l'evenement de selection d'un fichier de l'arbre en String afin d'utiliser l'evenement
     	DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
@@ -149,7 +203,11 @@ public class PageAccueil extends JFrame{
         	
     }
     
-    // methode d'ecoute du bouton de connection qui permet d'ouvrir la classe PagedeConnection apres cliquement sur le bouton
+    /**
+     *  methode d'ecoute du bouton de deconnexion qui permet d'ouvrir la classe PagedeConnection apres cliquement sur le bouton
+     * @param event
+     * @since 2.0
+     */
     public void deconnexion(ActionEvent event) {
     	new PagedeConnection();
     	this.dispose();

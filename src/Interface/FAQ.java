@@ -6,13 +6,23 @@ import java.awt.GridLayout;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-
+/**
+ * FAQ est la page qui permet à un utilisatuer connecter ou non d'avoir acces une base de question réponse
+ * @author Paul Rittaud
+ * @version 1.0
+ * */
 @SuppressWarnings("serial")
 public class FAQ  extends JFrame{
-	
+	/**
+	 * Panel de contruction de la classe
+	 * @since 1.0
+	 */
 	private JPanel panel;
 	
-	
+	/**
+	 * Contstructeur de la classe qui affiche la totatlités des question et leur réponse
+	 * @since 1.0
+	 */
 	public FAQ() {
 		
 		panel = new JPanel();

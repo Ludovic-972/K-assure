@@ -23,9 +23,9 @@ import Gestion.Person;
 
 
 /**
- * Inscription est la classe permettant de s'inscrire au logiciel K-assure.
+ * ModifierUtilisateur est la classe permettant de modifier les informations de l'utilisateur.
  * 
- * @author Charpentier Ewan,Rittaud Paul,Mathurin-Cayol
+ * @author Charpentier Ewan,Rittaud Paul,Mathurin-Cayol, Gaëtan Lory
  * @version 3.0
  * */
 public class ModifierUtilisateur{
@@ -291,12 +291,12 @@ public class ModifierUtilisateur{
 	private Person user;
 	
 	
-	/**Constructeur 1 Inscription
+	/**Constructeur 1 ModifierUtilisateur
 	  * <p>
-	  * Crée un formulaire d'inscription pour l'utilisateur.
+	  * Crée un formulaire de Modifiaction pour l'utilisateur ou l'admin.
 	  * </p>
-	  * @param _cat
-	  * 		Catégorie de l'utilisateur
+	  * @param Login
+	  * 		code de l'utilisateur
 	  * @since 1.0
 	  * */
 	public ModifierUtilisateur(String Login) {
@@ -493,55 +493,9 @@ public class ModifierUtilisateur{
 		fenetre1.setVisible(true);
 		
 		}
-	
-	/**Constructeur 2 Inscription
-	 * <p>
-	  * Demande à l'utilisateur sa catégorie.
-	  *</p>
-	  * 
-	  * @see ModifierUtilisateur#setCategory
-	  * @since 2.0
-	  * */
-	public ModifierUtilisateur() {
-		demande = new JFrame("Vous êtes ?");
-		JPanel pan = new JPanel();
-		pan.setLayout(new GridLayout(3, 1,5,5));
-		JLabel txt = new JLabel("De quel catégorie êtes vous ?",JLabel.CENTER);
-		JButton b1 = new JButton("Enfant");
-		JButton b2 = new JButton("Adulte");
-		b1.setPreferredSize(new Dimension(200,50));
-		b1.setPreferredSize(new Dimension(200,50));
-		b1.addActionListener(event -> setCategory(b1.getText()));
-		b2.addActionListener(event -> setCategory(b2.getText()));
-		pan.add(txt);
-		pan.add(b1);
-		pan.add(b2);
-		demande.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		demande.setPreferredSize(new Dimension(400,200));
-	    demande.setContentPane(pan);
-	    demande.pack();
-	    demande.setLocationRelativeTo(null);
-	    demande.setVisible(true);
-	}
-	
-
+			
 	/**
-	 * Récupère la catégorie entrée par l'utilisateur puis crée un formulaire adapté.
-	  * 
-	  *@param cat
-	  * 		Catégorie de l'utilisateur.
-	  * @since 2.0
-	  * */
-	public void setCategory(String cat) {
-		demande.dispose();
-		new ModifierUtilisateur(cat);
-		
-	}
-	
-	
-	/**
-	 * Inscrit l'utilisateur dans la base de données,
-	 * donne un identifiant unique et redirige vers la page de connexion.
+	 * Modifie les informations de  l'utilisateur dans la base de données,
 	  * 
 	  * @param cat
 	  * 		Catégorie de l'utilisateur.
@@ -619,9 +573,9 @@ public class ModifierUtilisateur{
 	}
 	
 	/**
-	 * Permet de retourner à la page de connexion.
+	 * Permet de retourner à la page de Comtpe de l'utilisateur.
 	  * 
-	  * @see PagedeConnection
+	  * @see Compte
 	  * @since 2.0
 	  * */
 	public void retour() {
@@ -748,30 +702,6 @@ public class ModifierUtilisateur{
 		return false;
 	}
 	
-	
-
-	/**
-	 * Génère un login aléatoire unique.
-	  * 
-	  * @return Un Login composé de 7 chiffre.
-	  * 
-	  * @see ModifierUtilisateur#exist
-	  * @since 1.0
-	  * */
-	public static String LoginGenerator() {
-		while(true) {
-			String numbers = "0123456789";
-			String login = "";
-			for (int i = 0; i < 8; i++) {
-				login += numbers.charAt((int)(Math.random()*(numbers.length())));
-			}
-			
-			if(!exist(login))
-				return login;
-			
-		}
-	}
-
 	/**
 	 * Vérifie si l'utilisateur existe dans la base de données.
 	  * 
