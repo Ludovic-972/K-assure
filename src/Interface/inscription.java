@@ -615,7 +615,7 @@ public class Inscription{
 			 profession = professionel.getSelectedItem().toString();
 		}else {
 			loginparent1 = loginp1.getText();
-			loginparent2 = (loginp2.getText().equals("x")) ? "NULL" : loginp2.getText();
+			loginparent2 = (loginp2.getText().equals(null)) ? "NULL" : loginp2.getText();
 		}
 		
 		 if (!ChampsVide()) {
@@ -624,7 +624,7 @@ public class Inscription{
 				 if (EmailValidator(email)) {
 
 					String login = LoginGenerator();
-					String req,req2 = null;
+					String req;
 					if (category.equals("Adulte")) {
 						req = "INSERT INTO `Person`(`name`, `surname`,`sexe`, `login`, `pwd`, `category`, `adress`,"
 								+ " `phoneNumber`, `birthdate`,`birthcity`, `family_situation`, `email`, `ville`, `zipCode`,"
@@ -640,9 +640,9 @@ public class Inscription{
 								+","+dateFormatSQL(birthdate)+",'"+birthcity+"',NULL,NULL,'"+ville+"','"+zipCode+"',NULL,NULL,NULL);";
 					}
 					if ( (category.equals("Enfant") && exist(loginparent1)) ) {
+						System.out.println(loginparent1+" "+loginparent2);
 						if (loginparent2.equals("NULL") ^ exist(loginparent2)) { 
 							bdd.executeQuery(req);
-							bdd.executeQuery(req2);
 							fenetre1.dispose();
 							JOptionPane.showMessageDialog(null, "Votre inscription est terminée. Votre login est "+login+".");
 							new PagedeConnection();
@@ -710,7 +710,6 @@ public class Inscription{
 	  */
 	 public static boolean DateValid(String date,String cat){
 		 try {
-			 System.out.println(date.length());
 			 if(date == "NULL"){
 				 return true;
 			 }
